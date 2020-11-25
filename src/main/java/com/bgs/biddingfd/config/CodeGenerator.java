@@ -61,7 +61,7 @@ public class CodeGenerator {
         dsc.setUrl("jdbc:p6spy:mysql://114.55.92.94:3307/paimai?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("123");
+        dsc.setPassword("admin123");
         dsc.setDbType(DbType.MYSQL);
         mpg.setDataSource(dsc);
 

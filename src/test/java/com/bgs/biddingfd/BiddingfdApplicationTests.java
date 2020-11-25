@@ -10,4 +10,9 @@ class BiddingfdApplicationTests {
     void contextLoads() {
     }
 
+    @Test
+    public static void main(String[] args) {
+        System.out.println("1");
+    }
+
 }
