@@ -5,6 +5,7 @@ import com.p6spy.engine.spy.appender.MessageFormattingStrategy;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 public class P6SpyLogger implements MessageFormattingStrategy {
 
     private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
