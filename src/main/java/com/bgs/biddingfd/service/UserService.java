@@ -1,16 +1,8 @@
 package com.bgs.biddingfd.service;
 
-import com.bgs.biddingfd.pojo.User;
-import com.baomidou.mybatisplus.extension.service.IService;
+import java.util.List;
+import java.util.Map;
 
-/**
- * <p>
- * 用户表 服务类
- * </p>
- *
- * @author xieCode
- * @since 2020-11-25
- */
-public interface UserService extends IService<User> {
-
+public interface UserService {
+    List<Map<String,Object>> jurisdiction();
 }
