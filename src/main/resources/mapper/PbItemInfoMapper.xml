@@ -2,4 +2,50 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bgs.biddingfd.mapper.PbItemInfoMapper">
 
+    <select id="electronicTable" resultType="Map">
+        SELECT pii.item_id,pii.item_code,pii.item_name,pii.bid_rule,pii.bid_way,pii.start_state,poi.bid_start_time,poi.bid_delay_time
+        FROM pb_item_info pii
+        LEFT JOIN pb_object_info poi
+        ON pii.item_id=poi.item_id
+    </select>
+
+    <select id="likeElectronic" resultType="Map">
+        SELECT pii.item_id,pii.item_code,pii.item_name,pii.bid_rule,pii.bid_way,pii.start_state,poi.bid_start_time,poi.bid_delay_time
+        FROM pb_item_info pii
+        LEFT JOIN pb_object_info poi
+        ON pii.item_id=poi.item_id
+        <where>
+            <if test="name != null || name != ''">
+                pii.item_name like '%${name}%'
+            </if>
+            <if test="code != null || code != ''">
+                and pii.item_code like '%${code}%'
+            </if>
+        </where>
+    </select>
+
+    <update id="stopBid">
+        update pb_item_info SET start_state=2 WHERE item_id=#{id}
+    </update>
+
+    <update id="setBidRule">
+        UPDATE pb_item_info SET bid_rule =#{b1} WHERE item_id = #{id}
+    </update>
+
+    <insert id="bidRule">
+        <selectKey resultType="int" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO pb_bidding_rules VALUES(null,#{rule_model},#{free_bid_time},#{bid_delay_time},#{bid_interval_time})
+    </insert>
+
+    <select id="signInfo" resultType="PbObjectInfo">
+        SELECT * from pb_object_info WHERE item_id=#{id}
+    </select>
+
+    <select id="signRuleInfo" resultType="PbObjectInfo">
+        SELECT * from pb_object_info WHERE object_id=#{code}
+    </select>
+
+
 </mapper>
