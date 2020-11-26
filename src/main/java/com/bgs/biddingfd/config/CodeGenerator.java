@@ -61,14 +61,14 @@ public class CodeGenerator {
         dsc.setUrl("jdbc:p6spy:mysql://114.55.92.94:3307/paimai?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("123");
+        dsc.setPassword("admin123");
         dsc.setDbType(DbType.MYSQL);
         mpg.setDataSource(dsc);
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-//        pc.setModuleName(scanner("请输入报名"));//创建包，并将文件生成到此地址，从bgs包下，也就是创建项目的项目名同级
-        pc.setParent("com.bgs");
+//        pc.setModuleName(scanner("请输入包名"));//创建包，并将文件生成到此地址，从bgs包下，也就是创建项目的项目名同级
+        pc.setParent("com.bgs.biddingfd");
         pc.setEntity("pojo");
         pc.setMapper("mapper");
         pc.setController("controller");
