@@ -20,7 +20,7 @@
                               placeholder="项目名称"></el-input>
                 </el-form-item>
             </el-col>
-            <el-col :span="3">
+            <el-col :span="4">
                 <el-form-item label="资源类型" prop="resourceType">
                     <el-select v-model="biddingForm.resourceType" placeholder="资源类型">
                         <el-option

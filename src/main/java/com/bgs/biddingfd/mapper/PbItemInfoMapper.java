@@ -1,9 +1,8 @@
 package com.bgs.biddingfd.mapper;
 
-import com.bgs.biddingfd.pojo.PbBiddingRules;
-import com.bgs.biddingfd.pojo.PbItemInfo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.bgs.biddingfd.pojo.*;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.bgs.biddingfd.pojo.PbObjectInfo;
 import io.lettuce.core.dynamic.annotation.Param;
 
 import java.util.List;
@@ -36,4 +35,8 @@ public interface PbItemInfoMapper extends BaseMapper<PbItemInfo> {
     PbBiddingRules bidRuleDetail(@Param("itemId") Integer itemId);
 
     Boolean subSetSignRule(PbObjectInfo signRule);
+    IPage<PbItemObjectInfo> selectPbItemInfo(@org.apache.ibatis.annotations.Param("page") IPage<PbItemObjectInfo> page, @org.apache.ibatis.annotations.Param("itemName") String itemName, @org.apache.ibatis.annotations.Param("resourceType")  Integer resourceType);
+
+    IPage<PbQuoteInfo> selectBiddingHall(@org.apache.ibatis.annotations.Param("page")IPage<PbQuoteInfo> pbItemInfoPage, @org.apache.ibatis.annotations.Param("itemId")Integer itemId);
+
 }
