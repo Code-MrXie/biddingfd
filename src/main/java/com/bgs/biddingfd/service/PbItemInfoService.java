@@ -1,9 +1,8 @@
 package com.bgs.biddingfd.service;
 
-import com.bgs.biddingfd.pojo.PbBiddingRules;
-import com.bgs.biddingfd.pojo.PbItemInfo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.bgs.biddingfd.pojo.*;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.bgs.biddingfd.pojo.PbObjectInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -35,4 +34,9 @@ public interface PbItemInfoService extends IService<PbItemInfo> {
     Boolean subSetSignRule(PbObjectInfo signRule);
 
     PbBiddingRules bidRuleDetail(Integer itemId);
+
+    IPage<PbItemObjectInfo> selectPbItemInfo(IPage<PbItemObjectInfo> pbItemInfoPage, String itemName, Integer resourceType);
+
+    IPage<PbQuoteInfo> selectBiddingHall(IPage<PbQuoteInfo> pbItemInfoPage, Integer itemId);
+
 }

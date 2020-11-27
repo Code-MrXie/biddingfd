@@ -1,9 +1,8 @@
 package com.bgs.biddingfd.service.impl;
 
-import com.bgs.biddingfd.pojo.PbBiddingRules;
-import com.bgs.biddingfd.pojo.PbItemInfo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.bgs.biddingfd.pojo.*;
 import com.bgs.biddingfd.mapper.PbItemInfoMapper;
-import com.bgs.biddingfd.pojo.PbObjectInfo;
 import com.bgs.biddingfd.service.PbItemInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -77,5 +76,15 @@ public class PbItemInfoServiceImpl extends ServiceImpl<PbItemInfoMapper, PbItemI
     @Override
     public PbBiddingRules bidRuleDetail(Integer itemId) {
         return pbItemInfoMapper.bidRuleDetail(itemId);
+    }
+
+    @Override
+    public IPage<PbItemObjectInfo> selectPbItemInfo(IPage<PbItemObjectInfo> pbItemInfoPage, String itemName, Integer resourceType) {
+        return pbItemInfoMapper.selectPbItemInfo(pbItemInfoPage,itemName,resourceType);
+    }
+
+    @Override
+    public IPage<PbQuoteInfo> selectBiddingHall(IPage<PbQuoteInfo> pbItemInfoPage, Integer itemId) {
+        return pbItemInfoMapper.selectBiddingHall(pbItemInfoPage,itemId);
     }
 }

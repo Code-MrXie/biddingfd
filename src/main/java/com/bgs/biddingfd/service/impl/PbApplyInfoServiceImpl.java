@@ -1,9 +1,12 @@
 package com.bgs.biddingfd.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.bgs.biddingfd.pojo.PbApplyInfo;
 import com.bgs.biddingfd.mapper.PbApplyInfoMapper;
+import com.bgs.biddingfd.pojo.PbItemObjectInfo;
 import com.bgs.biddingfd.service.PbApplyInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,5 +19,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class PbApplyInfoServiceImpl extends ServiceImpl<PbApplyInfoMapper, PbApplyInfo> implements PbApplyInfoService {
-
+    @Autowired
+    private PbApplyInfoMapper pbApplyInfoMapper;
+    @Override
+    public IPage<PbItemObjectInfo> selectApplyInfo(IPage<PbItemObjectInfo> pbItemInfoPage, String itemName, Integer resourceType) {
+        return pbApplyInfoMapper.selectApplyInfo(pbItemInfoPage,itemName,resourceType);
+    }
 }

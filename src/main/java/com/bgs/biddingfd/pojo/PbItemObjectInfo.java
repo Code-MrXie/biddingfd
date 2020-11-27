@@ -1,6 +1,10 @@
 package com.bgs.biddingfd.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 @Data
 public class PbItemObjectInfo {
@@ -12,7 +16,8 @@ public class PbItemObjectInfo {
     private Integer resourceType;
     private String trad;
     private String tradWay;
-    private String bidStartTime;
-    private String bidEndTime;
+    private Date bidStartTime;
+    private Date bidEndTime;
     private String bidderType;
+    private String money;
 }
