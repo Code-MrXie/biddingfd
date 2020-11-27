@@ -1,13 +1,11 @@
 package com.bgs.biddingfd.mapper;
 
-import com.bgs.biddingfd.pojo.PbBiddingRules;
-import com.bgs.biddingfd.pojo.PbItemInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.bgs.biddingfd.pojo.PbObjectInfo;
-import io.lettuce.core.dynamic.annotation.Param;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.bgs.biddingfd.pojo.*;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -19,9 +17,7 @@ import java.util.Map;
  */
 public interface PbItemInfoMapper extends BaseMapper<PbItemInfo> {
 
-    List<Map<String,Object>> electronicTable();
-
-    List<Map<String,Object>> likeElectronic(@Param("name") String name, @Param("code") String code);
+    IPage<PbItemObjectInfo> selectPbItemInfo(@Param("page") IPage<PbItemObjectInfo> page, @Param("itemName") String itemName, @Param("resourceType")  Integer resourceType);
 
     Boolean stopBid(@Param("id") Integer id);
 
@@ -31,4 +27,6 @@ public interface PbItemInfoMapper extends BaseMapper<PbItemInfo> {
     PbObjectInfo signRuleInfo(@Param("code") Integer code);
 
     PbBiddingRules bidRuleDetail(@Param("itemId") Integer itemId);
+
+
 }

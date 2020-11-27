@@ -48,5 +48,6 @@ public class PbQuoteInfo implements Serializable {
     @ApiModelProperty(value = "是否删除")
     private String isDel;
 
+    private String bidName;//竞价人姓名
 
 }

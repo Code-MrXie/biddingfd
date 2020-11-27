@@ -1,11 +1,11 @@
 package com.bgs.biddingfd.service.impl;
 
-import com.bgs.biddingfd.pojo.PbBiddingRules;
-import com.bgs.biddingfd.pojo.PbItemInfo;
-import com.bgs.biddingfd.mapper.PbItemInfoMapper;
-import com.bgs.biddingfd.pojo.PbObjectInfo;
-import com.bgs.biddingfd.service.PbItemInfoService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.bgs.biddingfd.mapper.PbItemInfoMapper;
+import com.bgs.biddingfd.pojo.*;
+import com.bgs.biddingfd.service.PbItemInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,9 +22,35 @@ import java.util.Map;
  */
 @Service
 public class PbItemInfoServiceImpl extends ServiceImpl<PbItemInfoMapper, PbItemInfo> implements PbItemInfoService {
-
     @Resource
     PbItemInfoMapper pbItemInfoMapper;
+
+    @Override
+    public IPage<PbItemObjectInfo> selectPbItemInfo(IPage<PbItemObjectInfo> pbItemInfoPage, String itemName, Integer resourceType) {
+        return pbItemInfoMapper.selectPbItemInfo(pbItemInfoPage,itemName,resourceType);
+    }
+
+    @Override
+    public Boolean stopBid(Integer id) {
+        return pbItemInfoMapper.stopBid(id);
+    }
+
+    @Override
+    public IPage<PbQuoteInfo> selectBiddingHall(IPage<PbQuoteInfo> pbItemInfoPage, Integer itemId) {
+        return pbItemInfoMapper.selectBiddingHall(pbItemInfoPage,itemId);
+    }
+
+    /*@Override
+    public PageInfo<PbItemInfo> selectPbItemInfo(Integer pageSize, Integer currentPage, String itemName, Integer resourceType) {
+        PageHelper.startPage(currentPage,pageSize);//分页起始码以及每页页数
+        List<PbItemInfo> itemInfos = pbItemInfoMapper.selectPbItemInfo(itemName,resourceType);
+        System.out.println(itemInfos);
+        PageInfo pageInfo=new PageInfo(itemInfos);
+        return pageInfo;
+    }*/
+
+
+
 
 
     @Override
@@ -36,11 +62,6 @@ public class PbItemInfoServiceImpl extends ServiceImpl<PbItemInfoMapper, PbItemI
     @Override
     public List<Map<String, Object>> likeElectronic(String name, String code) {
         return pbItemInfoMapper.likeElectronic(name,code);
-    }
-
-    @Override
-    public Boolean stopBid(Integer id) {
-        return pbItemInfoMapper.stopBid(id);
     }
 
     @Override
