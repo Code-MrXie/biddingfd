@@ -65,10 +65,9 @@
                         <el-button type="text" @click.native.prevent="TerminationUpstream(scope.row,scope.$index)">进入竞价厅</el-button>
                         <el-dialog
                                 title="竞价记录"
-                                :closeOnClickModal="false"
                         :visible.sync="dialogVisible"
                         width="30%"
-                        :showClose="false">
+                        >
                             <el-table
                                     class="tablebidding"
                                     highlight-current-row
