@@ -19,7 +19,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("PbItemApplyInfoCon")
 public class PbItemApplyInfoController {
-//    注入service
+
     @Autowired
     private PbItemApplyInfoService pbItemApplyInfoService;
     //查看当前委托人提交的所有项目申请书
@@ -42,7 +42,7 @@ public class PbItemApplyInfoController {
             //如果存在直接返回
             return new BaseResponse(StatusCode.Fail);
         }else
-        pbItemApplyInfoService.AddPbItemApplyInfo(pbItemApplyInfo);
+            pbItemApplyInfoService.AddPbItemApplyInfo(pbItemApplyInfo);
         return new BaseResponse(StatusCode.Success);
     }
 
@@ -54,7 +54,6 @@ public class PbItemApplyInfoController {
 
         return new BaseResponse(StatusCode.Success);
     }
-
 
     //处长查询委托人提交的
     @RequestMapping("PbItemApplyInfoStatusToOne")

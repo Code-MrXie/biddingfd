@@ -9,9 +9,19 @@ import com.bgs.biddingfd.service.PbItemInfoService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.bgs.biddingfd.config.Result;
+import com.bgs.biddingfd.pojo.PbItemApplyInfo;
+import com.bgs.biddingfd.pojo.PbItemInfo;
+import com.bgs.biddingfd.service.PbItemInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -26,6 +36,8 @@ import java.util.Map;
 public class PbItemInfoController {
     @Autowired
     private PbItemInfoService itemInfoService;
+
+
     @PostMapping("selectPbItemInfo/{pageSize}/{currentPage}" )
     /**
      * 查询竞价厅 BiddingHall.jsp
@@ -72,5 +84,12 @@ public class PbItemInfoController {
 //        return new Result(true,200,"查询成功",pbQuoteInfos);
     }
 
+    @RequestMapping("testTable")
+    @ResponseBody
+    @ApiOperation(value = "成交结果录入办理",httpMethod = "POST")
+    public Result testTable(PbItemInfo pbItemInfo){
+        List<PbItemInfo> list=itemInfoService.findPbItemInfo(pbItemInfo);
+        return new Result(true,200,"yes",list);
+    }
 }
 

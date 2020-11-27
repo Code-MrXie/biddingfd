@@ -7,8 +7,12 @@ import com.bgs.biddingfd.pojo.PbItemInfo;
 import com.bgs.biddingfd.pojo.PbItemObjectInfo;
 import com.bgs.biddingfd.pojo.PbQuoteInfo;
 import com.bgs.biddingfd.service.PbItemInfoService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -28,6 +32,11 @@ public class PbItemInfoServiceImpl extends ServiceImpl<PbItemInfoMapper, PbItemI
         return pbItemInfoMapper.selectPbItemInfo(pbItemInfoPage,itemName,resourceType);
     }
 
+    @Override
+    public List<PbItemInfo> findPbItemInfo(PbItemInfo pbItemInfo) {
+        List<PbItemInfo> list=pbItemInfoMapper.findPbItemInfo(pbItemInfo);
+        return list;
+    }
     @Override
     public IPage<PbQuoteInfo> selectBiddingHall(IPage<PbQuoteInfo> pbItemInfoPage, Integer itemId) {
         return pbItemInfoMapper.selectBiddingHall(pbItemInfoPage,itemId);

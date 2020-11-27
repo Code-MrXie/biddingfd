@@ -2,6 +2,9 @@ package com.bgs.biddingfd.mapper;
 
 import com.bgs.biddingfd.pojo.PbItemApplyInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * <p>
@@ -11,6 +14,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author xieCode
  * @since 2020-11-25
  */
+@Repository
 public interface PbItemApplyInfoMapper extends BaseMapper<PbItemApplyInfo> {
 
+    List<PbItemApplyInfo> findPbItemApplyInfo();
 }

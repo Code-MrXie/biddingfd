@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>
@@ -72,9 +73,11 @@ public class PbItemInfo implements Serializable {
     private String transferorPhone;
 
     @ApiModelProperty(value = "报名开始时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date applyStartTime;
 
     @ApiModelProperty(value = "报名截止时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date applyEndTime;
 
     @ApiModelProperty(value = "代理机构")

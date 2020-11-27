@@ -2,4 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bgs.biddingfd.mapper.PbItemApplyInfoMapper">
 
+    <!--List<PbItemApplyInfo> findPbItemApplyInfo();-->
+    <select id="findPbItemApplyInfo" resultType="PbItemApplyInfo">
+        select * from pb_item_apply_info;
+    </select>
+    
 </mapper>
