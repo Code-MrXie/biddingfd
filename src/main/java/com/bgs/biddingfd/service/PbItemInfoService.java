@@ -1,11 +1,14 @@
 package com.bgs.biddingfd.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.bgs.biddingfd.pojo.PbBiddingRules;
+import com.bgs.biddingfd.pojo.PbItemInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.bgs.biddingfd.pojo.*;
+import com.bgs.biddingfd.pojo.PbObjectInfo;
 
 import java.util.List;
 import java.util.Map;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,11 +19,6 @@ import java.util.Map;
  * @since 2020-11-25
  */
 public interface PbItemInfoService extends IService<PbItemInfo> {
-    IPage<PbItemObjectInfo> selectPbItemInfo(IPage<PbItemObjectInfo> pbItemInfoPage, String itemName, Integer resourceType);
-
-    IPage<PbQuoteInfo> selectBiddingHall(IPage<PbQuoteInfo> pbItemInfoPage, Integer itemId);
-
-//    PageInfo<PbItemInfo> selectPbItemInfo(Integer pageSize, Integer currentPage, String itemName, Integer resourceType);
 
     List<Map<String,Object>> electronicTable();
 
@@ -28,16 +26,13 @@ public interface PbItemInfoService extends IService<PbItemInfo> {
 
     Boolean stopBid(Integer id);
 
-    Boolean subBidRule(Integer id, Map<String,String> map);
+    Boolean subBidRule(Integer id, PbBiddingRules setBidRuleee);
 
     List<PbObjectInfo> signInfo(Integer id);
 
     PbObjectInfo signRuleInfo(Integer code);
 
-    Boolean subSetSignRule(Integer objectId, PbObjectInfo map);
+    Boolean subSetSignRule(PbObjectInfo signRule);
 
     PbBiddingRules bidRuleDetail(Integer itemId);
-
-
-
 }

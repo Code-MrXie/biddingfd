@@ -81,7 +81,12 @@
                                 label="操作">
                             <template slot-scope="scope">
                                 <el-button @click="stopBid(scope.row.item_id)" type="text" size="small">竞价终止</el-button>
-                                <el-button @click="rule(scope.row.item_id)" type="text" size="small">设置规则</el-button>
+                                <div v-if="scope.row.bid_rule == null">
+                                    <el-button @click="rule(scope.row.item_id)" type="text" size="small">设置规则</el-button>
+                                </div>
+                                <div v-if="scope.row.bid_rule != null">
+                                    <el-button @click="ruleDetail(scope.row.item_id)" type="text" size="small">竞价规则详情</el-button>
+                                </div>
                                 <el-button @click="signInfo(scope.row.item_id)" type="text" size="small">竞价记录单</el-button>
                             </template>
                         </el-table-column>
@@ -102,17 +107,17 @@
             :before-close="handleClose">
         <el-form :inline="true" :label-position="labelPosition" label-width="180px" :model="setBidRule">
             <el-form-item label="竞价模式">
-                <el-input v-model="setBidRule.rule_model"></el-input>
+                <el-input v-model="setBidRule.ruleModel"></el-input>
             </el-form-item>
             <el-form-item label="自由竞价时长（秒）" >
-                <el-input v-model="setBidRule.free_bid_time"></el-input>
+                <el-input v-model="setBidRule.freeBidTime"></el-input>
             </el-form-item>
             <br>
             <el-form-item label="延时竞价时长（秒）">
-                <el-input v-model="setBidRule.bid_delay_time"></el-input>
+                <el-input v-model="setBidRule.bidDelayTime"></el-input>
             </el-form-item>
             <el-form-item label="竞价标的间隔长（秒）">
-                <el-input v-model="setBidRule.bid_interval_time"></el-input>
+                <el-input v-model="setBidRule.bidIntervalTime"></el-input>
             </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -173,7 +178,7 @@
                         label="操作">
                     <template slot-scope="scope">
                         <el-button @click="setRule(scope.row.objectId)" type="text" size="small">修改</el-button>
-                        <el-button @click="ruleDetail(scope.row.object_code)" type="text" size="small">查看详细</el-button>
+                        <el-button @click="signRuleDetail(scope.row.object_code)" type="text" size="small">查看详细</el-button>
                         <el-button @click="info=true" type="text" size="small">删除</el-button>
                     </template>
                 </el-table-column>
@@ -194,11 +199,11 @@
             :before-close="handleClose">
         <el-form :inline="true" :label-position="labelPosition" label-width="200px" :model="signRule">
             <el-form-item label="标的名称">
-                <el-input v-model="signRule.objectName" style="width: 620px"></el-input>
+                <el-input v-model="signRule.objectName" style="width: 620px" readonly></el-input>
             </el-form-item>
             <br>
             <el-form-item label="竞价模式">
-                <el-input v-model="signRule.bidState"></el-input>
+                <el-input v-model="signRule.bidState" readonly></el-input>
             </el-form-item>
             <el-form-item label="竞价方式">
                 <el-radio-group v-model="signRule.trad">
@@ -224,7 +229,8 @@
                     <el-option label="个人" value="1"></el-option>
                     <el-option label="企业" value="2"></el-option>
                 </el-select>
-                <el-input  v-model="signRule.priorityApplyId" style="width: 390px"> </el-input>
+                <el-input  v-model="signRule.priorityApplyId" style="width: 420px"
+                           placeholder="温馨提示：请输入具有优先权的竞买人身份证或统一社会信用代码"> </el-input>
             </el-form-item>
             <br>
             <el-form-item label="报价单位">
@@ -263,7 +269,7 @@
                 <el-date-picker type="date" placeholder="选择日期" v-model="signRule.bidStartTime" style="width: 220px"></el-date-picker>
             </el-form-item>
             <el-form-item label="竞价结束时间">
-                <el-date-picker type="date" placeholder="选择日期" v-model="signRule.bidDelayTime" style="width: 220px"></el-date-picker>
+                <el-date-picker type="date" placeholder="选择日期" v-model="signRule.bidEndTime" style="width: 220px"></el-date-picker>
             </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -299,10 +305,6 @@
                     region:''
                 },
                 setBidRule:{
-                    rule_model:'',
-                    free_bid_time:'',
-                    bid_delay_time:'',
-                    bid_interval_time:''
                 },
                 signRule:{
                     objectName:'',
@@ -314,7 +316,8 @@
                 bidRules:false,
                 info:false,
                 sign:false,
-                show:false
+                show:false,
+                readonly: true,
             }
         },
         //页面加载成功时完成
@@ -365,43 +368,34 @@
 
 
             },
+            //竞价规则详情
+            ruleDetail(row){
+                var _this = this;
+                _this.bidRules=true;
+                axios
+                    .post('/pb-item-info/bidRuleDetail/'+row)
+                    .then(function (res) {
+                        _this.setBidRule.ruleModel=res.data.ruleModel;
+                        _this.setBidRule.bidDelayTime=res.data.bidDelayTime;
+                        _this.setBidRule.bidIntervalTime=res.data.bidIntervalTime;
+                        _this.setBidRule.freeBidTime=res.data.freeBidTime;
+                    });
+            },
             //竞价规则设置
             rule(row){
                 var _this = this;
                 _this.bidRules=true;
                 _this.item_id=row;
-                axios
-                    .post('/pb-item-info/bidRuleDetail/'+row)
-                    .then(function (res) {
-                        if(res.data){
-                            _this.setBidRule.rule_model=res.data.ruleModel;
-                            _this.setBidRule.bid_delay_time=res.data.bidDelayTime;
-                            _this.setBidRule.bid_interval_time=res.data.bidIntervalTime;
-                            _this.setBidRule.free_bid_time=res.data.freeBidTime;
-                        }
-
-
-                    });
-
-
             },
             subBidRule(){
                 var _this = this;
-                var rule_model=_this.setBidRule.rule_model;
-                var free_bid_time=_this.setBidRule.free_bid_time;
-                var bid_delay_time=_this.setBidRule.bid_delay_time;
-                var bid_interval_time=_this.setBidRule.bid_interval_time;
-
+                console.log(_this.setBidRule)
                 axios
-                    .post('/pb-item-info/subBidRule/'+_this.item_id,{
-                        rule_model:rule_model,
-                        free_bid_time:free_bid_time,
-                        bid_delay_time:bid_delay_time,
-                        bid_interval_time:bid_interval_time
-                    })
+                    .post('/pb-item-info/subBidRule/'+_this.item_id,_this.setBidRule)
                     .then(function (res) {
                         alert("设置成功")
                         _this.bidRules=false;
+                        location.reload();
                     });
 
             },
@@ -425,8 +419,6 @@
                 axios
                     .post('/pb-item-info/signRuleInfo/'+row)
                     .then(function (res) {
-                        console.log(res.data.objectName)
-                        console.log(res.data.bidState)
                         _this.signRule.objectName = res.data.objectName;
                         _this.signRule.bidState = res.data.bidState;
 
@@ -437,15 +429,16 @@
                 var _this = this;
                 console.log(_this.objectId)
                 axios
-                    .post('/pb-item-info/subSetSignRule/'+_this.objectId,{
-                        signRule:_this.signRule
-                    })
+                    .post('/pb-item-info/subSetSignRule/'+_this.objectId,_this.signRule)
                     .then(function (res) {
                         alert("设置成功")
+                        _this.sign=false;
                     });
 
             },
-            ruleDetail(row){
+
+
+            signRuleDetail(row){
 
             }
 

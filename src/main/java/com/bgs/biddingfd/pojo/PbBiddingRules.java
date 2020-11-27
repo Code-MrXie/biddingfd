@@ -25,7 +25,7 @@ public class PbBiddingRules implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "rule_id", type = IdType.ID_WORKER)
+    @TableId(value = "rule_id", type = IdType.AUTO)
     private Integer ruleId;
 
     @ApiModelProperty(value = "竞价模式")

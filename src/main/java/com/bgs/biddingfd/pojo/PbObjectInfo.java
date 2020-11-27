@@ -6,6 +6,8 @@ import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -27,7 +29,6 @@ public class PbObjectInfo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "主键")
-    @TableId(value = "seq_id", type = IdType.ID_WORKER)
     private Integer seqId;
 
     @ApiModelProperty(value = "标id")
@@ -58,10 +59,16 @@ public class PbObjectInfo implements Serializable {
     private Integer priorityCount;
 
     @ApiModelProperty(value = "竞价延时时间")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Date bidDelayTime;
 
     @ApiModelProperty(value = "竞价开始时间")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Date bidStartTime;
+
+    @ApiModelProperty(value = "竞价结束时间")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    private Date bidEndTime;
 
     @ApiModelProperty(value = "优先权竞买人类别")
     private Integer priorityBidType;
@@ -121,9 +128,11 @@ public class PbObjectInfo implements Serializable {
     private String isPause;
 
     @ApiModelProperty(value = "中止时间")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Date pauseTime;
 
     @ApiModelProperty(value = "保证金缴纳截止时间")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Date depositPayEndTime;
 
     @ApiModelProperty(value = "延时次数")
@@ -145,9 +154,11 @@ public class PbObjectInfo implements Serializable {
     private String remark;
 
     @ApiModelProperty(value = "创建时间")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Date createTime;
 
     @ApiModelProperty(value = "更新时间")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Date updateTime;
 
     @ApiModelProperty(value = "是否删除")

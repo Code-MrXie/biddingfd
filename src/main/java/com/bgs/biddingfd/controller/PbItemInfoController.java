@@ -1,18 +1,18 @@
 package com.bgs.biddingfd.controller;
 
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bgs.biddingfd.pojo.PbBiddingRules;
 import com.bgs.biddingfd.pojo.PbObjectInfo;
-import com.bgs.biddingfd.pojo.PbQuoteInfo;
 import com.bgs.biddingfd.service.PbItemInfoService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Map;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,8 +31,7 @@ public class PbItemInfoController {
     @Resource
     PbItemInfoService pbItemInfoService;
 
-    @RequestMapping( "/electronicTable")
-    //@ApiOperation(value = "查询电子竞价管理",httpMethod = "POST")
+    @RequestMapping(value = "/electronicTable",method = RequestMethod.POST)
     public List<Map<String,Object>> electronicTable(){
 
         List<Map<String,Object>> list = pbItemInfoService.electronicTable();
@@ -62,23 +61,19 @@ public class PbItemInfoController {
     }
 
 
-
-
-
-
-
-
     //设置竞价规则
     @RequestMapping("/subBidRule/{id}")
-    public Boolean subBidRule(@PathVariable Integer id,@RequestBody Map<String,String> map){
-        return pbItemInfoService.subBidRule(id,map);
+    public Boolean subBidRule(@PathVariable Integer id,@RequestBody PbBiddingRules  setBidRule){
+        return pbItemInfoService.subBidRule(id,setBidRule);
     }
+
     //signInfo
     @RequestMapping("/signInfo/{id}")
     public List<PbObjectInfo> signInfo(@PathVariable Integer id){
         System.out.println(pbItemInfoService.signInfo(id));
         return pbItemInfoService.signInfo(id);
     }
+
     //signRuleInfo
     @RequestMapping("/signRuleInfo/{code}")
     public PbObjectInfo signRuleInfo(@PathVariable Integer code){
@@ -86,15 +81,11 @@ public class PbItemInfoController {
     }
 
     @RequestMapping("/subSetSignRule/{objectId}")
-    public Boolean subSetSignRule(@PathVariable Integer objectId,@RequestBody PbObjectInfo map){
-        System.out.println(map);
-
-        return pbItemInfoService.subSetSignRule(objectId,map);
+    public Boolean subSetSignRule(@PathVariable Integer objectId,@RequestBody PbObjectInfo signRule){
+        System.out.println(objectId);
+        signRule.setObjectId(objectId);
+        System.out.println(signRule);
+        return pbItemInfoService.subSetSignRule(signRule);
     }
-
-
-
-
-
 }
 
