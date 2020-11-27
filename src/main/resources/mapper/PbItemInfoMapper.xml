@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bgs.biddingfd.mapper.PbItemInfoMapper">
-
+    <select id="selectPbItemInfo" resultType="com.bgs.biddingfd.pojo.PbItemObjectInfo">
+        select
+        pii.item_id,
+        pii.item_code,pii.item_name,pii.trad_way,poi.object_name,pii.resource_type,
+        poi.trad,poi.bid_start_time,poi.bid_end_time,poi.bidder_type
+        from pb_object_info poi
+        left join  pb_item_info pii on poi.item_id=pii.item_id
+        <where>
+            <if test="itemName!=null and itemName!=''">
+                pii.item_name like concat('%',#{itemName},'%')
+            </if>
+            <if test="resourceType!=null and resourceType!=''">
+                and pii.resource_type=#{resourceType}
+            </if>
+        </where>
+    </select>
+    <select id="selectBiddingHall" resultType="com.bgs.biddingfd.pojo.PbQuoteInfo">
+        SELECT
+        pai.bid_name as bidName,
+        pqi.*
+        FROM
+        pb_quote_info pqi
+        LEFT JOIN pb_object_info poi ON poi.object_id = pqi.object_id
+        LEFT JOIN pb_apply_info pai ON pai.apply_id = pqi.apply_id
+        LEFT JOIN pb_item_info pii ON pii.item_id = poi.item_id
+        <where>
+            <if test="itemId!=null and itemId!=''">
+                 pii.item_id = #{itemId}
+            </if>
+        </where>
+    </select>
 </mapper>

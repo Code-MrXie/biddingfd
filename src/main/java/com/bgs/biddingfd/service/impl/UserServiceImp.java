@@ -1,4 +1,4 @@
-package com.bgs.biddingfd.service.serviceImp;
+package com.bgs.biddingfd.service.impl;
 
 import com.bgs.biddingfd.mapper.UserMapper;
 import com.bgs.biddingfd.service.UserService;
