@@ -32,13 +32,13 @@ public class PbBiddingRules implements Serializable {
     private String ruleModel;
 
     @ApiModelProperty(value = "自由竞价时间")
-    private Date freeBidTime;
+    private String freeBidTime;
 
     @ApiModelProperty(value = "延时竞价时长（秒）")
-    private Date bidDelayTime;
+    private String bidDelayTime;
 
     @ApiModelProperty(value = "竞价标的间隔时间")
-    private Date bidIntervalTime;
+    private String bidIntervalTime;
 
 
 }

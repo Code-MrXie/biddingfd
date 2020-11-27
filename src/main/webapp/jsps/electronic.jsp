@@ -337,15 +337,11 @@
                 var code = _this.itemForm.code;
                 axios
                     .post('/pb-item-info/likeElectronic',{
-                        name:name,code:code
+                        name:name,
+                        code:code
                     })
                     .then(function (res) {
-                        if(res.data != null){
                             _this.electronicTableData = res.data;
-                        }else{
-                            _this.electronicTableData = null;
-                        }
-
                     })
             },
             handleClose(){
@@ -362,9 +358,9 @@
                         .get('/pb-item-info/stopBid/'+row)
                         .then(function (res) {
                             alert("竞价已终止")
+                            location.reload();
                         });
                 }).catch(() => {
-                    alert("取消")
                 });
 
 
@@ -374,6 +370,18 @@
                 var _this = this;
                 _this.bidRules=true;
                 _this.item_id=row;
+                axios
+                    .post('/pb-item-info/bidRuleDetail/'+row)
+                    .then(function (res) {
+                        if(res.data){
+                            _this.setBidRule.rule_model=res.data.ruleModel;
+                            _this.setBidRule.bid_delay_time=res.data.bidDelayTime;
+                            _this.setBidRule.bid_interval_time=res.data.bidIntervalTime;
+                            _this.setBidRule.free_bid_time=res.data.freeBidTime;
+                        }
+
+
+                    });
 
 
             },
