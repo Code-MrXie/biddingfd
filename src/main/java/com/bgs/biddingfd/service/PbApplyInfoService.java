@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.bgs.biddingfd.pojo.PbApplyInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.bgs.biddingfd.pojo.PbItemObjectInfo;
+import com.bgs.biddingfd.pojo.PbObjectInfo;
 
 /**
  * <p>
@@ -16,4 +17,6 @@ import com.bgs.biddingfd.pojo.PbItemObjectInfo;
 public interface PbApplyInfoService extends IService<PbApplyInfo> {
 
     IPage<PbItemObjectInfo> selectApplyInfo(IPage<PbItemObjectInfo> pbItemInfoPage, String itemName, Integer resourceType);
+
+    PbObjectInfo selectPaytheDeposit(Integer applyId);
 }

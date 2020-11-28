@@ -8,6 +8,7 @@ import java.util.Date;
 
 @Data
 public class PbItemObjectInfo {
+    private Integer applyId;
     private Integer itemId;
     private String itemCode;
     private String category;

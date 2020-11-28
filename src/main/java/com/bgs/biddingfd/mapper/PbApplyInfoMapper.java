@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.bgs.biddingfd.pojo.PbApplyInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bgs.biddingfd.pojo.PbItemObjectInfo;
+import com.bgs.biddingfd.pojo.PbObjectInfo;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -17,4 +18,6 @@ import org.apache.ibatis.annotations.Param;
 public interface PbApplyInfoMapper extends BaseMapper<PbApplyInfo> {
 
     IPage<PbItemObjectInfo> selectApplyInfo(@Param("page") IPage<PbItemObjectInfo> pbItemInfoPage, @Param("itemName")String itemName,@Param("resourceType") Integer resourceType);
+
+    PbObjectInfo selectPaytheDeposit(Integer applyId);
 }

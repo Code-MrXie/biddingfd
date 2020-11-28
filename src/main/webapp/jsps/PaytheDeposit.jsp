@@ -24,33 +24,70 @@
         </div>
 
         <el-dialog
-                title="竞价记录"
+                title="投标保证金缴纳订单"
                 :visible.sync="dialogVisible"
-                width="30%"
-        >
-                    <el-table
-                            class="tablebidding"
-                            highlight-current-row
-                            border
-                            :data="BiddingHall.data">
-                        <el-table-column type="index"></el-table-column>
-                        <el-table-column align="left" prop="bidName" label="竞价人" :formatter="formatterbidName" show-overflow-tooltip></el-table-column>
-                        <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
-                            <li v-for="i in count" class="infinite-list-item">{{ i }}</li>
-                        </ul>
-                    </el-table>
-                    <el-pagination style="text-align: center"
-                                   @size-change="handleSizeChange"
-                                   @current-change="handleCurrentChange"
-                                   :current-page.sync="currentPage2"
-                                   :page-sizes="pageSizes2"
-                                   :page-size="pageSize2"
-                                   layout="total, sizes, prev, pager, next, jumper"
-                                   :total="total2">
-                    </el-pagination>
+                width="50%">
+            <el-form :model="PaytheDepositOrder" :rules="rules" ref="PaytheDepositOrder" label-width="100px" class="demo-biddingForm">
+                <el-row type="flex" class="row-bg">
+                    <el-col>
+                        <el-form-item label="投标单位" prop="itemName">
+                            <el-input type="text" class="inputText"
+                                       :disabled="true"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col>
+                        <el-form-item label="标段名称" prop="resourceType">
+                            <el-input type="text" class="inputText"
+                                      :disabled="true"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col>
+                        <el-form-item label="收款银行" prop="resourceType">
+                            <el-input type="text"  class="inputText"
+                                      :disabled="true"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col>
+                        <el-form-item label="收款户名" prop="resourceType">
+                            <el-input type="text" class="inputText"
+                                      :disabled="true"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col>
+                        <el-form-item label="收款账号" prop="resourceType">
+                            <el-input type="text" class="inputText"
+                                      :disabled="true"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="7">
+                        <el-form-item label="应付金额" prop="resourceType">
+                            <el-input type="text" placeholder="80000元"
+                                      :disabled="true"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="6">
+                        <el-form-item label="大写金额" prop="resourceType">
+                            <el-input type="text" placeholder="捌万元整"
+                                      :disabled="true"/>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                </el-row>
+                </el-row>
+            </el-form>
             <span slot="footer" class="dialog-footer">
-                          <el-button @click="dialogVisible = false">取 消</el-button>
-                          <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                          <el-button type="primary" @click="payMoney(scope.row,scope.$index)">确 定 缴 纳</el-button>
            </span>
         </el-dialog>
     </div>
@@ -63,6 +100,7 @@
         /*变量*/
         data() {
             return {
+                applyId:null,
                 showtrue:false,
                 activeName: 'first',
                 count: 0,
@@ -73,7 +111,9 @@
                     data:[]
                 },
                 dialogVisible:false,
+                PaytheDepositOrder:{
 
+                },
                 currentPage: 1,//默认显示第几页
                 total: 10,//总条数
                 pageSizes: [10, 20, 30],//个数选择器
@@ -82,7 +122,6 @@
                 total2: 10,//总条数
                 pageSizes2: [10, 20, 30],//个数选择器
                 pageSize2: 10,//默认每页显示多少条
-
                 biddingForm: {
                     itemName: "",
                     resourceType: ""
@@ -132,22 +171,32 @@
             formatterbidderType(row, column) {
                 return row.bidderTyp === 1 ? '企业' : '个人';
             },
-            formattermoney(row,column){
-                if (row.money=null){
-                    this.showtrue =true
-                }else {
-                    this.showtrue=false;
-                }
-                console.log(row.money)
-                return row.money;
+            payMoney(row, column) {
+
+            },
+            PayTheDeposit(row, column){
+                this.$alert('请确认用户是否已经缴费', '修改缴纳金', {
+                    confirmButtonText: '确定',
+                    showConfirmButton:true,
+                    showCancelButton:true,
+                    callback: action => {
+                        if (action==='confirm'){
+                            /*this.$message({
+                                type: 'info',
+                                message: 'action: ${ action }'
+                            });*/
+                            applyId =row.applyId
+                            axios.post("/pb-apply-info/selectPaytheDeposit/"+applyId).then(res=>{
+                                this.PaytheDepositOrder = res.data.data
+                                this.dialogVisible = true;
+                            }).catch((e)=>{
+                            })
+                        }
+                    }
+                });
             },
             TerminationUpstream(row, index){
-                this.dialogVisible = true;
-                itemId =row.itemId
-                axios.get("/pb-item-info/selectBiddingHall/"+this.pageSize2+"/"+this.currentPage2+"/"+itemId).then(res=>{
-                    this.BiddingHall.data=res.data.data;
-                    this.total2=res.data.total;
-                })
+
             },
             formatterbidName(row, column) {
                 //如果时间格式是正确的，那下面这一步转化时间格式就可以不用了
@@ -194,11 +243,15 @@
         height: 300px;
     }
     .demo-biddingForm{
-    }
-    .tablebidding{
-        height: 500px;
+        width: 1000px;
     }
     .tabPan{
         height: 90vh;
+    }
+    .inputText{
+        width: 500px;
+    }
+    .dialog-footer{
+        margin-right: 40%;
     }
 </style>

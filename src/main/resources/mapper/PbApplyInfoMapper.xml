@@ -2,13 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bgs.biddingfd.mapper.PbApplyInfoMapper">
     <select id="selectApplyInfo" resultType="com.bgs.biddingfd.pojo.PbItemObjectInfo">
-        select
+        SELECT
+        pai.apply_id,
+        poi.object_name,
+        consignor.company_name,
         pii.item_id,pai.money,
         pii.item_code,pii.item_name,pii.trad_way,poi.object_name,pii.resource_type,
         poi.trad,poi.bid_start_time,poi.bid_end_time,poi.bidder_type
-        from pb_object_info poi
-        left join  pb_item_info pii on poi.item_id=pii.item_id
-        left join pb_apply_info pai on pai.object_id = poi.object_id
+        FROM
+        pb_apply_info pai
+        LEFT JOIN pb_object_info poi ON poi.object_id = pai.object_id
+        LEFT JOIN pb_item_info pii ON pii.item_id = pai.item_id
+        LEFT JOIN pb_item_apply_info piai ON piai.seq_id = pii.apply_id
+        LEFT JOIN consignor ON piai.apply_person_id = consignor.id
         <where>
             <if test="itemName!=null and itemName!=''">
                 pii.item_name like concat('%',#{itemName},'%')
@@ -17,5 +23,31 @@
                 and pii.resource_type=#{resourceType}
             </if>
         </where>
+    </select>
+    <select id="selectPaytheDeposit" resultType="pbObjectInfo">
+            SELECT
+                pai.apply_id,
+                consignor.company_name,
+                poi.object_name,
+                consignor.company_name,
+                pii.item_id,
+                pai.money,
+                pii.item_code,
+                pii.item_name,
+                pii.trad_way,
+                poi.object_name,
+                pii.resource_type,
+                poi.trad,
+                poi.bid_start_time,
+                poi.bid_end_time,
+                poi.bidder_type
+            FROM
+                pb_apply_info pai
+                LEFT JOIN pb_object_info poi ON poi.object_id = pai.object_id
+                LEFT JOIN pb_item_info pii ON pii.item_id = pai.item_id
+                LEFT JOIN pb_item_apply_info piai ON piai.seq_id = pii.apply_id
+                LEFT JOIN consignor ON piai.apply_person_id = consignor.id
+            WHERE
+                pai.apply_id = #{applyId}
     </select>
 </mapper>

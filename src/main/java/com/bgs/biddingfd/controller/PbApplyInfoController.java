@@ -3,8 +3,10 @@ package com.bgs.biddingfd.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.bgs.biddingfd.config.Result;
 import com.bgs.biddingfd.pojo.PbApplyInfo;
 import com.bgs.biddingfd.pojo.PbItemObjectInfo;
+import com.bgs.biddingfd.pojo.PbObjectInfo;
 import com.bgs.biddingfd.service.PbApplyInfoService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,6 @@ public class PbApplyInfoController {
         IPage<PbItemObjectInfo> pbItemInfoPage = new Page<>(currentPage,pageSize,true);
         IPage<PbItemObjectInfo> pbItemInfos =  pbApplyInfoService.selectApplyInfo(pbItemInfoPage,itemObjectInfo.getItemName(),itemObjectInfo.getResourceType());
         Map map = new HashMap();
-        map.put("current",pbItemInfos.getCurrent());
         map.put("pages",pbItemInfos.getPages());
         map.put("data",pbItemInfos.getRecords());
         map.put("size",pbItemInfos.getSize());
@@ -44,5 +45,18 @@ public class PbApplyInfoController {
         map.put("msg","查询成功");
         return map;
     }
+    @PostMapping("selectPaytheDeposit/{applyId}" )
+    /**
+     * 查询竞价厅 PaytheDeposit.jsp
+     */
+    @ApiOperation(value = "查询缴纳保证金信息",httpMethod = "POST")
+    public Result selectPaytheDeposit(@PathVariable Integer applyId){
+        if (applyId!=null){
+            PbObjectInfo pbObjectInfo = pbApplyInfoService.selectPaytheDeposit(applyId);
+            return new Result(true,200,"查询成功",pbObjectInfo);
+        }
+        return new Result(false,-1,"请求数据异常");
+    }
+
 }
 
