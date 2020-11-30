@@ -5,22 +5,34 @@
         SELECT
         pai.apply_id,
         poi.object_name,
-        consignor.company_name,
-        pii.item_id,pai.money,
-        pii.item_code,pii.item_name,pii.trad_way,poi.object_name,pii.resource_type,
-        poi.trad,poi.bid_start_time,poi.bid_end_time,poi.bidder_type
+        pii.item_id,
+        pii.apply_start_time,
+        pai.bid_name,
+        pai.money_status,
+        pai.money,
+        pii.item_code,
+        pii.deposit_time,
+        pii.item_name,
+        pii.trad_way,
+        poi.object_name,
+        pii.resource_type,
+        poi.trad,
+        poi.bid_start_time,
+        poi.bid_end_time,
+        poi.bidder_type
         FROM
         pb_apply_info pai
         LEFT JOIN pb_object_info poi ON poi.object_id = pai.object_id
         LEFT JOIN pb_item_info pii ON pii.item_id = pai.item_id
-        LEFT JOIN pb_item_apply_info piai ON piai.seq_id = pii.apply_id
-        LEFT JOIN consignor ON piai.apply_person_id = consignor.id
         <where>
             <if test="itemName!=null and itemName!=''">
                 pii.item_name like concat('%',#{itemName},'%')
             </if>
             <if test="resourceType!=null and resourceType!=''">
                 and pii.resource_type=#{resourceType}
+            </if>
+            <if test="moneyStatus!=null">
+                and pai.money_status=#{moneyStatus}
             </if>
         </where>
     </select>
@@ -49,4 +61,24 @@
             WHERE
                 pai.apply_id = #{applyId}
     </select>
+    <update id="updateApplyInfoMoney">
+        UPDATE pb_apply_info set money =#{money},money_status=1  where apply_id = #{applyId}
+    </update>
+    <select id="selectObjectInfo" resultType="pbItemObjectInfo">
+            SELECT
+                pii.item_name,
+                pii.item_code,
+                poi.object_name,
+                pii.apply_start_time,
+                pii.apply_end_time,
+                pii.resource_type
+            FROM
+                pb_object_info poi
+                LEFT JOIN pb_item_info pii ON pii.item_id = poi.item_id
+            WHERE
+                pii.item_id = #{itemId}
+    </select>
+    <update id="updateApplyInfoMoneyStatus">
+         UPDATE pb_apply_info set money_status=#{moneyStatus}  where apply_id = #{applyId}
+    </update>
 </mapper>

@@ -62,7 +62,7 @@
                 </el-row>
                 <el-row>
                     <el-col>
-                        <el-form-item label="收款账号" prop="resourceType">
+                        <el-form-item label="收款账号" prop="money">
                             <el-input type="text" class="inputText"
                                       :disabled="true"></el-input>
                         </el-form-item>
@@ -87,8 +87,100 @@
                 </el-row>
             </el-form>
             <span slot="footer" class="dialog-footer">
-                          <el-button type="primary" @click="payMoney(scope.row,scope.$index)">确 定 缴 纳</el-button>
+                          <el-button type="primary" plain @click="payMoney()">确 定 缴 纳</el-button>
            </span>
+        </el-dialog>
+        <el-dialog
+                title="标的报名上传资料详情"
+                :visible.sync="dialogVisible2"
+                width="60%">
+            <el-form :model="ObjectPbApplyInfo" :rules="rules" ref="ObjectPbApplyInfo" label-width="100px" class="demo-ObjectPbApplyInfo">
+                <div class="divSpan">
+                    <span  style="margin-left: 20px;">标的详情</span>
+                </div>
+                <div class="boxdiv">
+                    <el-row>
+                        <el-col :span="4"
+                                class="elCol value">
+                            <div class="grid-content bg-purple">
+                            项目名称
+                            </div>
+                        </el-col>
+                        <el-col :span="8" class="elCol">
+                            <div class="grid-content bg-purple-light">
+                                {{ObjectPbApplyInfo.itemName}}
+                            </div>
+                        </el-col>
+                        <el-col :span="4" class="elCol value">
+                            <div class="grid-content bg-purple" >
+                                批文名称或编号
+                            </div>
+                        </el-col>
+                        <el-col :span="8" class="elCol">
+                            <div class="grid-content bg-purple-light">
+                                {{ObjectPbApplyInfo.itemCode}}
+                            </div>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="4" class="elCol value">
+                            <div class="grid-content bg-purple" >
+                                标的名称
+                            </div>
+                        </el-col>
+                        <el-col :span="8" class="elCol">
+                            <div class="grid-content bg-purple-light">
+                                {{ObjectPbApplyInfo.objectName}}
+                            </div>
+                        </el-col>
+                        <el-col :span="4" class="elCol value">
+                            <div class="grid-content bg-purple" >
+                                资源类型
+                            </div>
+                        </el-col>
+                        <el-col :span="8" class="elCol">
+                            <div class="grid-content bg-purple-light">
+                                <span v-if="ObjectPbApplyInfo.resourceType===1">国有产权</span>
+                                <span v-else="ObjectPbApplyInfo.resourceType===2">拓展资源</span>
+                            </div>
+                        </el-col>
+                    </el-row>
+                    <el-row>
+                        <el-col :span="4" class="elCol value">
+                            <div class="grid-content bg-purple" >
+                                报名开始时间
+                            </div>
+                        </el-col>
+                        <el-col :span="8" class="elCol">
+                            <div class="grid-content bg-purple-light">
+                                {{ObjectPbApplyInfo.applyStartTime}}
+                            </div>
+                        </el-col>
+                        <el-col :span="4" class="elCol value">
+                            <div class="grid-content bg-purple" >
+                                报名结束时间
+                            </div>
+                        </el-col>
+                        <el-col :span="8" class="elCol">
+                            <div class="grid-content bg-purple-light">
+                                {{ObjectPbApplyInfo.applyEndTime}}
+                            </div>
+                        </el-col>
+                    </el-row>
+                </div><br>
+                <div class="divSpan">
+                </div>
+                <div class="boxdiv">
+                    <el-row>
+                        <el-col :span="24" class="elCol">
+                            <div class="grid-content bg-purple" class="elRow">
+                                标的上传图片
+                            </div>
+                        </el-col>
+                    </el-row>
+                </div><br>
+                <el-button type="primary" style="margin-left: 45%" plain @click="dialogVisible2 =false">关 闭</el-button>
+            </el-form>
         </el-dialog>
     </div>
     <%@include file="jar.jsp"%>
@@ -104,17 +196,29 @@
                 showtrue:false,
                 activeName: 'first',
                 count: 0,
+                moneyStatus:0,
                 tableData: {
+                    data: [],
                     data: []
                 },
                 BiddingHall:{
                     data:[]
                 },
                 dialogVisible:false,
+                dialogVisible2:false,
                 PaytheDepositOrder:{
                     companyName:"",
                     objectName:"",
-                    applyId:""
+                    applyId:"",
+                    money:""
+                },
+                ObjectPbApplyInfo:{
+                    itemName:"",
+                    itemCode:"",
+                    objectName:"",
+                    applyEndTime:"",
+                    resourceType:"",
+                    applyStartTime:""
                 },
                 currentPage: 1,//默认显示第几页
                 total: 10,//总条数
@@ -126,7 +230,7 @@
                 pageSize2: 10,//默认每页显示多少条
                 biddingForm: {
                     itemName: "",
-                    resourceType: ""
+                    resourceType: "",
                 },
                 rules: {
                     itemName: [
@@ -158,10 +262,9 @@
                 this.count += 2
             },
             selectPbItemInfo() {
-                axios.post("/pb-apply-info/selectApplyInfo/"+this.pageSize+"/"+this.currentPage+"/",this.biddingForm).then(res=>{
+                axios.post("/pb-apply-info/selectApplyInfo/"+this.pageSize+"/"+this.currentPage+"/"+this.moneyStatus,this.biddingForm).then(res=>{
                     this.tableData.data=res.data.data;
                     this.total=res.data.total;
-                }).catch((e)=>{
                 })
             },
             formatter(row, column) {
@@ -174,7 +277,24 @@
                 return row.bidderTyp === 1 ? '企业' : '个人';
             },
             payMoney(row, column) {
-
+                var money = this.PaytheDepositOrder.money
+                var applyId =this.PaytheDepositOrder.applyId
+                axios.get("/pb-apply-info/updateApplyInfoMoney/"+money+"/"+applyId).then(res=>{
+                    if (res.data.flag){
+                        this.dialogVisible = false;
+                        this.selectPbItemInfo()
+                        this.$notify({
+                            title: '成功',
+                            message: '该用户缴纳保证金成功',
+                            type: 'success'
+                        });
+                    }else{
+                        this.$notify.error({
+                            title: '失败',
+                            message: '该用户缴纳保证金失败',
+                        });
+                    }
+                })
             },
             PayTheDeposit(row, column){
                 this.$alert('请确认用户是否已经缴费', '修改缴纳金', {
@@ -187,53 +307,43 @@
                                 type: 'info',
                                 message: 'action: ${ action }'
                             });*/
-                            applyId =row.applyId
+                            var applyId =row.applyId
                             axios.post("/pb-apply-info/selectPaytheDeposit/"+applyId).then(res=>{
                                 console.log(res.data.data)
                                 this.PaytheDepositOrder.companyName = res.data.data.companyName
                                 this.PaytheDepositOrder.objectName = res.data.data.objectName
                                 this.PaytheDepositOrder.applyId = res.data.data.applyId
+                                this.PaytheDepositOrder.money = 80000
                                 this.dialogVisible = true;
-                            }).catch((e)=>{
                             })
                         }
                     }
                 });
             },
             TerminationUpstream(row, index){
+                axios.get("/pb-apply-info/selectObjectInfo/"+row.itemId).then(res=>{
+                    this.ObjectPbApplyInfo.itemName = res.data.data.itemName
+                    this.ObjectPbApplyInfo.itemCode = res.data.data.itemCode
+                    this.ObjectPbApplyInfo.objectName = res.data.data.objectName
+                    this.ObjectPbApplyInfo.applyEndTime = res.data.data.applyEndTime
+                    this.ObjectPbApplyInfo.resourceType = res.data.data.resourceType
+                    this.ObjectPbApplyInfo.applyStartTime = res.data.data.applyStartTime
+                })
+                this.dialogVisible2 = true;
 
-            },
-            formatterbidName(row, column) {
-                //如果时间格式是正确的，那下面这一步转化时间格式就可以不用了
-                var dateBegin = new Date(row.quoteTime.replace(/-/g, "/"));//将-转化为/，使用new Date
-                var dateEnd = new Date();//获取当前时间
-                var dateDiff = dateEnd.getTime() - dateBegin.getTime();//时间差的毫秒数
-                var dayDiff = Math.floor(dateDiff / (24 * 3600 * 1000));//计算出相差天数
-                var leave1 = dateDiff % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
-                var hours = Math.floor(leave1 / (3600 * 1000))//计算出小时数
-                //计算相差分钟数
-                var leave2 = leave1 % (3600 * 1000)    //计算小时数后剩余的毫秒数
-                var minutes = Math.floor(leave2 / (60 * 1000))//计算相差分钟数
-                //计算相差秒数
-                var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
-                var seconds = Math.round(leave3 / 1000);
-                var timesString = '';
-
-                if (dayDiff != 0) {
-                    timesString = dayDiff + '天之前';
-                } else if (dayDiff == 0 && hours != 0) {
-                    timesString = hours + '小时之前';
-                } else if (dayDiff == 0 && hours == 0) {
-                    timesString = minutes + '分钟之前';
-                }
-                return row.bidName+"于"+timesString+"竞价";
             },
             handleCurrentChange(){
             },
             handleSizeChange(){
             },
             handleClick(tab, event) {
-                console.log(tab, event);
+                if(tab.name == 'second'){
+                    this.moneyStatus=1;
+                    this.selectPbItemInfo();
+                }else{
+                    this.moneyStatus=0;
+                    this.selectPbItemInfo()
+                }
             }
         }
     });
@@ -258,5 +368,24 @@
     }
     .dialog-footer{
         margin-right: 40%;
+    }
+    .elCol{
+        display:flex;
+        justify-content:center;/*主轴上居中*/
+        align-items:center;/*侧轴上居中*/
+        height: 40px;
+        border:1px solid rgba(1,1,1,0.3) ;
+    }
+    .value{
+        background-color:aliceblue;
+    }
+    .elRow{
+        height: 100px;
+    }
+    .boxdiv{
+        border: 1px solid rgba(1,1,1,0.3) ;padding:10px;;
+    }
+    .divSpan{
+        display:flex;align-items:center;height:30px;background-color: aliceblue;border: 1px solid rgba(1,1,1,0.3) ;border-radius:3px 3px 0 0 ;
     }
 </style>

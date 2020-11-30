@@ -28,14 +28,14 @@ import java.util.Map;
 public class PbApplyInfoController {
     @Autowired
     private PbApplyInfoService pbApplyInfoService;
-    @PostMapping("selectApplyInfo/{pageSize}/{currentPage}" )
+    @PostMapping("selectApplyInfo/{pageSize}/{currentPage}/{moneyStatus}" )
     /**
-     * 查询竞价厅 PaytheDeposit.jsp
+     * 查询缴纳保证金PaytheDeposit.jsp
      */
     @ApiOperation(value = "查询缴纳保证金",httpMethod = "POST")
-    public Map selectApplyInfo(@PathVariable Integer pageSize, @PathVariable Integer currentPage, @RequestBody PbItemObjectInfo itemObjectInfo){
+    public Map selectApplyInfo(@PathVariable Integer pageSize, @PathVariable Integer currentPage,@PathVariable Integer moneyStatus, @RequestBody PbItemObjectInfo itemObjectInfo){
         IPage<PbItemObjectInfo> pbItemInfoPage = new Page<>(currentPage,pageSize,true);
-        IPage<PbItemObjectInfo> pbItemInfos =  pbApplyInfoService.selectApplyInfo(pbItemInfoPage,itemObjectInfo.getItemName(),itemObjectInfo.getResourceType());
+        IPage<PbItemObjectInfo> pbItemInfos =  pbApplyInfoService.selectApplyInfo(pbItemInfoPage,moneyStatus,itemObjectInfo.getItemName(),itemObjectInfo.getResourceType());
         Map map = new HashMap();
         map.put("pages",pbItemInfos.getPages());
         map.put("data",pbItemInfos.getRecords());
@@ -47,15 +47,48 @@ public class PbApplyInfoController {
     }
     @PostMapping("selectPaytheDeposit/{applyId}" )
     /**
-     * 查询竞价厅 PaytheDeposit.jsp
+     * 查询投标缴纳保证金订单 PaytheDeposit.jsp
      */
-    @ApiOperation(value = "查询缴纳保证金信息",httpMethod = "POST")
+    @ApiOperation(value = "查询投标缴纳保证金订单",httpMethod = "POST")
     public Result selectPaytheDeposit(@PathVariable Integer applyId){
         if (applyId!=null){
             PbItemObjectInfo pbObjectInfo = pbApplyInfoService.selectPaytheDeposit(applyId);
             return new Result(true,200,"查询成功",pbObjectInfo);
         }
         return new Result(false,-1,"请求数据异常");
+    }
+    @GetMapping("updateApplyInfoMoney/{money}/{applyId}")
+    /**
+     * 修改缴纳保证金信息 PaytheDeposit.jsp
+     */
+    @ApiOperation(value = "修改缴纳保证金信息",httpMethod = "GET")
+    public Result updateApplyInfoMoney(@PathVariable Integer money,@PathVariable Integer applyId){
+        int i = pbApplyInfoService.updateApplyInfoMoney(money,applyId);
+        if (i==1){
+            return new Result(true,200,"缴纳成功");
+        }
+        return new Result(false,-1,"缴纳失败");
+    }
+    @GetMapping("selectObjectInfo/{itemId}")
+    /**
+     * 查询缴纳保证金的标的详细信息 PaytheDeposit.jsp
+     */
+    @ApiOperation(value = "查询缴纳保证金的标的详细信息",httpMethod = "GET")
+    public Result selectObjectInfo(@PathVariable Integer itemId){
+        PbItemObjectInfo info = pbApplyInfoService.selectObjectInfo(itemId);
+        return new Result(true,200,"查询成功",info);
+    }
+    @GetMapping("updateApplyInfoMoneyStatus/{applyId}/{moneyStatus}")
+    /**
+     * 申请缴退保证金 DepositRefund.jsp
+     */
+    @ApiOperation(value = "申请缴退保证金",httpMethod = "GET")
+    public Result updateApplyInfoMoneyStatus(@PathVariable Integer applyId,@PathVariable Integer moneyStatus){
+        int  i = pbApplyInfoService.updateApplyInfoMoneyStatus(applyId,moneyStatus);
+        if (i==1){
+            return new Result(true,200,"缴纳成功");
+        }
+        return new Result(false,-1,"缴纳失败");
     }
 
 }

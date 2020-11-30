@@ -23,12 +23,27 @@ public class PbApplyInfoServiceImpl extends ServiceImpl<PbApplyInfoMapper, PbApp
     @Autowired
     private PbApplyInfoMapper pbApplyInfoMapper;
     @Override
-    public IPage<PbItemObjectInfo> selectApplyInfo(IPage<PbItemObjectInfo> pbItemInfoPage, String itemName, Integer resourceType) {
-        return pbApplyInfoMapper.selectApplyInfo(pbItemInfoPage,itemName,resourceType);
+    public IPage<PbItemObjectInfo> selectApplyInfo(IPage<PbItemObjectInfo> pbItemInfoPage,Integer moneyStatus, String itemName, Integer resourceType) {
+        return pbApplyInfoMapper.selectApplyInfo(pbItemInfoPage,moneyStatus,itemName,resourceType);
     }
 
     @Override
     public PbItemObjectInfo selectPaytheDeposit(Integer applyId) {
         return pbApplyInfoMapper.selectPaytheDeposit(applyId);
+    }
+
+    @Override
+    public int updateApplyInfoMoney(Integer money, Integer applyId) {
+        return pbApplyInfoMapper.updateApplyInfoMoney(money,applyId);
+    }
+
+    @Override
+    public PbItemObjectInfo selectObjectInfo(Integer itemId) {
+        return pbApplyInfoMapper.selectObjectInfo(itemId);
+    }
+
+    @Override
+    public int updateApplyInfoMoneyStatus(Integer applyId, Integer moneyStatus) {
+        return pbApplyInfoMapper.updateApplyInfoMoneyStatus(applyId,moneyStatus);
     }
 }

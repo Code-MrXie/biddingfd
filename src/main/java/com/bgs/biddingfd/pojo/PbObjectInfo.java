@@ -131,10 +131,6 @@ public class PbObjectInfo implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Date pauseTime;
 
-    @ApiModelProperty(value = "保证金缴纳截止时间")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
-    private Date depositPayEndTime;
-
     @ApiModelProperty(value = "延时次数")
     private Integer delayTimes;
 

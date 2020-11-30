@@ -20,6 +20,11 @@ public class PbItemObjectInfo {
     private String tradWay;
     private Date bidStartTime;
     private Date bidEndTime;
+    private Date applyStartTime;
+    private Date depositTime;
+    private Date applyEndTime;
     private String bidderType;
     private String money;
+    private Integer moneyStatus;
+    private String bidName;
 }

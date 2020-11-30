@@ -168,7 +168,7 @@
                 this.count += 2
             },
             selectPbItemInfo() {
-                axios.post("/pb-item-info/selectPbItemInfo/"+this.pageSize+"/"+this.currentPage+"/",this.biddingForm).then(res=>{
+                axios.post("/pb-item-info/selectPbItemInfo/"+this.pageSize+"/"+this.currentPage,this.biddingForm).then(res=>{
                     this.tableData.data=res.data.data;
                     this.total=res.data.total;
                 }).catch((e)=>{

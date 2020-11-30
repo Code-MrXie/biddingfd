@@ -16,7 +16,13 @@ import com.bgs.biddingfd.pojo.PbObjectInfo;
  */
 public interface PbApplyInfoService extends IService<PbApplyInfo> {
 
-    IPage<PbItemObjectInfo> selectApplyInfo(IPage<PbItemObjectInfo> pbItemInfoPage, String itemName, Integer resourceType);
+    IPage<PbItemObjectInfo> selectApplyInfo(IPage<PbItemObjectInfo> pbItemInfoPage, Integer moneyStatus,String itemName, Integer resourceType);
 
     PbItemObjectInfo selectPaytheDeposit(Integer applyId);
+
+    int updateApplyInfoMoney(Integer money, Integer applyId);
+
+    PbItemObjectInfo selectObjectInfo(Integer itemId);
+
+    int updateApplyInfoMoneyStatus(Integer applyId, Integer moneyStatus);
 }
