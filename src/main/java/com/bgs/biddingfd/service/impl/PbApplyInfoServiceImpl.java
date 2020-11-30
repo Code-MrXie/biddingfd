@@ -46,4 +46,9 @@ public class PbApplyInfoServiceImpl extends ServiceImpl<PbApplyInfoMapper, PbApp
     public int updateApplyInfoMoneyStatus(Integer applyId, Integer moneyStatus) {
         return pbApplyInfoMapper.updateApplyInfoMoneyStatus(applyId,moneyStatus);
     }
+
+    @Override
+    public IPage<PbItemObjectInfo> selectApplyInfo23(IPage<PbItemObjectInfo> pbItemInfoPage, Integer moneyStatus, String itemName, Integer resourceType) {
+        return pbApplyInfoMapper.selectApplyInfo23(pbItemInfoPage,moneyStatus,itemName,resourceType);
+    }
 }

@@ -25,4 +25,6 @@ public interface PbApplyInfoService extends IService<PbApplyInfo> {
     PbItemObjectInfo selectObjectInfo(Integer itemId);
 
     int updateApplyInfoMoneyStatus(Integer applyId, Integer moneyStatus);
+
+    IPage<PbItemObjectInfo> selectApplyInfo23(IPage<PbItemObjectInfo> pbItemInfoPage, Integer moneyStatus, String itemName, Integer resourceType);
 }

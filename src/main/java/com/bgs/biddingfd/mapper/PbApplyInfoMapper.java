@@ -26,4 +26,6 @@ public interface PbApplyInfoMapper extends BaseMapper<PbApplyInfo> {
     PbItemObjectInfo selectObjectInfo(Integer itemId);
 
     int updateApplyInfoMoneyStatus(Integer applyId, Integer moneyStatus);
+
+    IPage<PbItemObjectInfo> selectApplyInfo23(@Param("page") IPage<PbItemObjectInfo> pbItemInfoPage,@Param("moneyStatus")Integer moneyStatus, @Param("itemName")String itemName,@Param("resourceType") Integer resourceType);
 }

@@ -81,4 +81,42 @@
     <update id="updateApplyInfoMoneyStatus">
          UPDATE pb_apply_info set money_status=#{moneyStatus}  where apply_id = #{applyId}
     </update>
+    <select id="selectApplyInfo23" resultType="com.bgs.biddingfd.pojo.PbItemObjectInfo">
+        SELECT
+        pai.apply_id,
+        poi.object_name,
+        pii.item_id,
+        pii.apply_start_time,
+        pai.bid_name,
+        pai.money_status,
+        pai.money,
+        pii.item_code,
+        pii.deposit_time,
+        pii.item_name,
+        pii.trad_way,
+        poi.object_name,
+        pii.resource_type,
+        poi.trad,
+        poi.bid_start_time,
+        poi.bid_end_time,
+        poi.bidder_type
+        FROM
+        pb_apply_info pai
+        LEFT JOIN pb_object_info poi ON poi.object_id = pai.object_id
+        LEFT JOIN pb_item_info pii ON pii.item_id = pai.item_id
+        <where>
+            <if test="itemName!=null and itemName!=''">
+                pii.item_name like concat('%',#{itemName},'%')
+            </if>
+            <if test="resourceType!=null and resourceType!=''">
+                and pii.resource_type=#{resourceType}
+            </if>
+            <if test="moneyStatus==2 and moneyStatus!=null">
+                and pai.money_status in (#{moneyStatus},3)
+            </if>
+             <if test="moneyStatus==1 and moneyStatus!=null || moneyStatus==0">
+                and pai.money_status=#{moneyStatus}
+            </if>
+        </where>
+    </select>
 </mapper>

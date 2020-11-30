@@ -8,17 +8,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>保证金退付管理</title>
+    <title>财务保证金退付管理</title>
 </head>
 <body>
 <div id="abc">
     <div>
         <el-tabs v-model="activeName" @tab-click="handleClick" type="border-card">
             <el-tab-pane label="待处理" name="first" class="tabPan">
-                <%@include file="view/reFundview.jsp"%>
+                <%@include file="view/FinanceReFundview.jsp"%>
             </el-tab-pane>
             <el-tab-pane label="已处理" name="second" class="tabPan">
-                <%@include file="view/reFundview.jsp"%>
+                <%@include file="view/FinanceReFundview.jsp"%>
             </el-tab-pane>
         </el-tabs>
     </div>
@@ -36,7 +36,7 @@
                 showtrue:false,
                 activeName: 'first',
                 count: 0,
-                moneyStatus:1,
+                moneyStatus:2,
                 tableData: {
                     data: [],
                 },
@@ -99,13 +99,13 @@
                 this.count += 2
             },
             selectPbItemInfo() {
-                axios.post("/pb-apply-info/selectApplyInfo23/"+this.pageSize+"/"+this.currentPage+"/"+this.moneyStatus,this.biddingForm).then(res=>{
+                axios.post("/pb-apply-info/selectApplyInfo/"+this.pageSize+"/"+this.currentPage+"/"+this.moneyStatus,this.biddingForm).then(res=>{
                     this.tableData.data=res.data.data;
                     this.total=res.data.total;
                 })
             },
             formatter(row, column) {
-                return row.resourceType === 1 ? '国有产权' : '拓展资源';
+                return row.resourceType === 1 ? '国有产权' : '拓展资源';;
             },
             formatterTrad(row, column) {
                 return row.trad === 1 ? '竞价' : '线下';
@@ -121,14 +121,14 @@
                     callback: action => {
                         if (action==='confirm'){
                             var applyId =row.applyId
-                            this.moneyStatus=2;
+                            this.moneyStatus=3;
                             axios.get("/pb-apply-info/updateApplyInfoMoneyStatus/"+applyId+"/"+this.moneyStatus).then(res=>{
                                 if (res.data.flag){
-                                    this.moneyStatus=1;
+                                    this.moneyStatus=2;
                                     this.selectPbItemInfo()
                                     this.$notify({
                                         title: '成功',
-                                        message: '等待审核',
+                                        message: '等待到账',
                                         type: 'success'
                                     });
                                 }else{
@@ -159,10 +159,10 @@
             },
             handleClick(tab, event) {
                 if(tab.name == 'second'){
-                    this.moneyStatus=2;
+                    this.moneyStatus=3;
                     this.selectPbItemInfo();
                 }else{
-                    this.moneyStatus=1;
+                    this.moneyStatus=2;
                     this.selectPbItemInfo()
                 }
             }

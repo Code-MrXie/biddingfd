@@ -45,6 +45,23 @@ public class PbApplyInfoController {
         map.put("msg","查询成功");
         return map;
     }
+    @PostMapping("selectApplyInfo23/{pageSize}/{currentPage}/{moneyStatus}" )
+    /**
+     * 查询缴纳保证金PaytheDeposit.jsp
+     */
+    @ApiOperation(value = "查询缴纳保证金",httpMethod = "POST")
+    public Map selectApplyInfo23(@PathVariable Integer pageSize, @PathVariable Integer currentPage,@PathVariable Integer moneyStatus, @RequestBody PbItemObjectInfo itemObjectInfo){
+        IPage<PbItemObjectInfo> pbItemInfoPage = new Page<>(currentPage,pageSize,true);
+        IPage<PbItemObjectInfo> pbItemInfos =  pbApplyInfoService.selectApplyInfo23(pbItemInfoPage,moneyStatus,itemObjectInfo.getItemName(),itemObjectInfo.getResourceType());
+        Map map = new HashMap();
+        map.put("pages",pbItemInfos.getPages());
+        map.put("data",pbItemInfos.getRecords());
+        map.put("size",pbItemInfos.getSize());
+        map.put("total",pbItemInfos.getTotal());
+        map.put("code",200);
+        map.put("msg","查询成功");
+        return map;
+    }
     @PostMapping("selectPaytheDeposit/{applyId}" )
     /**
      * 查询投标缴纳保证金订单 PaytheDeposit.jsp
