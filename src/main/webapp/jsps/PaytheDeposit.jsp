@@ -31,7 +31,7 @@
                 <el-row type="flex" class="row-bg">
                     <el-col>
                         <el-form-item label="投标单位" prop="itemName">
-                            <el-input type="text" class="inputText"
+                            <el-input type="text" class="inputText" v-model="PaytheDepositOrder.companyName"
                                        :disabled="true"></el-input>
                         </el-form-item>
                     </el-col>
@@ -39,7 +39,7 @@
                 <el-row>
                     <el-col>
                         <el-form-item label="标段名称" prop="resourceType">
-                            <el-input type="text" class="inputText"
+                            <el-input type="text" class="inputText" v-model="PaytheDepositOrder.objectName"
                                       :disabled="true"></el-input>
                         </el-form-item>
                     </el-col>
@@ -112,7 +112,9 @@
                 },
                 dialogVisible:false,
                 PaytheDepositOrder:{
-
+                    companyName:"",
+                    objectName:"",
+                    applyId:""
                 },
                 currentPage: 1,//默认显示第几页
                 total: 10,//总条数
@@ -187,7 +189,10 @@
                             });*/
                             applyId =row.applyId
                             axios.post("/pb-apply-info/selectPaytheDeposit/"+applyId).then(res=>{
-                                this.PaytheDepositOrder = res.data.data
+                                console.log(res.data.data)
+                                this.PaytheDepositOrder.companyName = res.data.data.companyName
+                                this.PaytheDepositOrder.objectName = res.data.data.objectName
+                                this.PaytheDepositOrder.applyId = res.data.data.applyId
                                 this.dialogVisible = true;
                             }).catch((e)=>{
                             })

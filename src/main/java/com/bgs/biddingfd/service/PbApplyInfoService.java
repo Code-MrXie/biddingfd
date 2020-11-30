@@ -18,5 +18,5 @@ public interface PbApplyInfoService extends IService<PbApplyInfo> {
 
     IPage<PbItemObjectInfo> selectApplyInfo(IPage<PbItemObjectInfo> pbItemInfoPage, String itemName, Integer resourceType);
 
-    PbObjectInfo selectPaytheDeposit(Integer applyId);
+    PbItemObjectInfo selectPaytheDeposit(Integer applyId);
 }

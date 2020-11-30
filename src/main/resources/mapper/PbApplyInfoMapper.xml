@@ -24,10 +24,9 @@
             </if>
         </where>
     </select>
-    <select id="selectPaytheDeposit" resultType="pbObjectInfo">
+    <select id="selectPaytheDeposit" resultType="pbItemObjectInfo">
             SELECT
                 pai.apply_id,
-                consignor.company_name,
                 poi.object_name,
                 consignor.company_name,
                 pii.item_id,

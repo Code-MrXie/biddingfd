@@ -28,7 +28,7 @@ public class PbApplyInfoServiceImpl extends ServiceImpl<PbApplyInfoMapper, PbApp
     }
 
     @Override
-    public PbObjectInfo selectPaytheDeposit(Integer applyId) {
+    public PbItemObjectInfo selectPaytheDeposit(Integer applyId) {
         return pbApplyInfoMapper.selectPaytheDeposit(applyId);
     }
 }

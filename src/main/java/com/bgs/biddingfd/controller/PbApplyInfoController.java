@@ -52,7 +52,7 @@ public class PbApplyInfoController {
     @ApiOperation(value = "查询缴纳保证金信息",httpMethod = "POST")
     public Result selectPaytheDeposit(@PathVariable Integer applyId){
         if (applyId!=null){
-            PbObjectInfo pbObjectInfo = pbApplyInfoService.selectPaytheDeposit(applyId);
+            PbItemObjectInfo pbObjectInfo = pbApplyInfoService.selectPaytheDeposit(applyId);
             return new Result(true,200,"查询成功",pbObjectInfo);
         }
         return new Result(false,-1,"请求数据异常");
