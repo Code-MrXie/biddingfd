@@ -20,7 +20,7 @@ public interface PbItemInfoMapper extends BaseMapper<PbItemInfo> {
 
     List<Map<String,Object>> electronicTable();
 
-    List<Map<String,Object>> likeElectronic(@Param("name") String name, @Param("code") String code);
+    List<Map<String,Object>> likeElectronic(@Param("itemName") String name, @Param("itemCode") String code);
 
     Boolean stopBid(@Param("id") Integer id);
 

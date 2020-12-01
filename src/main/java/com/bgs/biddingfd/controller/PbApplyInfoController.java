@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,5 +45,15 @@ public class PbApplyInfoController {
         map.put("msg","查询成功");
         return map;
     }
+
+
+    //applyTable
+    //查询竞买人
+    @RequestMapping("/applyTable/{itemId}")
+    public List<Map<String,Object>> applyTable(@PathVariable Integer itemId){
+        return pbApplyInfoService.applyTable(itemId);
+    }
+
+
 }
 

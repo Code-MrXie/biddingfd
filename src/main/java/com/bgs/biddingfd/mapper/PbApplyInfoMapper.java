@@ -6,6 +6,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bgs.biddingfd.pojo.PbItemObjectInfo;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  * 竞买人报名信息表	 Mapper 接口
@@ -17,4 +20,6 @@ import org.apache.ibatis.annotations.Param;
 public interface PbApplyInfoMapper extends BaseMapper<PbApplyInfo> {
 
     IPage<PbItemObjectInfo> selectApplyInfo(@Param("page") IPage<PbItemObjectInfo> pbItemInfoPage, @Param("itemName")String itemName,@Param("resourceType") Integer resourceType);
+
+    List<Map<String,Object>> applyTable(@Param("itemId") Integer itemId);
 }

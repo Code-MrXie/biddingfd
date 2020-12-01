@@ -2,4 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bgs.biddingfd.mapper.PbResultInfoMapper">
 
+    <select id="resultShow" resultType="Map">
+        SELECT p.item_name,p.item_code,p.object_name,p.resource_type,
+        p.start_price,p.reserve_price,p.close_price,prin.fee,
+        prin.seq_id,`user`.user_name
+         FROM pb_result_info prin
+        LEFT JOIN `user`
+        ON prin.enter_id=`user`.id
+        LEFT JOIN
+        (
+        SELECT poi.*,pii.item_code,pii.item_name,pii.resource_type FROM pb_object_info poi
+        LEFT JOIN pb_item_info pii
+        ON poi.item_id=pii.item_id
+        ) p
+        ON prin.object_id = p.object_id
+        WHERE prin.flow_id = #{flow}
+    </select>
+
+
+    <update id="subResult">
+        UPDATE pb_result_info SET flow_id = 3
+        WHERE seq_id = #{seqId}
+    </update>
 </mapper>

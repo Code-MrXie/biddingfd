@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Vue测试</title>
+    <title>资格审核</title>
 </head>
 <script src="${pageContext.request.contextPath }/static/vue/vue.js"></script>
 <!-- 引入样式 -->
@@ -27,32 +27,37 @@
                             label="项目编号">
                     </el-table-column>
                     <el-table-column
-                            prop="item_code"
+                            prop="item_name"
                             label="项目名称">
                     </el-table-column>
                     <el-table-column
-                            prop="item_code"
+                            prop="object_name"
                             label="标的名称">
                     </el-table-column>
                     <el-table-column
-                            prop="item_code"
                             label="资源类型">
+                        <template slot-scope="scope">
+                            <div v-if="scope.row.resource_type=='1'">国有产权</div>
+                            <div v-if="scope.row.resource_type=='2'">拓展资源</div>
+                        </template>
                     </el-table-column>
                     <el-table-column
-                            prop="item_code"
+                            prop="transferor"
                             label="出让方式">
                     </el-table-column>
                     <el-table-column
-                            prop="item_code"
+                            prop="bid_start_time"
                             label="竞价开始时间">
                     </el-table-column>
                     <el-table-column
-                            prop="item_code"
+                            prop="bid_delay_time"
                             label="竞价结束时间">
                     </el-table-column>
                     <el-table-column
-                            prop="item_code"
                             label="操作">
+                        <template slot-scope="scope">
+                            <el-button @click="applyTable(scope.row.item_id)" type="text" size="small">查看</el-button>
+                        </template>
                     </el-table-column>
                 </el-table>
             </el-tab-pane>
@@ -60,6 +65,48 @@
             </el-tab-pane>
         </el-tabs>
     </template>
+
+
+    <!-- 竞买人列表开始 -->
+    <el-dialog
+            title="竞买人列表"
+            :visible.sync="applyList"
+            width="70%">
+        <el-table
+                :data="applyTableData"
+                border>
+            <el-table-column
+                    prop="enter_org_code"
+                    label="组织机构代码/身份证号">
+            </el-table-column>
+            <el-table-column
+                    prop="company_name"
+                    label="企业名称/姓名">
+            </el-table-column>
+            <el-table-column
+                    prop="contacts_name"
+                    label="联系人">
+            </el-table-column>
+            <el-table-column
+                    prop="contacts_phone"
+                    label="联系电话">
+            </el-table-column>
+            <el-table-column
+                    prop="create_time"
+                    label="注册时间">
+            </el-table-column>
+            <el-table-column
+                    label="操作">
+                <template slot-scope="scope">
+                    <el-button @click="applyDetail" type="text" size="small">查看</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="applyList = false">取 消</el-button>
+        </span>
+    </el-dialog>
+    <!-- 竞买人列表结束 -->
 </div>
 </body>
 
@@ -72,7 +119,8 @@
             return {
                 activeName: 'first',
                 qualilficationTableData:[],
-
+                applyTableData:[],
+                applyList:false,
             }
         },
         //页面加载成功时完成
@@ -87,8 +135,24 @@
         },
         /*方法函数  事件等*/
         methods: {
+            applyTable(row){
+                var _this = this;
+                _this.applyList= true;
+                axios
+                    .post('/pb-apply-info/applyTable/'+row)
+                    .then(function (res) {
+                        console.log(res.data)
+                        _this.applyTableData = res.data;
+                    })
+            }
 
+        },
+        handleClose(){
 
+        },
+        applyDetail(){
+            //指定跳转地址
+            //this.$router.replace('/electronic.jsp')
         }
     });
 

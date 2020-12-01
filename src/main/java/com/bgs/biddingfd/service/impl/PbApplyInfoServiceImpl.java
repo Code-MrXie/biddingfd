@@ -9,6 +9,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  * 竞买人报名信息表	 服务实现类
@@ -24,5 +27,10 @@ public class PbApplyInfoServiceImpl extends ServiceImpl<PbApplyInfoMapper, PbApp
     @Override
     public IPage<PbItemObjectInfo> selectApplyInfo(IPage<PbItemObjectInfo> pbItemInfoPage, String itemName, Integer resourceType) {
         return pbApplyInfoMapper.selectApplyInfo(pbItemInfoPage,itemName,resourceType);
+    }
+
+    @Override
+    public List<Map<String,Object>> applyTable(Integer itemId) {
+        return pbApplyInfoMapper.applyTable(itemId);
     }
 }

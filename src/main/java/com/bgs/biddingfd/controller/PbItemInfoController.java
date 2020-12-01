@@ -3,10 +3,7 @@ package com.bgs.biddingfd.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.bgs.biddingfd.pojo.PbBiddingRules;
-import com.bgs.biddingfd.pojo.PbItemObjectInfo;
-import com.bgs.biddingfd.pojo.PbObjectInfo;
-import com.bgs.biddingfd.pojo.PbQuoteInfo;
+import com.bgs.biddingfd.pojo.*;
 import com.bgs.biddingfd.service.PbItemInfoService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -78,6 +75,8 @@ public class PbItemInfoController {
         return map;
 //        return new Result(true,200,"查询成功",pbQuoteInfos);
     }
+
+    //查询电子竞价规则
     @RequestMapping(value = "/electronicTable",method = RequestMethod.POST)
     public List<Map<String,Object>> electronicTable(){
 
@@ -86,10 +85,12 @@ public class PbItemInfoController {
     }
 
     @RequestMapping("/likeElectronic")
-    public List<Map<String,Object>> likeElectronic(@RequestBody Map<String,String> map){
-        String name = map.get("name");
-        String code = map.get("code");
-        List<Map<String,Object>> list = pbItemInfoService.likeElectronic(name,code);
+    public List<Map<String,Object>> likeElectronic(@RequestBody Map<String,String> itemForm){
+
+        System.out.println(itemForm.get("name"));
+        System.out.println(itemForm.get("code"));
+        List<Map<String,Object>> list = pbItemInfoService.likeElectronic(itemForm.get("name"),itemForm.get("code"));
+        //System.out.println(itemForm.getItemName()+"----------"+itemForm.getItemCode());
         return list;
     }
 
@@ -134,5 +135,8 @@ public class PbItemInfoController {
         System.out.println(signRule);
         return pbItemInfoService.subSetSignRule(signRule);
     }
+
+
+
 }
 

@@ -336,12 +336,11 @@
             //模糊查询
             likeItem() {
                 var _this = this;
-                var name = _this.itemForm.name;
-                var code = _this.itemForm.code;
+                console.log(_this.itemForm)
                 axios
                     .post('/pb-item-info/likeElectronic',{
-                        name:name,
-                        code:code
+                       name: _this.itemForm.name,
+                       code: _this.itemForm.code,
                     })
                     .then(function (res) {
                             _this.electronicTableData = res.data;

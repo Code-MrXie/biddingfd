@@ -2,6 +2,10 @@ package com.bgs.biddingfd.mapper;
 
 import com.bgs.biddingfd.pojo.PbResultInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -13,4 +17,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface PbResultInfoMapper extends BaseMapper<PbResultInfo> {
 
+    List<Map<String,Object>> resultShow(@Param("flow") Integer flow);
+
+    Boolean subResult(@Param("seqId") Integer seqId);
 }
