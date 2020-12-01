@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface PbObjectInfoService extends IService<PbObjectInfo> {
 
+    PbObjectInfo ShowObject(Integer objectId);
 }

@@ -6,6 +6,8 @@ import com.bgs.biddingfd.service.PbObjectInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * <p>
  * 标的信息表 服务实现类
@@ -16,5 +18,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class PbObjectInfoServiceImpl extends ServiceImpl<PbObjectInfoMapper, PbObjectInfo> implements PbObjectInfoService {
+    @Resource
+    private PbObjectInfoMapper pbObjectInfoMapper;
 
+    @Override
+    public PbObjectInfo ShowObject(Integer objectId) {
+        return pbObjectInfoMapper.ShowObject(objectId);
+    }
 }

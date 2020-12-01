@@ -30,7 +30,8 @@ public class PbItemInfo implements Serializable {
     @TableId(value = "seq_id", type = IdType.AUTO)
     private Integer seqId;
 
-
+    @ApiModelProperty(value = "itemId")
+    private Integer itemId;
 
     @ApiModelProperty(value = "项目交易申请id")
     private Integer applyId;

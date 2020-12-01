@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface PbObjectInfoMapper extends BaseMapper<PbObjectInfo> {
 
+    PbObjectInfo ShowObject(Integer objectId);
 }

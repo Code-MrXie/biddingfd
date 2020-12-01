@@ -39,4 +39,7 @@ public interface PbItemInfoMapper extends BaseMapper<PbItemInfo> {
 
     IPage<PbQuoteInfo> selectBiddingHall(@org.apache.ibatis.annotations.Param("page")IPage<PbQuoteInfo> pbItemInfoPage, @org.apache.ibatis.annotations.Param("itemId")Integer itemId);
 
+    List<PbItemInfo> findPbItemInfo(PbItemInfo pbItemInfo);
+
+    boolean deteleThis(Integer itemId);
 }

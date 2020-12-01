@@ -3,10 +3,8 @@ package com.bgs.biddingfd.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.bgs.biddingfd.pojo.PbBiddingRules;
-import com.bgs.biddingfd.pojo.PbItemObjectInfo;
-import com.bgs.biddingfd.pojo.PbObjectInfo;
-import com.bgs.biddingfd.pojo.PbQuoteInfo;
+import com.bgs.biddingfd.config.Result;
+import com.bgs.biddingfd.pojo.*;
 import com.bgs.biddingfd.service.PbItemInfoService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -134,5 +132,23 @@ public class PbItemInfoController {
         System.out.println(signRule);
         return pbItemInfoService.subSetSignRule(signRule);
     }
+
+    //成交结果录入办理--展示--index-jt
+    @RequestMapping("/findPbItemInfo")
+    @ResponseBody
+    public List<PbItemInfo> findPbItemInfo(PbItemInfo pbItemInfo){
+        List<PbItemInfo> list=pbItemInfoService.findPbItemInfo(pbItemInfo);
+        return list;
+    }
+
+    //成交结果录入办理--删除--index-jt
+    @RequestMapping("/deteleThis")
+    @ResponseBody
+    public Boolean deteleThis(Integer itemId){
+        boolean b=pbItemInfoService.deteleThis(itemId);
+        return b;
+    }
+
+
 }
 

@@ -87,4 +87,14 @@ public class PbItemInfoServiceImpl extends ServiceImpl<PbItemInfoMapper, PbItemI
     public IPage<PbQuoteInfo> selectBiddingHall(IPage<PbQuoteInfo> pbItemInfoPage, Integer itemId) {
         return pbItemInfoMapper.selectBiddingHall(pbItemInfoPage,itemId);
     }
+
+    @Override
+    public List<PbItemInfo> findPbItemInfo(PbItemInfo pbItemInfo) {
+        return pbItemInfoMapper.findPbItemInfo(pbItemInfo);
+    }
+
+    @Override
+    public boolean deteleThis(Integer itemId) {
+        return pbItemInfoMapper.deteleThis(itemId);
+    }
 }

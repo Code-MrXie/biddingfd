@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bgs.biddingfd.mapper.PbItemInfoMapper">
+
+    <!--List<PbItemInfo> findPbItemInfo(PbItemInfo pbItemInfo);-->
+    <select id="findPbItemInfo" resultType="com.bgs.biddingfd.pojo.PbItemInfo">
+        SELECT
+        *
+        FROM
+        pb_item_info
+        <where>
+            phase=#{phase}
+            <trim prefix="and"><!--prefix：前缀;prefixOverrides：去掉前缀;suffix：后缀;suffixOverrides：去掉后缀-->
+                <if test="itemName!=null and itemName!=''">
+                     item_name like concat('%', #{itemName} ,'%')
+                </if>
+                <if test="itemCode!=null and itemCode!=''">
+                     item_code =#{itemCode}
+                </if>
+            </trim>
+        </where>
+    </select>
+
+    <!--boolean deteleThis(Integer itemId);-->
+    <delete id="deteleThis">
+        delete from pb_item_info where item_id=#{itemId}
+    </delete>
+
     <select id="selectPbItemInfo" resultType="com.bgs.biddingfd.pojo.PbItemObjectInfo">
         select
         pii.item_id,
