@@ -33,28 +33,25 @@
             highlight-current-row
             border
             :data="tableData.data"
-            style="width: 90%;height: 75vh;">
+            style="width: 100%;height: 78vh;">
         <el-table-column align="left" prop="itemCode" label="项目编号" show-overflow-tooltip></el-table-column>
-        <el-table-column align="left" prop="itemName" label="项目名称" width="200px" show-overflow-tooltip></el-table-column>
+        <el-table-column align="left" prop="itemName" label="项目名称" width="180px" show-overflow-tooltip></el-table-column>
         <el-table-column align="left" prop="objectName" label="标的名称" show-overflow-tooltip></el-table-column>
+        <el-table-column align="left" prop="bidName" label="竞买人"  show-overflow-tooltip></el-table-column>
         <el-table-column align="left" prop="trad" label="出让方式" :formatter="formatterTrad" show-overflow-tooltip></el-table-column>
         <el-table-column align="left" prop="resourceType"  label="资源类型" :formatter="formatter" show-overflow-tooltip></el-table-column>
+        <el-table-column align="left" prop="applyStartTime" label="报名开始时间" width="200px" show-overflow-tooltip></el-table-column>
+        <el-table-column align="left" prop="depositTime" label="保证金缴纳截止时间" width="200px" show-overflow-tooltip></el-table-column>
         <el-table-column align="left" prop="bidStartTime" label="竞价开始时间" width="200px" show-overflow-tooltip></el-table-column>
-        <el-table-column align="left" prop="money" label="缴纳金额(元)"  show-overflow-tooltip></el-table-column>
         <el-table-column  label="操作" width="150px">
             <template slot-scope="scope">
-                <el-button v-if="typeof scope.row.money ==='undefined' || scope.row.money ==='' || scope.row.money ===null "
-                           @click.native.prevent="PayTheDeposit(scope.row,scope.$index)"
+                <el-button v-if="scope.row.moneyStatus == 2"
+                           @click.native.prevent="returnPayTheDeposit(scope.row,scope.$index)"
                            type="text"
                            size="mini">
-                    缴纳
+                    退保证金
                 </el-button>
-                <el-button v-else
-                           type="text"
-                           size="mini">
-                   已缴纳
-                </el-button>
-                <el-button
+                <el-button  v-if="scope.row.moneyStatus == 3"
                         @click.native.prevent="TerminationUpstream(scope.row,scope.$index)"
                         type="text"
                         size="mini">

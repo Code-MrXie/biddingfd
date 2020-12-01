@@ -3,6 +3,8 @@ package com.bgs.biddingfd.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.bgs.biddingfd.config.Result;
+import com.bgs.biddingfd.pojo.*;
 import com.bgs.biddingfd.pojo.*;
 import com.bgs.biddingfd.service.PbItemInfoService;
 import io.swagger.annotations.ApiOperation;
@@ -85,12 +87,10 @@ public class PbItemInfoController {
     }
 
     @RequestMapping("/likeElectronic")
-    public List<Map<String,Object>> likeElectronic(@RequestBody Map<String,String> itemForm){
-
-        System.out.println(itemForm.get("name"));
-        System.out.println(itemForm.get("code"));
-        List<Map<String,Object>> list = pbItemInfoService.likeElectronic(itemForm.get("name"),itemForm.get("code"));
-        //System.out.println(itemForm.getItemName()+"----------"+itemForm.getItemCode());
+    public List<Map<String,Object>> likeElectronic(@RequestBody Map<String,String> map){
+        String name = map.get("name");
+        String code = map.get("code");
+        List<Map<String,Object>> list = pbItemInfoService.likeElectronic(name,code);
         return list;
     }
 
@@ -136,6 +136,21 @@ public class PbItemInfoController {
         return pbItemInfoService.subSetSignRule(signRule);
     }
 
+    //成交结果录入办理--展示--index-jt
+    @RequestMapping("/findPbItemInfo")
+    @ResponseBody
+    public List<PbItemInfo> findPbItemInfo(PbItemInfo pbItemInfo){
+        List<PbItemInfo> list=pbItemInfoService.findPbItemInfo(pbItemInfo);
+        return list;
+    }
+
+    //成交结果录入办理--删除--index-jt
+    @RequestMapping("/deteleThis")
+    @ResponseBody
+    public Boolean deteleThis(Integer itemId){
+        boolean b=pbItemInfoService.deteleThis(itemId);
+        return b;
+    }
 
 
 }

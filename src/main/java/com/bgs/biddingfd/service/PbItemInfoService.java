@@ -39,4 +39,7 @@ public interface PbItemInfoService extends IService<PbItemInfo> {
 
     IPage<PbQuoteInfo> selectBiddingHall(IPage<PbQuoteInfo> pbItemInfoPage, Integer itemId);
 
+    List<PbItemInfo> findPbItemInfo(PbItemInfo pbItemInfo);
+
+    boolean deteleThis(Integer itemId);
 }

@@ -59,15 +59,15 @@ public class PbObjectInfo implements Serializable {
     private Integer priorityCount;
 
     @ApiModelProperty(value = "竞价延时时间")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private Date bidDelayTime;
 
     @ApiModelProperty(value = "竞价开始时间")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private Date bidStartTime;
 
     @ApiModelProperty(value = "竞价结束时间")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private Date bidEndTime;
 
     @ApiModelProperty(value = "优先权竞买人类别")
@@ -128,11 +128,11 @@ public class PbObjectInfo implements Serializable {
     private String isPause;
 
     @ApiModelProperty(value = "中止时间")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private Date pauseTime;
 
     @ApiModelProperty(value = "保证金缴纳截止时间")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private Date depositPayEndTime;
 
     @ApiModelProperty(value = "延时次数")
@@ -154,11 +154,11 @@ public class PbObjectInfo implements Serializable {
     private String remark;
 
     @ApiModelProperty(value = "创建时间")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     @ApiModelProperty(value = "更新时间")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     @ApiModelProperty(value = "是否删除")

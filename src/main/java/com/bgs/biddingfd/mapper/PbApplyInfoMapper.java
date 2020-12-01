@@ -21,5 +21,16 @@ public interface PbApplyInfoMapper extends BaseMapper<PbApplyInfo> {
 
     IPage<PbItemObjectInfo> selectApplyInfo(@Param("page") IPage<PbItemObjectInfo> pbItemInfoPage, @Param("itemName")String itemName,@Param("resourceType") Integer resourceType);
 
+    PbItemObjectInfo selectPaytheDeposit(Integer applyId);
+
+    int updateApplyInfoMoney(@Param("money")Integer money,@Param("applyId") Integer applyId);
+
+    PbItemObjectInfo selectObjectInfo(Integer itemId);
+
+    int updateApplyInfoMoneyStatus(Integer applyId, Integer moneyStatus);
+
+    IPage<PbItemObjectInfo> selectApplyInfo23(@Param("page") IPage<PbItemObjectInfo> pbItemInfoPage,@Param("moneyStatus")Integer moneyStatus, @Param("itemName")String itemName,@Param("resourceType") Integer resourceType);
+
     List<Map<String,Object>> applyTable(@Param("itemId") Integer itemId);
+
 }

@@ -9,16 +9,9 @@
 <html>
 <head>
     <title>成交结果录入办理</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- 引入样式 -->
     <link rel="stylesheet" href="${pageContext.request.contextPath }/static/element/index.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/static/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/static/bootstrap/css/bootstrap-tab.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/static/bootstrap/table/bootstrap-table.css">
-
-    <script src="${pageContext.request.contextPath }/static/js/jquery-3.3.1.min.js"></script>
-    <script src="${pageContext.request.contextPath }/static/bootstrap/js/bootstrap-table-zh-CN.min.js"></script>
-    <script src="${pageContext.request.contextPath }/static/bootstrap/js/bootstrap-tab.js"></script>
-    <script src="${pageContext.request.contextPath }/static/bootstrap/table/bootstrap-table.js"></script>
     <script src="${pageContext.request.contextPath }/static/vue/vue.js"></script>
     <!-- 引入组件库 -->
     <script src="${pageContext.request.contextPath }/static/element/index.js"></script>
@@ -31,122 +24,126 @@
     .tab li { border:1px solid #ccc; background:#eee; cursor:pointer; display:block; float:left; text-align:center; text-decoration:none; width:68px; font-size:12px; height:21px; line-height:21px; margin:0 2px; position:relative; top:1px; z-index:9; }
     .tab li:hover { text-decoration:underline; }
     .tab li.curr { background:#fff; border-bottom-color:#fff; cursor:default; font-weight:bold; }
-    .cc { border:1px solid #ccc; padding:100px; width:1200px;}
+    .cc { border:1px solid #ccc; padding:100px; width:1300px;}
 </style>
 
 <body>
-<div id="divUserInfo">
+<div id="fuDiv">
     <div class="tab">
         <ul>
-            <li id="a1" onclick="setTab('a',1,3)" class="curr">tab_01</li>
-            <li id="a2" onclick="setTab('a',2,3)">tab_02</li>
-            <li id="a3" onclick="setTab('a',3,3)">tab_03</li>
+            <li id="a1" @click="setTab('a',1)" class="curr">未办理</li>
+            <li id="a2" @click="setTab('a',2)">办理中</li>
+            <li id="a3" @click="setTab('a',3)">已办理</li>
         </ul>
     </div>
+
     <div id="con_a_1" class="cc">
         <div style="width: 600px;height: 50px">
             项目名称：<input v-model="itemName">
             项目编号：<input v-model="itemCode">
             <input type="button" value="查询" @click="submit">
         </div>
-        <div>
-            <table id="testTable"></table>
-        </div>
-    </div>
-    <div id="con_a_2" class="cc" style="display:none;">
-        22<br />222<br />222<br />222
-    </div>
-    <div id="con_a_3" class="cc" style="display:none;">
-        33<br />333<br />333<br />333
+        <el-table
+                highlight-current-row
+                border
+                :data="pbItemInfoList"
+                style="width: 90%;height: 75vh;">
+            <el-table-column prop="itemId" type="index"></el-table-column>
+            <el-table-column align="left" prop="itemId" label="项目id" show-overflow-tooltip v-if="show"></el-table-column>
+            <el-table-column align="left" prop="itemCode" label="项目编号" show-overflow-tooltip></el-table-column>
+            <el-table-column align="left" prop="itemName" label="项目名称" show-overflow-tooltip></el-table-column>
+            <el-table-column align="left" prop="resourceType" label="资源类型" show-overflow-tooltip></el-table-column>
+            <el-table-column align="left" prop="tradWay" label="出让方式" show-overflow-tooltip></el-table-column>
+            <el-table-column align="left" prop="applyStartTime" label="报名开始时间" show-overflow-tooltip></el-table-column>
+            <el-table-column align="left" prop="applyEndTime" label="报名结束时间" show-overflow-tooltip></el-table-column>
+            <el-table-column align="left" prop="applyNotice" label="办理事项" show-overflow-tooltip></el-table-column>
+            <el-table-column align="left" prop="otherDeal" label="状态与流程图" show-overflow-tooltip></el-table-column>
+            <el-table-column label="操作">
+                <template slot-scope="scope">
+                    <el-button @click="deleteThis(scope.row.itemId)" type="text" size="small">删除</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
     </div>
 </div>
 </body>
-<script type="text/javascript">
-    $(function () {
-        $("#testTable").bootstrapTable({
-            url : "${pageContext.request.contextPath}/pb-item-info/testTable",
-            method : 'post',// 提交方式
-            contentType : "application/x-www-form-urlencoded; charset=UTF-8",// 发送到服务器的编码类型
-            pageNumber : 1,
-            pageSize : 7,
-            //search: true,//开启table自带的查询
-            sortName : 'id',
-            sortOrder : 'asc',
-            height: $(window).height()/2,
-            pagination : true,// 开启分页
-            sidePagination : "client",// 分页方式 'client'为客户端分页
-            cache : false,// 是否使用缓存
-            columns : [
-                {
-                    field : 'itemCode',
-                    title : '项目编号',
-                },
-                {
-                    field : 'itemName',
-                    title : '项目名称',
-                },
-                {
-                    field : 'resourceType',
-                    title : '资源类型'
-                },
-                {
-                    field : 'tradWay',
-                    title : '出让方式'
-                },
-                {
-                    field : 'applyStartTime',
-                    title : '报名开始时间'
-                },
-                {
-                    field : 'applyEndTime',
-                    title : '报名结束时间'
-                },
-                {
-                    field : 'otherDeal',
-                    title : '办理事项'
-                },
-                {
-                    field : '',
-                    title : '状态与流程图'
-                },
-                {
-                    title : '操作'
-                }
-            ]
-        });
-    })
-    function setTab(name,cursel,n){
-        for(i=1;i<=n;i++){
-            var menu=document.getElementById(name+i);
-            var con=document.getElementById("con_"+name+"_"+i);
-            menu.className=i==cursel?"curr":"";
-            con.style.display=i==cursel?"block":"none";
-        }
-    }
-    var vm = new Vue({
-        el : "#divUserInfo",
-        data () {
-            return {
+<script>
+    new Vue({
+        el: '#fuDiv',
+        /*变量*/
+        data(){
+            return{
+                show:false,
+                pbItemInfoList:[],
                 itemName: "",
-                itemCode : ""
+                itemCode : "",
+                phase:""
             }
         },
-        methods:{
+        //页面加载之前调用
+        created(){
+            this.onlardTest()
+        },
+        //页面加载成功时完成
+        mounted: function(){
+        },
+        /*方法函数  事件等*/
+        methods: {
+            showAll:function(phase){
+                var pbItemInfo = new URLSearchParams();
+                pbItemInfo.append('phase',phase);
+                axios.post('/pb-item-info/findPbItemInfo',pbItemInfo).then(res=>{
+                    this.pbItemInfoList = (res.data)
+                })
+            },
+            onlardTest:function(){
+                this.phase = 1
+                this.showAll(this.phase)
+            },
+            setTab : function (name,cursel){
+                for(i=1;i<=3;i++){
+                    var menu=document.getElementById(name+i);
+                    var con=document.getElementById("con_"+name+"_"+i);
+                    menu.className=i==cursel?"curr":"";
+                }
+                this.phase = cursel
+                this.showAll(cursel)
+            },
             submit : function () {
                 var itemName=this.itemName;
                 var itemCode=this.itemCode;
-                $.ajax({
-                    type:"post",
-                    url:"${pageContext.request.contextPath}/pb-item-info/testTable",
-                    data:{
-                        itemName:itemName,itemCode:itemCode
-                    },
-                    dataType:"json",
-                    success:function(data){
-                        $("#testTable").bootstrapTable('load',data);
-                    }
-                });
-            }
+                var phase=this.phase;
+                var pbItemInfo = new URLSearchParams();
+                pbItemInfo.append('itemName',itemName);
+                pbItemInfo.append('itemCode',itemCode);
+                pbItemInfo.append('phase',phase);
+                axios.post('/pb-item-info/findPbItemInfo',pbItemInfo).then(res=>{
+                    this.pbItemInfoList = (res.data);
+                })
+            },
+            TerminationUpstream : function () {
+                var seqId=this.pbItemInfoList.itemCode
+                console.log(seqId)
+            },
+            deleteThis(row){
+                var pbItemInfo = new URLSearchParams();
+                pbItemInfo.append('itemId',row);
+                this.$confirm('确定要删除?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    axios.post('/pb-item-info/deteleThis/',pbItemInfo).then(function (res){
+                        if (res.data){
+                            alert("删除成功")
+                            location.reload();
+                        } else {
+                            alert("删除失败")
+                            location.reload();
+                        }
+                    });
+                })
+            },
         }
     });
 </script>

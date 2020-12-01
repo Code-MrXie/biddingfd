@@ -1,9 +1,14 @@
 package com.bgs.biddingfd.controller;
 
 
+import com.bgs.biddingfd.pojo.PbObjectInfo;
+import com.bgs.biddingfd.service.PbObjectInfoService;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -16,6 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/pb-object-info")
 public class PbObjectInfoController {
+    @Resource
+    private PbObjectInfoService pbObjectInfoService;
 
+    @RequestMapping("ShowObject")
+    @ResponseBody
+    public PbObjectInfo ShowObject(Integer objectId){
+        PbObjectInfo pbObjectInfo=pbObjectInfoService.ShowObject(objectId);
+        return pbObjectInfo;
+    }
 }
 

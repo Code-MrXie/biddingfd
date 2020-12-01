@@ -60,7 +60,7 @@ public class User implements Serializable {
     private String corName;
 
     @ApiModelProperty(value = "法人身份证")
-    private Integer corNum;
+    private String corNum;
 
 
 }
