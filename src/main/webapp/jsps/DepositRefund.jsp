@@ -36,7 +36,7 @@
                 showtrue:false,
                 activeName: 'first',
                 count: 0,
-                moneyStatus:1,
+                depositBack:0,
                 tableData: {
                     data: [],
                 },
@@ -99,7 +99,7 @@
                 this.count += 2
             },
             selectPbItemInfo() {
-                axios.post("/pb-apply-info/selectApplyInfo23/"+this.pageSize+"/"+this.currentPage+"/"+this.moneyStatus,this.biddingForm).then(res=>{
+                axios.post("/pb-apply-info/selectApplyDetailInfo/"+this.pageSize+"/"+this.currentPage+"/"+this.depositBack,this.biddingForm).then(res=>{
                     this.tableData.data=res.data.data;
                     this.total=res.data.total;
                 })
@@ -121,10 +121,10 @@
                     callback: action => {
                         if (action==='confirm'){
                             var applyId =row.applyId
-                            this.moneyStatus=2;
-                            axios.get("/pb-apply-info/updateApplyInfoMoneyStatus/"+applyId+"/"+this.moneyStatus).then(res=>{
+                            this.depositBack=1;
+                            axios.get("/pb-apply-info/updateApplyInfoMoneyStatus/"+applyId+"/"+this.depositBack).then(res=>{
                                 if (res.data.flag){
-                                    this.moneyStatus=1;
+                                    this.depositBack=0;
                                     this.selectPbItemInfo()
                                     this.$notify({
                                         title: '成功',
@@ -159,10 +159,10 @@
             },
             handleClick(tab, event) {
                 if(tab.name == 'second'){
-                    this.moneyStatus=2;
+                    this.depositBack=1;
                     this.selectPbItemInfo();
                 }else{
-                    this.moneyStatus=1;
+                    this.depositBack=0;
                     this.selectPbItemInfo()
                 }
             }

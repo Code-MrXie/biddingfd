@@ -19,7 +19,6 @@ import java.util.Map;
  */
 public interface PbApplyInfoService extends IService<PbApplyInfo> {
 
-    IPage<PbItemObjectInfo> selectApplyInfo(IPage<PbItemObjectInfo> pbItemInfoPage, String itemName, Integer resourceType);
 
     PbItemObjectInfo selectPaytheDeposit(Integer applyId);
 
@@ -27,10 +26,20 @@ public interface PbApplyInfoService extends IService<PbApplyInfo> {
 
     PbItemObjectInfo selectObjectInfo(Integer itemId);
 
-    int updateApplyInfoMoneyStatus(Integer applyId, Integer moneyStatus);
+    int updateApplyInfoMoneyStatus(Integer applyId, Integer depositBack);
 
-    IPage<PbItemObjectInfo> selectApplyInfo23(IPage<PbItemObjectInfo> pbItemInfoPage, Integer moneyStatus, String itemName, Integer resourceType);
+    IPage<PbItemObjectInfo> selectNormalMargin(IPage<PbItemObjectInfo> pbItemInfoPage, Integer moneyStatus, String itemName, Integer isReturn);
+
+    IPage<PbItemObjectInfo> selectAbNormalMargin(IPage<PbItemObjectInfo> pbItemInfoPage, Integer moneyStatus, String itemName, Integer moneyStatus1);
+
+    IPage<PbItemObjectInfo> selectApplyDetailInfo(IPage<PbItemObjectInfo> pbItemInfoPage, Integer depositBack, String itemName, Integer resourceType);
+
+    IPage<PbItemObjectInfo> caiwuselectApplyDetailInfo(IPage<PbItemObjectInfo> pbItemInfoPage, Integer isReturn, String itemName, Integer resourceType);
+
+    int updateApplyInfoIsReturnStatus(Integer applyId, Integer isReturn);
 
 
     List<Map<String,Object>> applyTable(Integer itemId);
+
+    IPage<PbItemObjectInfo> selectApplyInfo(IPage<PbItemObjectInfo> pbItemInfoPage, Integer moneyStatus, String itemName, Integer resourceType);
 }

@@ -46,13 +46,32 @@ public class PbApplyInfoServiceImpl extends ServiceImpl<PbApplyInfoMapper, PbApp
     }
 
     @Override
-    public int updateApplyInfoMoneyStatus(Integer applyId, Integer moneyStatus) {
-        return pbApplyInfoMapper.updateApplyInfoMoneyStatus(applyId,moneyStatus);
+    public int updateApplyInfoMoneyStatus(Integer applyId, Integer depositBack) {
+        return pbApplyInfoMapper.updateApplyInfoMoneyStatus(applyId,depositBack);
     }
 
     @Override
-    public IPage<PbItemObjectInfo> selectApplyInfo23(IPage<PbItemObjectInfo> pbItemInfoPage, Integer moneyStatus, String itemName, Integer resourceType) {
-        return pbApplyInfoMapper.selectApplyInfo23(pbItemInfoPage,moneyStatus,itemName,resourceType);
+    public IPage<PbItemObjectInfo> selectNormalMargin(IPage<PbItemObjectInfo> pbItemInfoPage, Integer moneyStatus, String itemName, Integer isReturn) {
+        return pbApplyInfoMapper.selectNormalMargin(pbItemInfoPage,moneyStatus,itemName,isReturn);
+    }
+    @Override
+    public IPage<PbItemObjectInfo> selectAbNormalMargin(IPage<PbItemObjectInfo> pbItemInfoPage, Integer moneyStatus, String itemName, Integer moneyStatus1) {
+        return pbApplyInfoMapper.selectAbNormalMargin(pbItemInfoPage,moneyStatus,itemName,moneyStatus1);
+    }
+
+    @Override
+    public IPage<PbItemObjectInfo> selectApplyDetailInfo(IPage<PbItemObjectInfo> pbItemInfoPage, Integer depositBack, String itemName, Integer resourceType) {
+        return pbApplyInfoMapper.selectApplyDetailInfo(pbItemInfoPage,depositBack,itemName,resourceType);
+    }
+
+    @Override
+    public IPage<PbItemObjectInfo> caiwuselectApplyDetailInfo(IPage<PbItemObjectInfo> pbItemInfoPage, Integer isReturn, String itemName, Integer resourceType) {
+        return pbApplyInfoMapper.caiwuselectApplyDetailInfo(pbItemInfoPage,isReturn,itemName,resourceType);
+    }
+
+    @Override
+    public int updateApplyInfoIsReturnStatus(Integer applyId, Integer isReturn) {
+        return pbApplyInfoMapper.updateApplyInfoIsReturnStatus(applyId,isReturn);
     }
 
     @Override

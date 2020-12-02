@@ -62,7 +62,7 @@
                 </el-row>
                 <el-row>
                     <el-col>
-                        <el-form-item label="收款账号" prop="money">
+                        <el-form-item label="收款账号">
                             <el-input type="text" class="inputText"
                                       :disabled="true"></el-input>
                         </el-form-item>
@@ -70,14 +70,14 @@
                 </el-row>
                 <el-row>
                     <el-col :span="7">
-                        <el-form-item label="应付金额" prop="resourceType">
-                            <el-input type="text" placeholder="80000元"
+                        <el-form-item label="应付金额" >
+                            <el-input type="text" v-model="PaytheDepositOrder.money"
                                       :disabled="true"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
-                        <el-form-item label="大写金额" prop="resourceType">
-                            <el-input type="text" placeholder="捌万元整"
+                        <el-form-item label="大写金额">
+                            <el-input type="text" v-model="PaytheDepositOrder.capital"
                                       :disabled="true"/>
                         </el-form-item>
                     </el-col>
@@ -199,7 +199,6 @@
                 moneyStatus:0,
                 tableData: {
                     data: [],
-                    data: []
                 },
                 BiddingHall:{
                     data:[]
@@ -210,7 +209,8 @@
                     companyName:"",
                     objectName:"",
                     applyId:"",
-                    money:""
+                    money:"",
+                    capital:""
                 },
                 ObjectPbApplyInfo:{
                     itemName:"",
@@ -235,9 +235,6 @@
                 rules: {
                     itemName: [
                         { required: true, message: '请输入项目名称', trigger: 'blur' }
-                    ],
-                    resourceType: [
-                        { min: 6, max: 16, message: '6-16位字母、数字和符号', trigger: 'blur' }
                     ]
                 },
                 options: [{
@@ -313,7 +310,8 @@
                                 this.PaytheDepositOrder.companyName = res.data.data.companyName
                                 this.PaytheDepositOrder.objectName = res.data.data.objectName
                                 this.PaytheDepositOrder.applyId = res.data.data.applyId
-                                this.PaytheDepositOrder.money = 80000
+                                this.PaytheDepositOrder.money = res.data.data.money
+                                this.PaytheDepositOrder.capital = this.number_chinese(res.data.data.money)
                                 this.dialogVisible = true;
                             })
                         }
@@ -335,6 +333,22 @@
             handleCurrentChange(){
             },
             handleSizeChange(){
+            },
+            number_chinese(str) {
+                var num = parseFloat(str);
+                var strOutput = "",
+                    strUnit = '仟佰拾亿仟佰拾万仟佰拾元角分';
+                num += "00";
+                var intPos = num.indexOf('.');
+                if (intPos >= 0){
+                    num = num.substring(0, intPos) + num.substr(intPos + 1, 2);
+                }
+                strUnit = strUnit.substr(strUnit.length - num.length);
+                for (var i=0; i < num.length; i++){
+                    strOutput += '零壹贰叁肆伍陆柒捌玖'.substr(num.substr(i,1),1) + strUnit.substr(i,1);
+                }
+                return strOutput.replace(/零角零分$/, '整').replace(/零[仟佰拾]/g, '零').replace(/零{2,}/g, '零').replace(/零([亿|万])/g, '$1').replace(/零+元/, '元').replace(/亿零{0,3}万/, '亿').replace(/^元/, "零元")
+
             },
             handleClick(tab, event) {
                 if(tab.name == 'second'){

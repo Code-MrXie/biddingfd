@@ -45,13 +45,13 @@
         <el-table-column align="left" prop="bidStartTime" label="竞价开始时间" width="200px" show-overflow-tooltip></el-table-column>
         <el-table-column  label="操作" width="150px">
             <template slot-scope="scope">
-                <el-button v-if="scope.row.moneyStatus == 2"
+                <el-button v-if="scope.row.isReturn == 0"
                            @click.native.prevent="returnPayTheDeposit(scope.row,scope.$index)"
                            type="text"
                            size="mini">
                     退保证金
                 </el-button>
-                <el-button  v-if="scope.row.moneyStatus == 3"
+                <el-button  v-if="scope.row.isReturn == 1"
                         @click.native.prevent="TerminationUpstream(scope.row,scope.$index)"
                         type="text"
                         size="mini">
