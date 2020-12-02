@@ -1,10 +1,11 @@
 package com.bgs.biddingfd.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.bgs.biddingfd.pojo.*;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.bgs.biddingfd.pojo.PbItemInfo;
-import com.bgs.biddingfd.pojo.PbItemObjectInfo;
-import com.bgs.biddingfd.pojo.PbQuoteInfo;
+
+import java.util.List;
+import java.util.Map;
 
 import java.util.List;
 
@@ -17,10 +18,28 @@ import java.util.List;
  * @since 2020-11-25
  */
 public interface PbItemInfoService extends IService<PbItemInfo> {
+
+    List<Map<String,Object>> electronicTable();
+
+    List<Map<String,Object>> likeElectronic(String name, String code);
+
+    Boolean stopBid(Integer id);
+
+    Boolean subBidRule(Integer id, PbBiddingRules setBidRuleee);
+
+    List<PbObjectInfo> signInfo(Integer id);
+
+    PbObjectInfo signRuleInfo(Integer code);
+
+    Boolean subSetSignRule(PbObjectInfo signRule);
+
+    PbBiddingRules bidRuleDetail(Integer itemId);
+
     IPage<PbItemObjectInfo> selectPbItemInfo(IPage<PbItemObjectInfo> pbItemInfoPage, String itemName, Integer resourceType);
 
-    List<PbItemInfo> findPbItemInfo(PbItemInfo pbItemInfo);
     IPage<PbQuoteInfo> selectBiddingHall(IPage<PbQuoteInfo> pbItemInfoPage, Integer itemId);
 
-//    PageInfo<PbItemInfo> selectPbItemInfo(Integer pageSize, Integer currentPage, String itemName, Integer resourceType);
+    List<PbItemInfo> findPbItemInfo(PbItemInfo pbItemInfo);
+
+    boolean deteleThis(Integer itemId);
 }

@@ -134,11 +134,11 @@
             <artifactId>tomcat-embed-jasper</artifactId>
         </dependency>
         <!-- 分页插件-->
-        <dependency>
+        <!--<dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.3.0</version>
-        </dependency>
+        </dependency>-->
         <!--        rabbitMq-->
         <dependency>
             <groupId>com.rabbitmq</groupId>

@@ -20,7 +20,7 @@
                               placeholder="项目名称"></el-input>
                 </el-form-item>
             </el-col>
-            <el-col :span="3">
+            <el-col :span="4">
                 <el-form-item label="资源类型" prop="resourceType">
                     <el-select v-model="biddingForm.resourceType" placeholder="资源类型">
                         <el-option
@@ -168,7 +168,7 @@
                 this.count += 2
             },
             selectPbItemInfo() {
-                axios.post("/pb-item-info/selectPbItemInfo/"+this.pageSize+"/"+this.currentPage+"/",this.biddingForm).then(res=>{
+                axios.post("/pb-item-info/selectPbItemInfo/"+this.pageSize+"/"+this.currentPage,this.biddingForm).then(res=>{
                     this.tableData.data=res.data.data;
                     this.total=res.data.total;
                 }).catch((e)=>{

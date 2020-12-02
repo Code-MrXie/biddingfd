@@ -75,5 +75,6 @@ public class PbApplyInfo implements Serializable {
 
     private String isDel;
 
-
+    @ApiModelProperty(value = "默认0，未缴纳，1，已缴纳，2，申请退回3，已退回")
+    private Integer moneyStatus;
 }

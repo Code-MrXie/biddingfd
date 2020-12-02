@@ -30,7 +30,7 @@ spring:
   #mysql数据库连接
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://114.55.92.94:3307/paimai?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://114.55.92.94:3307/paimai?useUnicode=true&allowMultiQueries=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
     password: admin123
     type: com.zaxxer.hikari.HikariDataSource

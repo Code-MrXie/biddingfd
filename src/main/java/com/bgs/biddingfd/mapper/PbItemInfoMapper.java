@@ -1,15 +1,12 @@
 package com.bgs.biddingfd.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.bgs.biddingfd.pojo.*;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
+import io.lettuce.core.dynamic.annotation.Param;
 
 import java.util.List;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.bgs.biddingfd.pojo.PbItemInfo;
-import com.bgs.biddingfd.pojo.PbItemObjectInfo;
-import com.bgs.biddingfd.pojo.PbQuoteInfo;
-import org.apache.ibatis.annotations.Param;
+import java.util.Map;
 
 /**
  * <p>
@@ -19,11 +16,30 @@ import org.apache.ibatis.annotations.Param;
  * @author xieCode
  * @since 2020-11-25
  */
-@Repository
 public interface PbItemInfoMapper extends BaseMapper<PbItemInfo> {
 
-    List<PbItemInfo> findPbItemInfo(@Param("pbItemInfo") PbItemInfo pbItemInfo);
-    IPage<PbItemObjectInfo> selectPbItemInfo(@Param("page") IPage<PbItemObjectInfo> page, @Param("itemName") String itemName, @Param("resourceType")  Integer resourceType);
+    List<Map<String,Object>> electronicTable();
 
-    IPage<PbQuoteInfo> selectBiddingHall(@Param("page")IPage<PbQuoteInfo> pbItemInfoPage, @Param("itemId")Integer itemId);
+    List<Map<String,Object>> likeElectronic(@Param("itemName") String name, @Param("itemCode") String code);
+
+    Boolean stopBid(@Param("id") Integer id);
+
+    Boolean setBidRule(@Param("id") Integer id,@Param("b1") Integer b1);
+
+    boolean bidRule(PbBiddingRules setBidRule);
+
+    List<PbObjectInfo> signInfo(@Param("id") Integer id);
+
+    PbObjectInfo signRuleInfo(@Param("code") Integer code);
+
+    PbBiddingRules bidRuleDetail(@Param("itemId") Integer itemId);
+
+    Boolean subSetSignRule(PbObjectInfo signRule);
+    IPage<PbItemObjectInfo> selectPbItemInfo(@org.apache.ibatis.annotations.Param("page") IPage<PbItemObjectInfo> page, @org.apache.ibatis.annotations.Param("itemName") String itemName, @org.apache.ibatis.annotations.Param("resourceType")  Integer resourceType);
+
+    IPage<PbQuoteInfo> selectBiddingHall(@org.apache.ibatis.annotations.Param("page")IPage<PbQuoteInfo> pbItemInfoPage, @org.apache.ibatis.annotations.Param("itemId")Integer itemId);
+
+    List<PbItemInfo> findPbItemInfo(PbItemInfo pbItemInfo);
+
+    boolean deteleThis(Integer itemId);
 }

@@ -2,25 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bgs.biddingfd.mapper.PbItemInfoMapper">
 
-    <!--List<PbItemInfo> findPbItemInfo(@Param("pbItemInfo") PbItemInfo pbItemInfo);-->
-    <select id="findPbItemInfo" resultType="PbItemInfo">
+    <!--List<PbItemInfo> findPbItemInfo(PbItemInfo pbItemInfo);-->
+    <select id="findPbItemInfo" resultType="com.bgs.biddingfd.pojo.PbItemInfo">
         SELECT
         *
         FROM
-        pb_quote_info pqi
-        LEFT JOIN pb_object_info poi ON poi.object_id = pqi.object_id
-        LEFT JOIN pb_apply_info pai ON pai.apply_id = pqi.apply_id
-        LEFT JOIN pb_item_info pii ON pii.item_id = poi.item_id
+        pb_item_info
         <where>
-            1=1
-            <if test="pbItemInfo.itemName!=null and pbItemInfo.itemName!=''">
-                and pii.item_name like concat('%', #{pbItemInfo.itemName} ,'%')
-            </if>
-            <if test="pbItemInfo.itemCode!=null and pbItemInfo.itemCode!=''">
-                and pii.item_code =#{pbItemInfo.itemCode}
-            </if>
+            phase=#{phase}
+            <trim prefix="and"><!--prefix：前缀;prefixOverrides：去掉前缀;suffix：后缀;suffixOverrides：去掉后缀-->
+                <if test="itemName!=null and itemName!=''">
+                     item_name like concat('%', #{itemName} ,'%')
+                </if>
+                <if test="itemCode!=null and itemCode!=''">
+                     item_code =#{itemCode}
+                </if>
+            </trim>
         </where>
     </select>
+
+    <!--boolean deteleThis(Integer itemId);-->
+    <delete id="deteleThis">
+        delete from pb_item_info where item_id=#{itemId}
+    </delete>
 
     <select id="selectPbItemInfo" resultType="com.bgs.biddingfd.pojo.PbItemObjectInfo">
         select
@@ -53,4 +57,88 @@
             </if>
         </where>
     </select>
+
+
+    <select id="electronicTable" resultType="Map">
+            SELECT pii.item_id,pii.item_code,pii.item_name,pii.bid_rule,
+pii.bid_way,pii.start_state,pii.resource_type,pii.transferor,
+poi.bid_start_time,poi.bid_delay_time,
+poi.object_name
+        FROM pb_item_info pii
+        LEFT JOIN pb_object_info poi
+        ON pii.item_id=poi.item_id
+    </select>
+
+    <select id="likeElectronic" resultType="Map">
+        SELECT pii.item_id,pii.item_code,pii.item_name,pii.bid_rule,pii.bid_way,pii.start_state,poi.bid_start_time,poi.bid_delay_time
+        FROM pb_item_info pii
+        LEFT JOIN pb_object_info poi
+        ON pii.item_id=poi.item_id
+        <where>
+            <if test="itemName != null || itemName != ''">
+                pii.item_name like '%${name}%'
+            </if>
+            <if test="itemCode != null || itemCode != ''">
+                and pii.item_code like '%${code}%'
+            </if>
+        </where>
+    </select>
+
+    <update id="stopBid">
+        update pb_item_info SET start_state=2 WHERE item_id=#{id}
+    </update>
+
+    <update id="setBidRule">
+        UPDATE pb_item_info SET bid_rule =#{b1} WHERE item_id = #{id}
+    </update>
+
+    <!--useGeneratedKeys="true" keyProperty="ruleId"-->
+    <insert id="bidRule"  >
+
+        <selectKey resultType="Integer" keyProperty="ruleId" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into
+          pb_bidding_rules
+        (rule_model,free_bid_time,bid_delay_time,bid_interval_time)
+                                value
+        (#{ruleModel},#{freeBidTime},#{bidDelayTime},#{bidIntervalTime})
+    </insert>
+
+    <select id="signInfo" resultType="PbObjectInfo">
+        SELECT * from pb_object_info WHERE item_id=#{id}
+    </select>
+
+    <select id="signRuleInfo" resultType="PbObjectInfo">
+        SELECT * from pb_object_info WHERE object_id=#{code}
+    </select>
+
+    <select id="bidRuleDetail" resultType="com.bgs.biddingfd.pojo.PbBiddingRules">
+SELECT * FROM pb_bidding_rules WHERE rule_id=
+(SELECT bid_rule FROM pb_item_info WHERE item_id=#{itemId})
+    </select>
+
+
+    <update id="subSetSignRule">
+        UPDATE pb_object_info
+        <set>
+            <if test="trad!=null || trad!=''">trad=#{trad},</if>
+            <if test="priorityWay!=null || priorityWay!=''">priority_way=#{priorityWay},</if>
+            <if test="priorityConfirmLen!=null || priorityConfirmLen!=''">priority_confirm_len=#{priorityConfirmLen},</if>
+            <if test="priorityBidType!=null || priorityBidType!=''">priority_bid_type=#{priorityBidType},</if>
+            <if test="priorityApplyId!=null || priorityApplyId!=''">priority_apply_id=#{priorityApplyId},</if>
+            <if test="unit!=null || unit!=''">unit=#{unit},</if>
+            <if test="splitDecimal!=null || splitDecimal!=''">split_decimal=#{splitDecimal},</if>
+            <if test="reservePrice!=null || reservePrice!=''">reserve_price=#{reservePrice},</if>
+            <if test="chargeState!=null || chargeState!=''">charge_state=#{chargeState},</if>
+            <if test="scale!=null || scale!=''">scale=#{scale},</if>
+            <if test="startPrice!=null || startPrice!=''">start_price=#{startPrice},</if>
+            <if test="quoteIncrement!=null || quoteIncrement!=''">quote_increment=#{quoteIncrement},</if>
+            <if test="bidStartTime!=null || bidStartTime!=''">bid_start_time=#{bidStartTime},</if>
+            <if test="bidEndTime!=null || bidEndTime!=''">bid_end_time=#{bidEndTime}</if>
+        </set>
+        WHERE object_id=#{objectId}
+    </update>
+
+
 </mapper>
