@@ -37,22 +37,42 @@
             <el-table-column label="操作">
                 <template slot-scope="scope">
 
-                     <span style="color: red" v-if="scope.row.auditState==='0'">
-                        <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">
-                            回退
+                      <span style="color: seagreen" v-if="scope.row.itemLeaderId=='0'">
+                        <el-button size="mini" type="success" @click="handleFenPei(scope.$index, scope.row)">
+                            分配
                         </el-button>
-
-                        <el-button size="mini" @click="handleTongGuo(scope.$index, scope.row)">
-                            通过
+                      </span>
+                    <span style="color: seagreen" v-else="">
+                        <el-button size="mini" type="success" @click="ChaKan(scope.$index, scope.row)">
+                            已分配
                         </el-button>
-                     </span>
-
+                      </span>
                 </template>
             </el-table-column>
 
         </el-table>
+
     </template>
 
+
+    <el-dialog title="分配" :visible.sync="dialogFormVisible" width="300px" >
+
+            <el-select v-model="one"  >
+
+                <el-option v-for="xia in XiaLaform" :label="xia.userName" :value="xia.id"></el-option>
+
+            </el-select>
+
+
+        <div slot="footer" class="dialog-footer">
+
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
+
+            <el-button type="primary" @click="SuccessFenPei()">确定</el-button>
+
+        </div>
+
+    </el-dialog>
 
 
 </div>
@@ -68,8 +88,9 @@
                 pbItemApplyInfoList:[],
                 timer:'',
                 dialogFormVisible: false,
-                XiaLaform:[],
-                one:''
+                XiaLaform:{},
+                one:'',
+                Rowid:''
             }
         },
         //页面加载成功时完成
@@ -85,10 +106,11 @@
         /*方法函数  事件等*/
         methods: {
 
-            showAll: function () {
-                let _this = this;
+
+            showAll:function(){
+                let _this=this;
                 axios
-                    .post('/PbItemApplyInfoCon/PbItemApplyInfoStatusToOne')
+                    .post('/PbItemApplyInfoCon/PbItemApplyInfoStatusToTWO')
                     .then(function (res) {
                         console.log(res.data.data)
                         _this.pbItemApplyInfoList = res.data.data
@@ -96,29 +118,36 @@
             },
 
 
-            handleTongGuo(index, row) {
-                console.log(row.seqId)
+            //分配
+            handleFenPei (index,row) {
+                 var _this = this
+                _this.Rowid=row.seqId;
+                // console.log(row.seqId)
+                this.dialogFormVisible= true
                 axios
-                    .post('/PbItemApplyInfoCon/PbItemApplyInfotongguo', {
-                        seqId: row.seqId
+                    .post('/PbItemApplyInfoCon/userSelect',{
+                        seqId:row.seqId
                     })
                     .then(function (res) {
-                        alert(res.data.msg)
-                    })
+                    console.log(res.data.data)
+                    _this.XiaLaform = res.data.data
+                })
             },
 
-            //回退
-            handleDelete(index, row) {
-                console.log(row.seqId)
+            SuccessFenPei(){
+                var _htat =  this;
+
+                //项目申请id
+                console.log()
+                //分配负责人ID
+                console.log()
                 axios
-                    .post('/PbItemApplyInfoCon/PbItemApplyInfoUpdaOnThree', {
-                        seqId: row.seqId
+                    .post('/PbItemApplyInfoCon/PbItemApplyInfoSuccessFenPei',{
+                        seqId:_htat.Rowid,
+                        userId:_htat.one
                     })
                     .then(function (res) {
-                        if (res.data.msg) {
-                            alert("项目被退回")
-                            location.href = "/jsps/WeiTuoRenXiangMuShenQingShow.jsp"
-                        }
+                        location.reload();
                     })
             }
         }
