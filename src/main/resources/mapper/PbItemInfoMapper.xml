@@ -59,26 +59,17 @@
     </select>
 
 
-    <select id="electronicTable" resultType="Map">
-            SELECT pii.item_id,pii.item_code,pii.item_name,pii.bid_rule,
-pii.bid_way,pii.start_state,pii.resource_type,pii.transferor,
-poi.bid_start_time,poi.bid_delay_time,
-poi.object_name
-        FROM pb_item_info pii
-        LEFT JOIN pb_object_info poi
-        ON pii.item_id=poi.item_id
-    </select>
-
     <select id="likeElectronic" resultType="Map">
-        SELECT pii.item_id,pii.item_code,pii.item_name,pii.bid_rule,pii.bid_way,pii.start_state,poi.bid_start_time,poi.bid_delay_time
+        SELECT pii.item_id,pii.item_code,pii.item_name,pii.bid_rule,pii.bid_way,pii.start_state,poi.object_name,
+        poi.bid_start_time,poi.bid_end_time,pii.resource_type
         FROM pb_item_info pii
         LEFT JOIN pb_object_info poi
         ON pii.item_id=poi.item_id
         <where>
-            <if test="itemName != null || itemName != ''">
+            <if test="name != null || name != ''">
                 pii.item_name like '%${name}%'
             </if>
-            <if test="itemCode != null || itemCode != ''">
+            <if test="code != null || code != ''">
                 and pii.item_code like '%${code}%'
             </if>
         </where>
@@ -140,5 +131,31 @@ SELECT * FROM pb_bidding_rules WHERE rule_id=
         WHERE object_id=#{objectId}
     </update>
 
+
+    <select id="ListingLinkShow" resultType="Map">
+        SELECT
+        poi.bid_status,poi.trad,poi.priority_enter_name,poi.start_price,poi.reserve_price,poi.unit,
+        poi.bid_start_time,poi.quote_increment,poi.evaluate_price,poi.bid_delay_time,
+        pain.money,psi.bid_delay_len,psi.bid_free_len,pqi.quote_price,s.newPrice,pqi.mark
+        FROM pb_object_info poi
+        LEFT JOIN pb_apply_info pain
+        ON poi.object_id=pain.object_id
+        LEFT JOIN pb_supply_info psi
+        ON poi.object_id=psi.object_id
+        LEFT JOIN
+        ( SELECT pb_quote_info.object_id,max(quote_price) quote_price,pb_apply_info.mark FROM pb_quote_info
+ LEFT JOIN pb_apply_info
+ON pb_apply_info.apply_id=pb_quote_info.apply_id) pqi
+        ON poi.object_id=pqi.object_id
+				LEFT JOIN
+				(
+				select quote_price newPrice,object_id from pb_quote_info s
+				ORDER BY ABS(NOW() - s.quote_time) ASC
+				limit 1
+				) s
+				ON s.object_id=poi.object_id
+        WHERE poi.object_id = 1
+
+    </select>
 
 </mapper>

@@ -19,4 +19,6 @@ public interface PbResultInfoService extends IService<PbResultInfo> {
     List<Map<String,Object>> resultShow(Integer flow);
 
     Boolean subResult(Integer seqId);
+
+    List<Map<String,Object>> resultInfo();
 }

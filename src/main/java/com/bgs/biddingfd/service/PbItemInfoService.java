@@ -19,13 +19,11 @@ import java.util.List;
  */
 public interface PbItemInfoService extends IService<PbItemInfo> {
 
-    List<Map<String,Object>> electronicTable();
-
-    List<Map<String,Object>> likeElectronic(String name, String code);
+    List<Map<String,Object>> likeElectronic(Map<String,String> map);
 
     Boolean stopBid(Integer id);
 
-    Boolean subBidRule(Integer id, PbBiddingRules setBidRuleee);
+    Boolean subBidRule(Integer id, PbBiddingRules setBidRule);
 
     List<PbObjectInfo> signInfo(Integer id);
 
@@ -42,4 +40,6 @@ public interface PbItemInfoService extends IService<PbItemInfo> {
     List<PbItemInfo> findPbItemInfo(PbItemInfo pbItemInfo);
 
     boolean deteleThis(Integer itemId);
+
+    Map<String,Object> ListingLinkShow();
 }

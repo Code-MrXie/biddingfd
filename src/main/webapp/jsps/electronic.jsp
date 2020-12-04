@@ -266,10 +266,10 @@
             </el-form-item>
             <br>
             <el-form-item label="竞价开始时间">
-                <el-date-picker type="date" placeholder="选择日期" v-model="signRule.bidStartTime" style="width: 220px"></el-date-picker>
+                <el-date-picker placeholder="选择日期" v-model="signRule.bidStartTime" style="width: 220px"></el-date-picker>
             </el-form-item>
             <el-form-item label="竞价结束时间">
-                <el-date-picker type="date" placeholder="选择日期" v-model="signRule.bidEndTime" style="width: 220px"></el-date-picker>
+                <el-date-picker placeholder="选择日期" v-model="signRule.bidEndTime" style="width: 220px"></el-date-picker>
             </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -324,7 +324,11 @@
         mounted: function(){
             var _this = this;
             axios
-                .post('/pb-item-info/electronicTable')
+                .post('/pb-item-info/likeElectronic',{
+                    name:"",
+                    code:"",
+                })
+
                 .then(function (res) {
                     _this.electronicTableData = res.data;
                 })
@@ -424,9 +428,9 @@
                     });
 
             },
+
             subSetSignRule(){
                 var _this = this;
-                console.log(_this.objectId)
                 axios
                     .post('/pb-item-info/subSetSignRule/'+_this.objectId,_this.signRule)
                     .then(function (res) {

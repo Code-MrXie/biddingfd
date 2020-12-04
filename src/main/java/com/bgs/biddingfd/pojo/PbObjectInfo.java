@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>
@@ -63,12 +64,12 @@ public class PbObjectInfo implements Serializable {
     private Date bidDelayTime;
 
     @ApiModelProperty(value = "竞价开始时间")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
-    private Date bidStartTime;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private String bidStartTime;
 
     @ApiModelProperty(value = "竞价结束时间")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
-    private Date bidEndTime;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private String bidEndTime;
 
     @ApiModelProperty(value = "优先权竞买人类别")
     private Integer priorityBidType;

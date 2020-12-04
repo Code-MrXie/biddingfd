@@ -18,9 +18,8 @@ import java.util.Map;
  */
 public interface PbItemInfoMapper extends BaseMapper<PbItemInfo> {
 
-    List<Map<String,Object>> electronicTable();
 
-    List<Map<String,Object>> likeElectronic(@Param("itemName") String name, @Param("itemCode") String code);
+    List<Map<String,Object>> likeElectronic(Map<String,String> map);
 
     Boolean stopBid(@Param("id") Integer id);
 
@@ -42,4 +41,6 @@ public interface PbItemInfoMapper extends BaseMapper<PbItemInfo> {
     List<PbItemInfo> findPbItemInfo(PbItemInfo pbItemInfo);
 
     boolean deteleThis(Integer itemId);
+
+    Map<String,Object> ListingLinkShow();
 }

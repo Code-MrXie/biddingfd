@@ -3,11 +3,7 @@ package com.bgs.biddingfd.controller;
 
 import com.bgs.biddingfd.service.PbResultInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -41,5 +37,12 @@ public class PbResultInfoController {
         return resultInfoService.subResult(row);
     }
 
+
+    //resultInfo
+    //结果公示
+    @RequestMapping("/resultInfo")
+    public List<Map<String,Object>> resultInfo(){
+        return resultInfoService.resultInfo();
+    }
 }
 

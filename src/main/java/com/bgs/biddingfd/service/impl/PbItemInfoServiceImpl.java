@@ -31,15 +31,10 @@ public class PbItemInfoServiceImpl extends ServiceImpl<PbItemInfoMapper, PbItemI
     PbItemInfoMapper pbItemInfoMapper;
 
 
-    @Override
-    public List<Map<String, Object>> electronicTable() {
-        return pbItemInfoMapper.electronicTable();
-    }
-
 
     @Override
-    public List<Map<String, Object>> likeElectronic(String name, String code) {
-        return pbItemInfoMapper.likeElectronic(name,code);
+    public List<Map<String, Object>> likeElectronic(Map<String,String> map) {
+        return pbItemInfoMapper.likeElectronic(map);
     }
 
     @Override
@@ -96,5 +91,10 @@ public class PbItemInfoServiceImpl extends ServiceImpl<PbItemInfoMapper, PbItemI
     @Override
     public boolean deteleThis(Integer itemId) {
         return pbItemInfoMapper.deteleThis(itemId);
+    }
+
+    @Override
+    public Map<String, Object> ListingLinkShow() {
+        return pbItemInfoMapper.ListingLinkShow();
     }
 }

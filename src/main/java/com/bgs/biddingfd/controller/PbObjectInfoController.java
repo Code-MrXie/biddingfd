@@ -30,5 +30,7 @@ public class PbObjectInfoController {
         PbObjectInfo pbObjectInfo=pbObjectInfoService.ShowObject(objectId);
         return pbObjectInfo;
     }
+
+    //@RequestMapping("/objectInfo")
 }
 

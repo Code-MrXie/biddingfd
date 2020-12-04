@@ -33,4 +33,9 @@ public class PbResultInfoServiceImpl extends ServiceImpl<PbResultInfoMapper, PbR
     public Boolean subResult(Integer seqId) {
         return pbResultInfoMapper.subResult(seqId);
     }
+
+    @Override
+    public List<Map<String, Object>> resultInfo() {
+        return pbResultInfoMapper.resultInfo();
+    }
 }

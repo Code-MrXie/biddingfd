@@ -21,7 +21,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value="PbBiddingRules对象", description="竞价规则表")
-public class PbBiddingRules implements Serializable {
+public class
+PbBiddingRules implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

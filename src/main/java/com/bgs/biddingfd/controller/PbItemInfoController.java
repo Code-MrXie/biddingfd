@@ -78,19 +78,13 @@ public class PbItemInfoController {
 //        return new Result(true,200,"查询成功",pbQuoteInfos);
     }
 
-    //查询电子竞价规则
-    @RequestMapping(value = "/electronicTable",method = RequestMethod.POST)
-    public List<Map<String,Object>> electronicTable(){
 
-        List<Map<String,Object>> list = pbItemInfoService.electronicTable();
-        return list;
-    }
-
+    //查询电子竞价管理表
     @RequestMapping("/likeElectronic")
     public List<Map<String,Object>> likeElectronic(@RequestBody Map<String,String> map){
         String name = map.get("name");
         String code = map.get("code");
-        List<Map<String,Object>> list = pbItemInfoService.likeElectronic(name,code);
+        List<Map<String,Object>> list = pbItemInfoService.likeElectronic(map);
         return list;
     }
 
@@ -101,10 +95,9 @@ public class PbItemInfoController {
     }
 
 
-    //bidRuleDetail
+    //竞价规则详情
     @RequestMapping("/bidRuleDetail/{itemId}")
     public PbBiddingRules bidRuleDetail(@PathVariable Integer itemId){
-        System.out.println(itemId);
         return pbItemInfoService.bidRuleDetail(itemId);
     }
 
@@ -115,23 +108,30 @@ public class PbItemInfoController {
         return pbItemInfoService.subBidRule(id,setBidRule);
     }
 
-    //signInfo
+    //竞价记录单
     @RequestMapping("/signInfo/{id}")
     public List<PbObjectInfo> signInfo(@PathVariable Integer id){
-        System.out.println(pbItemInfoService.signInfo(id));
         return pbItemInfoService.signInfo(id);
     }
 
-    //signRuleInfo
+    //标的规则详情
     @RequestMapping("/signRuleInfo/{code}")
     public PbObjectInfo signRuleInfo(@PathVariable Integer code){
         return pbItemInfoService.signRuleInfo(code);
     }
 
+
+    //修改标的规则
     @RequestMapping("/subSetSignRule/{objectId}")
     public Boolean subSetSignRule(@PathVariable Integer objectId,@RequestBody PbObjectInfo signRule){
-        System.out.println(objectId);
+
+        String str = signRule.getBidEndTime();
+        String str1 = signRule.getBidStartTime();
+        signRule.setBidEndTime( str.substring(0,10));
+        signRule.setBidStartTime(str1.substring(0,10));
+
         signRule.setObjectId(objectId);
+        System.out.println("===================================");
         System.out.println(signRule);
         return pbItemInfoService.subSetSignRule(signRule);
     }
@@ -152,6 +152,15 @@ public class PbItemInfoController {
         return b;
     }
 
+
+
+    //ListingLinkShow
+    //相关标的挂牌链接
+    //ListingLink.jsp
+    @RequestMapping("/ListingLinkShow")
+    public Map<String,Object> ListingLinkShow(){
+        return pbItemInfoService.ListingLinkShow();
+    }
 
 }
 

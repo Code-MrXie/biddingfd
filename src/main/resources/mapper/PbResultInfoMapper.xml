@@ -16,7 +16,8 @@
         ON poi.item_id=pii.item_id
         ) p
         ON prin.object_id = p.object_id
-        WHERE prin.flow_id = #{flow}
+        where
+        prin.flow_id = #{flow}
     </select>
 
 
@@ -24,4 +25,16 @@
         UPDATE pb_result_info SET flow_id = 3
         WHERE seq_id = #{seqId}
     </update>
+
+    <select id="resultInfo" resultType="Map">
+        SELECT
+        pb_apply_info.idcard,pb_object_info.object_name,pb_object_info.close_price,user.user_name
+         FROM pb_result_info
+        LEFT JOIN pb_object_info
+        ON pb_result_info.object_id=pb_object_info.object_id
+        LEFT JOIN `user`
+        ON pb_result_info.enter_id=`user`.id
+        LEFT JOIN pb_apply_info
+        ON pb_apply_info.object_id=pb_object_info.object_id
+    </select>
 </mapper>

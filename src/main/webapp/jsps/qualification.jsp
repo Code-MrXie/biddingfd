@@ -42,15 +42,15 @@
                         </template>
                     </el-table-column>
                     <el-table-column
-                            prop="transferor"
                             label="出让方式">
+                        竞价
                     </el-table-column>
                     <el-table-column
                             prop="bid_start_time"
                             label="竞价开始时间">
                     </el-table-column>
                     <el-table-column
-                            prop="bid_delay_time"
+                            prop="bid_end_time"
                             label="竞价结束时间">
                     </el-table-column>
                     <el-table-column
@@ -127,7 +127,9 @@
         mounted: function(){
             var _this = this;
             axios
-                .post('/pb-item-info/electronicTable')
+                .post('/pb-item-info/likeElectronic',{
+                    name:'',code:''
+                })
                 .then(function (res) {
                     _this.qualilficationTableData = res.data;
                 })

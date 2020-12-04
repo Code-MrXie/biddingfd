@@ -20,4 +20,6 @@ public interface PbResultInfoMapper extends BaseMapper<PbResultInfo> {
     List<Map<String,Object>> resultShow(@Param("flow") Integer flow);
 
     Boolean subResult(@Param("seqId") Integer seqId);
+
+    List<Map<String,Object>> resultInfo();
 }
