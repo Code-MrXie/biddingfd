@@ -1,6 +1,8 @@
 package com.bgs.biddingfd.mapper;
 
 import com.bgs.biddingfd.pojo.PbItemApplyInfo;
+import com.bgs.biddingfd.pojo.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,4 +18,18 @@ public interface AddPbItemApplyInfoMapper {
     PbItemApplyInfo SelectPbItemApplyInfo(String itemName);
 
     List<PbItemApplyInfo> PbItemApplyInfoStatusToOne();
+
+    int PbItemApplyInfotongguo(Integer seqId);
+
+    int PbItemApplyInfoUpdaOnThree(Integer seqId);
+
+    PbItemApplyInfo pbItemApplyInfoSelectOne(Integer id);
+
+    int PbItemApplyInfoDel(Integer seqId);
+
+    List<PbItemApplyInfo> PbItemApplyInfoStatusToTWO();
+
+    List<User> userSelect();
+
+    int PbItemApplyInfoSuccessFenPei(@Param("seqId") Integer seqId, @Param("userId") Integer userId);
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.bgs.biddingfd.pojo.PbApplyInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bgs.biddingfd.pojo.PbItemObjectInfo;
+import com.bgs.biddingfd.pojo.PbObjectInfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.Map;
  */
 public interface PbApplyInfoMapper extends BaseMapper<PbApplyInfo> {
 
-    IPage<PbItemObjectInfo> selectApplyInfo(@Param("page") IPage<PbItemObjectInfo> pbItemInfoPage, @Param("itemName")String itemName,@Param("resourceType") Integer resourceType);
+    IPage<PbItemObjectInfo> selectApplyInfo(@Param("page") IPage<PbItemObjectInfo> pbItemInfoPage,@Param("moneyStatus")Integer moneyStatus, @Param("itemName")String itemName,@Param("resourceType") Integer resourceType);
 
     PbItemObjectInfo selectPaytheDeposit(Integer applyId);
 
@@ -27,10 +28,19 @@ public interface PbApplyInfoMapper extends BaseMapper<PbApplyInfo> {
 
     PbItemObjectInfo selectObjectInfo(Integer itemId);
 
-    int updateApplyInfoMoneyStatus(Integer applyId, Integer moneyStatus);
+    int updateApplyInfoMoneyStatus(Integer applyId, Integer depositBack);
 
     IPage<PbItemObjectInfo> selectApplyInfo23(@Param("page") IPage<PbItemObjectInfo> pbItemInfoPage,@Param("moneyStatus")Integer moneyStatus, @Param("itemName")String itemName,@Param("resourceType") Integer resourceType);
 
-    List<Map<String,Object>> applyTable(@Param("itemId") Integer itemId);
+    IPage<PbItemObjectInfo> selectNormalMargin(@Param("page")IPage<PbItemObjectInfo> pbItemInfoPage, @Param("moneyStatus")Integer moneyStatus,@Param("itemName") String itemName, @Param("isReturn")Integer isReturn);
 
+    IPage<PbItemObjectInfo> selectAbNormalMargin(@Param("page")IPage<PbItemObjectInfo> pbItemInfoPage, @Param("moneyStatus")Integer moneyStatus,@Param("itemName") String itemName, @Param("moneyStatus1")Integer moneyStatus1);
+
+    IPage<PbItemObjectInfo> selectApplyDetailInfo(@Param("page")IPage<PbItemObjectInfo> pbItemInfoPage, @Param("depositBack")Integer depositBack, @Param("itemName")String itemName, @Param("resourceType")Integer resourceType);
+
+    IPage<PbItemObjectInfo> caiwuselectApplyDetailInfo(@Param("page")IPage<PbItemObjectInfo> pbItemInfoPage, @Param("isReturn")Integer isReturn, @Param("itemName")String itemName, @Param("resourceType")Integer resourceType);
+
+    int updateApplyInfoIsReturnStatus(Integer applyId, Integer isReturn);
+
+    List<Map<String, Object>> applyTable(Integer itemId);
 }

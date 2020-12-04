@@ -43,13 +43,13 @@
         <el-table-column align="left" prop="money" label="缴纳金额(元)"  show-overflow-tooltip></el-table-column>
         <el-table-column  label="操作" width="150px">
             <template slot-scope="scope">
-                <el-button v-if="typeof scope.row.money ==='undefined' || scope.row.money ==='' || scope.row.money ===null "
+                <el-button v-if="typeof scope.row.reMoney ==='undefined' || scope.row.reMoney ==='' || scope.row.reMoney ===null "
                            @click.native.prevent="PayTheDeposit(scope.row,scope.$index)"
                            type="text"
                            size="mini">
                     缴纳
                 </el-button>
-                <el-button v-else
+                <el-button v-if="scope.row.moneyStatus ==1 "
                            type="text"
                            size="mini">
                    已缴纳

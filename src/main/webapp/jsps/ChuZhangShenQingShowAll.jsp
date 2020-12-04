@@ -18,7 +18,7 @@
     <template>
 
 
-        <el-table :data="pbItemApplyInfoList"  border style="width: 100%">
+        <el-table :data="pbItemApplyInfoList" label-width="80px"  border style="width: 100%">
 
             <el-table-column prop="itemName" label="项目名称"></el-table-column>
 
@@ -36,22 +36,28 @@
 
             <el-table-column label="操作">
                 <template slot-scope="scope">
-                    <el-button
-                            size="mini"
-                            @click="handleEdit(scope.$index, scope.row)">通过
-                    </el-button>
 
-                    <span style="color: red" v-if="scope.row.auditState==='2'">
-                            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">
-                                回退
-                            </el-button>
-                        </span>
+                     <span style="color: red" v-if="scope.row.auditState==='0'">
+                        <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">
+                            回退
+                        </el-button>
+
+                        <el-button size="mini" @click="handleTongGuo(scope.$index, scope.row)">
+                            通过
+                        </el-button>
+                     </span>
+
                 </template>
             </el-table-column>
 
         </el-table>
     </template>
+
+
+
 </div>
+
+
 </body>
 </html>
 <script>
@@ -60,16 +66,18 @@
         data(){
             return{
                 pbItemApplyInfoList:[],
-                timer:''
-
+                timer:'',
+                dialogFormVisible: false,
+                XiaLaform:[],
+                one:''
             }
         },
         //页面加载成功时完成
         mounted: function(){
             var _this=this;
-
-            //定时刷新
-           setInterval(_this.showAll,10000)
+            //setTimeout("alert('三十秒钟到！')",30000)
+            //定时刷新  30秒一次
+            setInterval(_this.showAll,30000)
 
             //调用查询全部的方法
             _this.showAll();
@@ -77,9 +85,8 @@
         /*方法函数  事件等*/
         methods: {
 
-
-            showAll:function(){
-                let _this=this;
+            showAll: function () {
+                let _this = this;
                 axios
                     .post('/PbItemApplyInfoCon/PbItemApplyInfoStatusToOne')
                     .then(function (res) {
@@ -88,18 +95,32 @@
                     })
             },
 
+
+            handleTongGuo(index, row) {
+                console.log(row.seqId)
+                axios
+                    .post('/PbItemApplyInfoCon/PbItemApplyInfotongguo', {
+                        seqId: row.seqId
+                    })
+                    .then(function (res) {
+                        alert(res.data.msg)
+                    })
+            },
+
             //回退
             handleDelete(index, row) {
                 console.log(row.seqId)
                 axios
-                    .post('/PbItemApplyInfoCon/PbItemApplyInfoDel',{
-                        seqId:row.seqId
+                    .post('/PbItemApplyInfoCon/PbItemApplyInfoUpdaOnThree', {
+                        seqId: row.seqId
                     })
                     .then(function (res) {
-                        alert("回退！")
+                        if (res.data.msg) {
+                            alert("项目被退回")
+                            location.href = "/jsps/WeiTuoRenXiangMuShenQingShow.jsp"
+                        }
                     })
-            },
-
+            }
         }
     })
 

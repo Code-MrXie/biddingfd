@@ -165,5 +165,6 @@ public class PbObjectInfo implements Serializable {
     @ApiModelProperty(value = "是否删除")
     private String isDel;
 
+    private PbItemInfo pbItemInfo;
 
 }

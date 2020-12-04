@@ -3,25 +3,11 @@
 <mapper namespace="com.bgs.biddingfd.mapper.PbApplyInfoMapper">
     <select id="selectApplyInfo" resultType="com.bgs.biddingfd.pojo.PbItemObjectInfo">
         SELECT
-        pai.apply_id,
-        poi.object_name,
-        pii.item_id,
-        pii.apply_start_time,
-        pai.bid_name,
-        pai.money_status,
-        pai.money,
-        pii.item_code,
-        pii.deposit_time,
-        pii.item_name,
-        pii.trad_way,
-        poi.object_name,
-        pii.resource_type,
-        poi.trad,
-        poi.bid_start_time,
-        poi.bid_end_time,
-        poi.bidder_type
-        FROM
-        pb_apply_info pai
+        pai.apply_id, poi.object_name, pii.item_id, pii.apply_start_time, pai.bid_name,  pai.money_status,
+        pai.money, padi.money as reMoney, pii.item_code, pii.deposit_time, pii.item_name, pii.trad_way,
+        poi.object_name, pii.resource_type, poi.trad, poi.bid_start_time, poi.bid_end_time,
+        poi.bidder_type FROM pb_apply_info pai
+        left join pb_apply_detail_info padi on padi.apply_id = pai.apply_id
         LEFT JOIN pb_object_info poi ON poi.object_id = pai.object_id
         LEFT JOIN pb_item_info pii ON pii.item_id = pai.item_id
         <where>
@@ -31,29 +17,45 @@
             <if test="resourceType!=null and resourceType!=''">
                 and pii.resource_type=#{resourceType}
             </if>
-            <if test="moneyStatus!=null">
+            <if test="moneyStatus!=null and moneyStatus==1">
+                and pai.money_status in (#{moneyStatus},2,3)
+            </if>
+            <if test="moneyStatus!=null and moneyStatus!=1">
                 and pai.money_status=#{moneyStatus}
+            </if>
+        </where>
+    </select>
+    <select id="selectApplyDetailInfo" resultType="pbItemObjectInfo">
+        SELECT
+        pai.apply_id, poi.object_name, pii.item_id, pii.apply_start_time,  pai.bid_name,
+        pai.money_status,  padi.is_return, padi.deposit_back, pai.money,  padi.money as reMoney,
+        pii.item_code, pii.deposit_time, pii.item_name, pii.trad_way, poi.object_name,
+        pii.resource_type, poi.trad, poi.bid_start_time, poi.bid_end_time, poi.bidder_type
+        FROM  pb_apply_info pai
+        left join pb_apply_detail_info padi on padi.apply_id = pai.apply_id
+        LEFT JOIN pb_object_info poi ON poi.object_id = pai.object_id
+        LEFT JOIN pb_item_info pii ON pii.item_id = pai.item_id
+        <where>
+            <if test="itemName!=null and itemName!=''">
+                pii.item_name like concat('%',#{itemName},'%')
+            </if>
+            <if test="resourceType!=null and resourceType!=''">
+                and pii.resource_type=#{resourceType}
+            </if>
+            <if test="depositBack!=null">
+                and padi.deposit_back=#{depositBack}
             </if>
         </where>
     </select>
     <select id="selectPaytheDeposit" resultType="pbItemObjectInfo">
             SELECT
-                pai.apply_id,
-                poi.object_name,
-                consignor.company_name,
-                pii.item_id,
-                pai.money,
-                pii.item_code,
-                pii.item_name,
-                pii.trad_way,
-                poi.object_name,
-                pii.resource_type,
-                poi.trad,
-                poi.bid_start_time,
-                poi.bid_end_time,
-                poi.bidder_type
+                pai.apply_id, poi.object_name,  consignor.company_name,
+                pii.item_id, pai.money, pii.item_code,  padi.money as reMoney,
+                pii.item_name, pii.trad_way, poi.object_name, pii.resource_type,
+                poi.trad, poi.bid_start_time, poi.bid_end_time, poi.bidder_type
             FROM
                 pb_apply_info pai
+                left join pb_apply_detail_info padi on padi.apply_id = pai.apply_id
                 LEFT JOIN pb_object_info poi ON poi.object_id = pai.object_id
                 LEFT JOIN pb_item_info pii ON pii.item_id = pai.item_id
                 LEFT JOIN pb_item_apply_info piai ON piai.seq_id = pii.apply_id
@@ -62,7 +64,8 @@
                 pai.apply_id = #{applyId}
     </select>
     <update id="updateApplyInfoMoney">
-        UPDATE pb_apply_info set money =#{money},money_status=1  where apply_id = #{applyId}
+        UPDATE pb_apply_info set money_status=1  where apply_id = #{applyId};
+        update pb_apply_detail_info set money =#{money},deposit_time=now(),deposit_back=0,is_return=0 where apply_id = #{applyId}
     </update>
     <select id="selectObjectInfo" resultType="pbItemObjectInfo">
             SELECT
@@ -79,29 +82,17 @@
                 pii.item_id = #{itemId}
     </select>
     <update id="updateApplyInfoMoneyStatus">
-         UPDATE pb_apply_info set money_status=#{moneyStatus}  where apply_id = #{applyId}
+         UPDATE pb_apply_detail_info set deposit_back=#{depositBack}  where apply_id = #{applyId}
     </update>
-    <select id="selectApplyInfo23" resultType="com.bgs.biddingfd.pojo.PbItemObjectInfo">
-        SELECT
-        pai.apply_id,
-        poi.object_name,
-        pii.item_id,
-        pii.apply_start_time,
-        pai.bid_name,
-        pai.money_status,
-        pai.money,
-        pii.item_code,
-        pii.deposit_time,
-        pii.item_name,
-        pii.trad_way,
-        poi.object_name,
-        pii.resource_type,
-        poi.trad,
-        poi.bid_start_time,
-        poi.bid_end_time,
-        poi.bidder_type
-        FROM
-        pb_apply_info pai
+    <update id="updateApplyInfoIsReturnStatus">
+          UPDATE pb_apply_detail_info set is_return=#{isReturn}  where apply_id = #{applyId}
+    </update>
+    <select id="caiwuselectApplyDetailInfo" resultType="com.bgs.biddingfd.pojo.PbItemObjectInfo">
+        SELECT pai.apply_id, poi.object_name, pii.item_id, pii.apply_start_time, pai.bid_name,
+        pai.money_status, padi.is_return, padi.deposit_back, pai.money, padi.money as reMoney,  pii.item_code,
+        pii.deposit_time, pii.item_name, pii.trad_way, poi.object_name, pii.resource_type, poi.trad,
+        poi.bid_start_time,  poi.bid_end_time, poi.bidder_type FROM pb_apply_info pai
+        left join pb_apply_detail_info padi on padi.apply_id = pai.apply_id
         LEFT JOIN pb_object_info poi ON poi.object_id = pai.object_id
         LEFT JOIN pb_item_info pii ON pii.item_id = pai.item_id
         <where>
@@ -111,20 +102,57 @@
             <if test="resourceType!=null and resourceType!=''">
                 and pii.resource_type=#{resourceType}
             </if>
-            <if test="moneyStatus==2 and moneyStatus!=null">
-                and pai.money_status in (#{moneyStatus},3)
-            </if>
-             <if test="moneyStatus==1 and moneyStatus!=null || moneyStatus==0">
-                and pai.money_status=#{moneyStatus}
+            <if test="isReturn!=null">
+                and padi.is_return=#{isReturn}
             </if>
         </where>
     </select>
-
-
-    <select id="applyTable" resultType="Map">
-     SELECT p.enter_org_code,p.create_time,c.* FROM pb_apply_info p
-LEFT JOIN consignor c
-ON p.enter_id=c.id
-WHERE p.item_id=#{itemId}
+    <select id="selectNormalMargin" resultType="com.bgs.biddingfd.pojo.PbItemObjectInfo">
+        SELECT
+        pai.apply_id,  poi.object_name, pii.item_id,  pii.apply_start_time,  pai.bid_name, pai.money_status,
+        pii.item_code, pii.deposit_time, pii.item_name, pii.trad_way, poi.object_name,
+        pii.resource_type, poi.trad, poi.bid_start_time, poi.bid_end_time,  poi.bidder_type,
+        padi.is_return FROM pb_apply_info pai
+        left join pb_apply_detail_info padi on padi.apply_id = pai.apply_id
+        LEFT JOIN pb_object_info poi ON poi.object_id = pai.object_id
+        LEFT JOIN pb_item_info pii ON pii.item_id = pai.item_id
+        <where>
+            <if test="itemName!=null and itemName!=''">
+                pii.item_name like concat('%',#{itemName},'%')
+            </if>
+        </where>
     </select>
+    <select id="selectAbNormalMargin" resultType="com.bgs.biddingfd.pojo.PbItemObjectInfo">
+        SELECT  pai.apply_id, poi.object_name, pii.item_id, pii.apply_start_time, pai.bid_name,
+        pai.money_status, pai.money, pii.item_code, pii.deposit_time, pii.item_name, pii.trad_way,
+        poi.object_name, pii.resource_type, poi.trad, poi.bid_start_time, poi.bid_end_time,
+        poi.bidder_type,  pii.deposit_time as itemDepositTime,
+        padi.is_return FROM pb_apply_info pai
+        left join pb_apply_detail_info padi on padi.apply_id = pai.apply_id
+        LEFT JOIN pb_object_info poi ON poi.object_id = pai.object_id
+        LEFT JOIN pb_item_info pii ON pii.item_id = pai.item_id
+        <where>
+            <if test="itemName!=null and itemName!=''">
+                pii.item_name like concat('%',#{itemName},'%')
+            </if>
+            <if test="moneyStatus!=null and moneyStatus1!=null">
+                and pai.money_status in (#{moneyStatus},#{moneyStatus1})
+            </if>
+            <if test="moneyStatus!=null and moneyStatus1==null">
+                and pai.money_status=#{moneyStatus}
+            </if>
+            <if test="moneyStatus==null and moneyStatus1!=null">
+                and pai.money_status=#{moneyStatus1}
+            </if>
+            <if test="moneyStatus==null and moneyStatus1==null">
+                and pai.money_status in (1,2,0)
+            </if>
+        </where>
+    </select>
+        <select id="applyTable" resultType="Map">
+         SELECT p.enter_org_code,p.create_time,c.* FROM pb_apply_info p
+    LEFT JOIN consignor c
+    ON p.enter_id=c.id
+    WHERE p.item_id=#{itemId}
+        </select>
 </mapper>

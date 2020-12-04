@@ -35,7 +35,7 @@ public class User implements Serializable {
     private String password;
 
     @ApiModelProperty(value = "身份证号")
-    @TableField("idCard")
+    //@TableField("idCard")
     private String idCard;
 
     @ApiModelProperty(value = "联系方式")
@@ -62,5 +62,10 @@ public class User implements Serializable {
     @ApiModelProperty(value = "法人身份证")
     private String corNum;
 
+    @ApiModelProperty(value = "区分个人用户 企业用户 委托人的  ID")
+    private Integer userDifferentiate;
+
+    @ApiModelProperty(value = "权限ID")
+    private Integer roleId;
 
 }

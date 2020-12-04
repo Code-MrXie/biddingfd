@@ -7,15 +7,21 @@ import com.bgs.biddingfd.config.Result;
 import com.bgs.biddingfd.pojo.*;
 import com.bgs.biddingfd.pojo.*;
 import com.bgs.biddingfd.service.PbItemInfoService;
+import com.bgs.biddingfd.utility.AliyunOSSUtil;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.io.FileUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
@@ -131,7 +137,6 @@ public class PbItemInfoController {
         signRule.setBidStartTime(str1.substring(0,10));
 
         signRule.setObjectId(objectId);
-        System.out.println("===================================");
         System.out.println(signRule);
         return pbItemInfoService.subSetSignRule(signRule);
     }
@@ -152,6 +157,27 @@ public class PbItemInfoController {
         return b;
     }
 
+    //合同办理
+    @RequestMapping(value = "/theContractFor",method = RequestMethod.POST)
+    @ResponseBody
+    public List<Map<String,Object>> theContractFor(@RequestBody Map<String,Object> map){
+        System.out.println("------"+map);
+       List<Map<String,Object>> list =pbItemInfoService.theContractFor(map);
+        System.out.println(list);
+        return list;
+    }
+    //合同办理
+    @RequestMapping(value = "/transaction",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> transaction(@RequestBody Map<String,Object> map){
+        Map<String,Object> map1 = (Map<String, Object>) map.get("id");
+        map1.put("moneyStatus", map.get("moneyStatus"));
+        System.out.println("------"+map1);
+        Map<String,Object> list =pbItemInfoService.transaction(map1);
+        System.out.println(list);
+        return list;
+    }
+
 
 
     //ListingLinkShow
@@ -164,3 +190,51 @@ public class PbItemInfoController {
 
 }
 
+
+    //合同上传
+    @RequestMapping(value = "/filesUpload",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> filesUpload(@RequestParam("file") MultipartFile picture ,@RequestParam("key") String key) throws IOException {
+
+        if (picture!=null) {
+            String filename = picture.getOriginalFilename();
+            File file  = new File(filename);
+            FileUtils.copyInputStreamToFile(picture.getInputStream(), file);
+            System.out.println(picture.getInputStream().toString()+"====");
+            //调用阿里云工具类 返回文件地址
+            String upload = AliyunOSSUtil.upload(file);
+            System.out.println(upload);
+            boolean b = pbItemInfoService.tupianupdate(upload,key);
+        }
+        return null;
+    }
+
+//
+//    //合同上传
+//    @RequestMapping(value = "/filesUpload",method = RequestMethod.POST)
+//    @ResponseBody
+//    public Map<String,Object> filesUpload(@RequestParam("file") MultipartFile picture ,@RequestParam("key") String key){
+//        System.out.println(key);
+//        if(picture!=null){
+//            String fileName = picture.getOriginalFilename();
+//            String[] split = fileName.split("\\.");
+//            System.out.println(split);
+//            if(split[1] != null){
+//                boolean b = pbItemInfoService.filesUpload(split,key);
+//            }
+//
+//        }
+//        return null;
+//    }
+
+    //合同展示
+    @RequestMapping(value = "/examine",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> examine(@RequestBody Map<String,Object> id, HttpServletResponse response){
+        System.out.println(id);
+        Map<String,Object> map =  pbItemInfoService.examine(id,response);
+        System.out.println(map);
+        return map;
+    }
+
+}

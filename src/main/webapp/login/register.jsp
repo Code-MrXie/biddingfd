@@ -28,7 +28,7 @@
                             <span style="font-size: 20px;color:#00B8EE;">竞买人注册</span>
                         </div>
                     </div>
-                    <div   @mouseenter="enter" @mouseleave="leave" style="margin-left: 30px ;
+                    <div  @click="consignorRegister"  @mouseenter="enter" @mouseleave="leave" style="margin-left: 30px ;
                     width: 240px;height: 185px ;opacity: 1;background-color: #FFFFFF  ;float:left" :style="colord">
                         <div style="text-align: center;margin-top: 50px">
                             <span style="font-size: 20px;color:#00B8EE;">委托人注册</span>
@@ -61,8 +61,11 @@
         },
         /*方法函数  事件等*/
         methods: {
+            consignorRegister(){
+                location.href="${pageContext.request.contextPath}/login/consignor.jsp";
+            },
             BiddersRegister(){
-                location.href="";
+                location.href="${pageContext.request.contextPath}/login/bidder.jsp";
             },
                 enter(){
                     this.colord = 'background-color:#2B2B2B';

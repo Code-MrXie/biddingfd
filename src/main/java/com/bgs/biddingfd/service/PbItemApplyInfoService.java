@@ -2,6 +2,7 @@ package com.bgs.biddingfd.service;
 
 
 import com.bgs.biddingfd.pojo.PbItemApplyInfo;
+import com.bgs.biddingfd.pojo.User;
 
 import java.util.List;
 
@@ -15,4 +16,18 @@ public interface PbItemApplyInfoService {
     PbItemApplyInfo SelectPbItemApplyInfo(String itemName);
 
     List<PbItemApplyInfo> PbItemApplyInfoStatusToOne();
+
+    int PbItemApplyInfotongguo(Integer seqId);
+
+    int PbItemApplyInfoUpdaOnThree(Integer seqId);
+
+    PbItemApplyInfo pbItemApplyInfoSelectOne(Integer id);
+
+    int PbItemApplyInfoDel(Integer seqId);
+
+    List<PbItemApplyInfo> PbItemApplyInfoStatusToTWO();
+
+    List<User> userSelect();
+
+    int PbItemApplyInfoSuccessFenPei(Integer seqId, Integer userId);
 }

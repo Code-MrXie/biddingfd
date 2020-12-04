@@ -45,18 +45,18 @@
         <el-table-column align="left" prop="money" label="缴纳金额(元)"  show-overflow-tooltip></el-table-column>
         <el-table-column  label="操作" width="150px">
             <template slot-scope="scope">
-                <el-button v-if="scope.row.moneyStatus == 1"
+                <el-button  v-if="scope.row.depositBack ==0 "
                            @click.native.prevent="returnPayTheDeposit(scope.row,scope.$index)"
                            type="text"
                            size="mini">
                     退保证金
                 </el-button>
-                <el-button  v-if="scope.row.moneyStatus == 2"
+                <el-button  v-if="scope.row.isReturn == 0"
                             type="text"
                             size="mini">
                     审核中
                 </el-button>
-                <el-button  v-if="scope.row.moneyStatus == 3"
+                <el-button  v-if="scope.row.isReturn == 1"
                         @click.native.prevent="TerminationUpstream(scope.row,scope.$index)"
                         type="text"
                         size="mini">

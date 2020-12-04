@@ -22,9 +22,13 @@ public class PbItemObjectInfo {
     private Date bidEndTime;
     private Date applyStartTime;
     private Date depositTime;
+    private Date itemDepositTime;//截止时间
     private Date applyEndTime;
     private String bidderType;
     private String money;
+    private Integer depositBack;
     private Integer moneyStatus;
     private String bidName;
+    private Integer reMoney;
+    private Integer isReturn;
 }

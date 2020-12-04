@@ -5,6 +5,8 @@ import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -61,6 +63,7 @@ public class PbItemInfo implements Serializable {
     private Integer depositPayWay;
 
     @ApiModelProperty(value = "保证金缴纳截止时间")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private Date depositTime;
 
     @ApiModelProperty(value = "资格审查方式")

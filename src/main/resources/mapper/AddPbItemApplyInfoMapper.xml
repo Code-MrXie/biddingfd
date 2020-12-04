@@ -53,4 +53,69 @@
 
     </select>
 
+    <update id="PbItemApplyInfotongguo">
+
+        update pb_item_apply_info  set audit_state = 1 where seq_id = #{seqId}
+
+    </update>
+
+    <update id="PbItemApplyInfoUpdaOnThree">
+        update pb_item_apply_info  set audit_state = 3 where seq_id = #{seqId}
+    </update>
+
+    <select id="pbItemApplyInfoSelectOne" resultType="com.bgs.biddingfd.pojo.PbItemApplyInfo">
+
+        select
+         seq_id,
+             item_name,
+                item_dep_name,
+                    delegate_name,
+                        delegate_man,
+                            delegate_phone,
+                                item_summary,
+                                    approval,
+                                        create_time,
+                                            audit_state
+                                            from pb_item_apply_info where seq_id =#{id}
+
+    </select>
+
+    <delete id="PbItemApplyInfoDel">
+
+        delete from pb_item_apply_info where seq_id= #{seqId}
+
+    </delete>
+
+    <select id="PbItemApplyInfoStatusToTWO" resultType="com.bgs.biddingfd.pojo.PbItemApplyInfo">
+
+
+        select
+            seq_id,
+             item_name,
+                item_dep_name,
+                    delegate_name,
+                        delegate_man,
+                            delegate_phone,
+                                item_summary,
+                                    approval,
+                                        create_time,
+                                            audit_state,
+                                            item_leader_id
+
+                from pb_item_apply_info where audit_state = 2
+    </select>
+
+    <select id="userSelect" resultType="com.bgs.biddingfd.pojo.User">
+
+        select id,user_name from user where  user_differentiate = 4
+
+    </select>
+
+    <update id="PbItemApplyInfoSuccessFenPei">
+
+
+        update pb_item_apply_info set item_leader_id = #{userId} where seq_id = #{seqId}
+
+    </update>
+
 </mapper>

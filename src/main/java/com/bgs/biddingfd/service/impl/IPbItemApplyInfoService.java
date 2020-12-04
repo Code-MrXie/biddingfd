@@ -2,6 +2,7 @@ package com.bgs.biddingfd.service.impl;
 
 import com.bgs.biddingfd.mapper.AddPbItemApplyInfoMapper;
 import com.bgs.biddingfd.pojo.PbItemApplyInfo;
+import com.bgs.biddingfd.pojo.User;
 import com.bgs.biddingfd.service.PbItemApplyInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class IPbItemApplyInfoService implements PbItemApplyInfoService {
+public class IPbItemApplyInfoService implements PbItemApplyInfoService{
     @Autowired
     private AddPbItemApplyInfoMapper addPbItemApplyInfoMapper;
 
@@ -38,5 +39,40 @@ public class IPbItemApplyInfoService implements PbItemApplyInfoService {
     @Override
     public List<PbItemApplyInfo> PbItemApplyInfoStatusToOne() {
         return addPbItemApplyInfoMapper.PbItemApplyInfoStatusToOne();
+    }
+
+    @Override
+    public int PbItemApplyInfotongguo(Integer seqId) {
+        return addPbItemApplyInfoMapper.PbItemApplyInfotongguo(seqId);
+    }
+
+    @Override
+    public int PbItemApplyInfoUpdaOnThree(Integer seqId) {
+        return addPbItemApplyInfoMapper.PbItemApplyInfoUpdaOnThree(seqId);
+    }
+
+    @Override
+    public PbItemApplyInfo pbItemApplyInfoSelectOne(Integer id) {
+        return addPbItemApplyInfoMapper.pbItemApplyInfoSelectOne(id);
+    }
+
+    @Override
+    public int PbItemApplyInfoDel(Integer seqId) {
+        return addPbItemApplyInfoMapper.PbItemApplyInfoDel(seqId);
+    }
+
+    @Override
+    public List<PbItemApplyInfo> PbItemApplyInfoStatusToTWO() {
+        return addPbItemApplyInfoMapper.PbItemApplyInfoStatusToTWO();
+    }
+
+    @Override
+    public List<User> userSelect() {
+        return addPbItemApplyInfoMapper.userSelect();
+    }
+
+    @Override
+    public int PbItemApplyInfoSuccessFenPei(Integer seqId, Integer userId) {
+        return addPbItemApplyInfoMapper.PbItemApplyInfoSuccessFenPei(seqId,userId);
     }
 }

@@ -3,7 +3,7 @@ package com.bgs.biddingfd.mapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.bgs.biddingfd.pojo.*;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import io.lettuce.core.dynamic.annotation.Param;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -34,13 +34,24 @@ public interface PbItemInfoMapper extends BaseMapper<PbItemInfo> {
     PbBiddingRules bidRuleDetail(@Param("itemId") Integer itemId);
 
     Boolean subSetSignRule(PbObjectInfo signRule);
-    IPage<PbItemObjectInfo> selectPbItemInfo(@org.apache.ibatis.annotations.Param("page") IPage<PbItemObjectInfo> page, @org.apache.ibatis.annotations.Param("itemName") String itemName, @org.apache.ibatis.annotations.Param("resourceType")  Integer resourceType);
+    IPage<PbItemObjectInfo> selectPbItemInfo(@Param("page") IPage<PbItemObjectInfo> page, @Param("itemName") String itemName, @Param("resourceType")  Integer resourceType);
 
-    IPage<PbQuoteInfo> selectBiddingHall(@org.apache.ibatis.annotations.Param("page")IPage<PbQuoteInfo> pbItemInfoPage, @org.apache.ibatis.annotations.Param("itemId")Integer itemId);
+    IPage<PbQuoteInfo> selectBiddingHall(@Param("page")IPage<PbQuoteInfo> pbItemInfoPage, @Param("itemId")Integer itemId);
 
     List<PbItemInfo> findPbItemInfo(PbItemInfo pbItemInfo);
 
     boolean deteleThis(Integer itemId);
 
     Map<String,Object> ListingLinkShow();
+
+    List<Map<String,Object>> theContractFor(Map<String,Object> map);
+
+    Map<String,Object> transaction(Map<String,Object> map1);
+
+    boolean filesUpload(@Param("name") String s,@Param("path")  String s1,@Param("id")  String id);
+
+    Map<String,Object> examine(Map<String,Object> id);
+
+    boolean tupianupdate(@Param("name")String s, @Param("upload")String upload);
+
 }

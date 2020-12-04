@@ -11,10 +11,101 @@
         WHERE
             role_permession.role_id = role.id AND
             role_permession.p_id = permission.p_id AND
-            role_permession.role_id = 1;
+            role_permession.role_id = #{userLogin};
 
     </select>
 
+
+    <select id="login" resultType="User">
+            select
+            *
+            from
+            user,
+            user_role,
+            role
+            where
+            user_role.user_id = user.id and
+            user_role.role_id = role.id and
+            user.idCard = #{idc} and
+            user.password = #{ps}
+    </select>
+
+    <insert id="addUser">
+    <selectKey keyProperty="id" resultType="Integer" order="AFTER">
+        select  last_insert_id()
+    </selectKey>
+      insert into  user  VALUES
+     (0,
+     #{userName},
+     #{password},
+     #{idCard},
+     #{mobile},
+     #{card},
+     #{cardName},
+     #{contactName},
+     #{businessName},
+     #{businessAddress},
+     #{corName},
+     #{corNum},
+     #{roleId});
+    </insert>
+
+    <insert id="addRole">
+        insert into  user_role  VALUES (0,5,#{id})
+    </insert>
+
+
+    <select id="repetition" resultType="Map">
+        select * from user where idCard = #{str}
+    </select>
+
+    <insert id="consignor">
+        <selectKey keyProperty="id" resultType="Integer" order="AFTER">
+            select  last_insert_id()
+        </selectKey>
+        insert into  user  VALUES
+        (0,
+        #{contactName},
+        #{password},
+        #{idCard},
+        #{corporatePhone},
+        null,
+        #{contactName},
+        null,
+        #{businessName},
+        #{card},
+        #{corName},
+        #{corporatePhone},
+        #{corNum},3)
+    </insert>
+    <insert id="consignor1">
+        insert into  user_role  VALUES (0,4,#{id})
+    </insert>
+
+
+    <select id="baocun" resultType="map">
+						select
+						accessory.accessory_name,
+         accessory_user.*
+         from
+         accessory,
+         accessory_user
+         where
+         accessory_user.accessory_id = accessory.id AND
+         accessory_user.user_id = #{id} and
+         accessory_user.differentiate_id = #{userDifferentiate}
+
+
+    </select>
+
+
+    <update id="filesUpload">
+    update accessory_user set
+        accessory_format = #{geshi},
+        accessory_size = #{size} ,
+        accessory_path = #{fileName}
+        where id = #{id}
+    </update>
 
 </mapper>
 

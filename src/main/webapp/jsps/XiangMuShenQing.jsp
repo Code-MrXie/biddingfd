@@ -17,7 +17,8 @@
 
 
     <h2 style="left: 30px">台州市公共资源拓展项目交易申请书</h2>
-    <el-form :inline="true" :model="pbItemApplyInfo" label-width="130px">
+
+    <el-form :inline="true" :model="pbItemApplyInfo"  ref="pbItemApplyInfo" label-width="130px" >
         <el-form-item label="项目名称">
             <el-input v-model="pbItemApplyInfo.itemName" placeholder=""></el-input>
         </el-form-item>
@@ -53,7 +54,7 @@
 
     <el-row >
         <el-button type="success" @click="onSubmit" plain>提交</el-button>
-        <el-button type=""  plain>重置</el-button>
+        <el-button @click="resetForm('pbItemApplyInfo')" type="info">重置</el-button>
         <el-button type="info" @click="onReturna" plain>返回</el-button>
     </el-row>
 
@@ -89,8 +90,7 @@ new Vue({
             axios
                 .post('/PbItemApplyInfoCon/PbItemApplyInfoAdd',_that.pbItemApplyInfo)
                 .then(function (res) {
-                    console.log(res.data.msg)
-                    if(res.data.msg==0){
+                    if(res.data.code==0){
 
                         alert("项目申请已提交")
                         location.href="/jsps/XiangMuShenQingShow.jsp";
@@ -102,8 +102,14 @@ new Vue({
                 })
 
         },
+
         onReturna:function(){
-            location.href="/jsps/XiangMuShenQingShow.jsp";
+            location.href="/jsps/WeiTuoRenXiangMuShenQingShow.jsp";
+        },
+
+        resetForm(formName) {
+            console.log(this.$refs[formName]);
+            this.$refs[formName].resetFields();
         }
     }
 })

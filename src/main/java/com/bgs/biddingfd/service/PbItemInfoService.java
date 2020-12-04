@@ -4,10 +4,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.bgs.biddingfd.pojo.*;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
-
-import java.util.List;
 
 /**
  * <p>
@@ -42,4 +41,15 @@ public interface PbItemInfoService extends IService<PbItemInfo> {
     boolean deteleThis(Integer itemId);
 
     Map<String,Object> ListingLinkShow();
+
+    List<Map<String,Object>> theContractFor(Map<String,Object> map);
+
+    Map<String,Object> transaction(Map<String,Object> map1);
+
+    boolean  filesUpload(String[] split, String key);
+
+
+    boolean tupianupdate(String s, String upload);
+
+    Map<String,Object> examine(Map<String,Object> id, HttpServletResponse response);
 }
