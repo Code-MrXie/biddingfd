@@ -1,20 +1,29 @@
 package com.bgs.biddingfd.service.impl;
 
+import com.aliyun.oss.OSS;
+import com.aliyun.oss.OSSClient;
+import com.aliyun.oss.OSSClientBuilder;
+import com.aliyun.oss.model.GetObjectRequest;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.bgs.biddingfd.pojo.*;
 import com.bgs.biddingfd.mapper.PbItemInfoMapper;
 import com.bgs.biddingfd.service.PbItemInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.bgs.biddingfd.utility.AliOSSUtilS;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * <p>
@@ -96,5 +105,42 @@ public class PbItemInfoServiceImpl extends ServiceImpl<PbItemInfoMapper, PbItemI
     @Override
     public boolean deteleThis(Integer itemId) {
         return pbItemInfoMapper.deteleThis(itemId);
+    }
+
+    @Override
+    public List<Map<String, Object>> theContractFor(Map<String,Object> map) {
+        return pbItemInfoMapper.theContractFor(map);
+    }
+
+    @Override
+    public Map<String, Object> transaction(Map<String, Object> map1) {
+        return pbItemInfoMapper.transaction(map1);
+    }
+
+    @Override
+    public boolean filesUpload(String[] split, String key) {
+        return pbItemInfoMapper.filesUpload(split[0],split[0]+split[1],key);
+    }
+
+    @Override
+    public Map<String, Object> examine(Map<String,Object> id, HttpServletResponse response) {
+        Map<String, Object> examine = pbItemInfoMapper.examine(id);
+//        AliOSSUtilS.downloadFileToLoacal(String.valueOf(examine.get("contract_md5")),"E:\\壁纸");
+
+        // 创建OSSClient实例。
+        OSS ossClient = new OSSClientBuilder().build("oss-cn-beijing.aliyuncs.com", "LTAI4G3SS6a2RZohGusv8wVe", "RIxpOII0Oe8S0XEJ88LrtCf41B9aTF");
+
+        // 下载OSS文件到本地文件。如果指定的本地文件存在会覆盖，不存在则新建。
+        ossClient.getObject(new GetObjectRequest("yuxinshi", String.valueOf(examine.get("contract_md5"))), new File("E:\\壁纸\\01.jpg"));
+        // 关闭OSSClient。
+        ossClient.shutdown();
+
+        return  examine;
+    }
+
+
+    @Override
+    public boolean tupianupdate(String s, String upload) {
+        return pbItemInfoMapper.tupianupdate(s,upload);
     }
 }

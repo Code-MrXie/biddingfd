@@ -23,7 +23,7 @@ spring:
 #          initial-interval: 3000ms
 #    #消息重试
 #    publisher-returns: true
-  #热部署
+  #热部署   对前端修改后 不再需要一次次重启项目
   devtools:
     restart:
       enabled: true

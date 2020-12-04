@@ -140,5 +140,48 @@ SELECT * FROM pb_bidding_rules WHERE rule_id=
         WHERE object_id=#{objectId}
     </update>
 
+    <select id="theContractFor" resultType="map">
+          select
+        pb_object_info.object_code,
+        pb_object_info.object_id,
+        pb_object_info.bid_start_time,
+        pb_object_info.object_name,
+         pb_item_info.*
+         from
+         pb_object_info,
+         pb_item_info
+            where
+         pb_object_info.item_id=pb_item_info.item_id and
+         pb_item_info.flow_id = #{moneyStatus}
 
+    </select>
+
+    <select id="transaction" resultType="map">
+       select
+        pb_object_info.object_code,
+        pb_object_info.object_id,
+        pb_object_info.bid_start_time,
+        pb_object_info.object_name,
+         pb_item_info.*
+         from
+         pb_object_info,
+         pb_item_info
+            where
+         pb_object_info.item_id=pb_item_info.item_id and
+         pb_item_info.flow_id = #{moneyStatus} and
+         pb_item_info.item_id = #{key}
+
+    </select>
+
+    <insert id="filesUpload">
+        insert  into pb_contract_info ( contract_name ,contract_md5,item_id) value (#{name},#{path},#{id})
+    </insert>
+
+    <select id="examine" resultType="map">
+    select * from pb_contract_info where item_id = #{key}
+    </select>
+
+    <insert id="tupianupdate">
+         insert  into pb_contract_info ( contract_md5,item_id) value (#{name},#{upload})
+    </insert>
 </mapper>

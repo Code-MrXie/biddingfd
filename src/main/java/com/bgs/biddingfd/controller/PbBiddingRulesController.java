@@ -17,5 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/pb-bidding-rules")
 public class PbBiddingRulesController {
 
+
+
+
 }
 

@@ -17,8 +17,8 @@
 <div id="abc" >
     <el-container style=" border: 1px solid #eee">
         <el-header style="text-align: right; font-size: 12px;background-color: #545c64; height: 100px">
-            <div style="float: left">
-                <h1> 台州市产权电子交易平台</h1>
+            <div style="float: left;margin-top: 20px;margin-left: 150px">
+                <span style="font-size: 30px">台州市产权电子交易平台</span>
             </div>
             <div style="margin-top: 20px">
                 <el-button type="primary" icon="el-icon-s-platform">桌面</el-button>
@@ -67,6 +67,14 @@
 
 </body>
 
+
+<script>
+    <%
+    if (session.getAttribute("UserLogin")==null||session.getAttribute("UserLogin")==""){
+        response.sendRedirect("/login/login.jsp");
+    }
+      %>
+</script>
 
 <script>
     new Vue({

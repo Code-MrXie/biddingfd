@@ -19,7 +19,7 @@
 <div id="abc">
     <div style="margin-top: 300px">
         <%--<h1 style=" text-align: center;"> 台州市产权电子交易平台</h1>--%>
-        <h2 style=" text-align: center;">选择注册类型</h2>
+        <h2 style=" text-align: center;font-size: 30px">选择注册类型</h2>
     </div>
         <template>
             <div id="login">
@@ -39,12 +39,12 @@
                     >
                         <el-form-item
                                 label="用户名"
-                                prop="name">
+                                prop="idCard">
                             <el-input
                                     type="text"
-                                    v-model="form.name"
+                                    v-model="form.idCard"
                                     auto-complete="off"
-                                    placeholder="请输入用户名"></el-input>
+                                    placeholder="用户名为身份证号"></el-input>
                         </el-form-item>
                         <el-form-item
                                 label="密码"
@@ -118,11 +118,11 @@
             return {
                 logining: false,
                 form: {
-                    name: '',
-                    password: ''
+                    idCard: '370786200101204810',
+                    password: '1234'
                 },
                 ruleForm: {
-                    name: [
+                    idCard: [
                         { required: true, message: '请输入账号', trigger: 'blur' },
                     ],
                     password: [
@@ -140,8 +140,9 @@
             submit(event){
                 this.$refs.form.validate((valid) =>{})
                 console.log(this.form)
+                var data = this.form
                 axios
-                    .post('/',{form:this.form})
+                    .post('/login',data)
                     .then(function (res) {
                         if(res.data){
                             location.href="${pageContext.request.contextPath}/jsps/homePage.jsp";
