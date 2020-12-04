@@ -32,9 +32,21 @@
     .mingcheng{
         background-color: #9d9d9d;
     }
+    .img_head{
+        width: 50px;
+        height: 50px;
+        border-radius: 45px;
+        border: 1px solid #9d9d9d;
+    }
 </style>
 <body>
 <div id="fuDiv">
+<template>
+    <img class="img_head" src="/static/images/pm1.png"/>-------------------------
+    <img class="img_head" src="/static/images/p2.png"/>-------------------------
+    <img class="img_head" src="/static/images/p3.png"/>-------------------------
+    <img class="img_head" src="/static/images/p4.png"/>
+
     <el-main v-model="selected" >
         <el-input style="width: 100px" value="标的信息" readonly=""></el-input>
         <div class="block" style="height:300px;width: 1000px">
@@ -85,9 +97,27 @@
         </div>
         <el-input style="width: 100px" value="标的信息" readonly=""></el-input>
         <div class="block" style="height:300px;width: 1000px">
-
+            <span>{{codeImg}}</span>
+            <input type="button" @click="dialogVisible=true" value="查看"/>
+            <input type="button" @click="downs()" value="下载"/>
         </div>
     </el-main>
+    <input type="button" value="下一步" @click="xiayibu()">
+
+    <div>
+        <!--弹框-->
+        <el-dialog title="弹框" :visible.sync="dialogVisible" :close-on-click-modal="true" :modal="true" :show-close="true" :center="true">
+            <el-image
+                    style="width: 100px; height: 100px"
+                    :src="codeImg"
+                    :fit="fit"></el-image>
+            <span slot="footer" class="dialog-footer">
+                <%--<el-button @click="dialogVisible = false">取 消</el-button>--%>
+                <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+            </span>
+        </el-dialog>
+    </div>
+</template>
 </div>
 </body>
 <script>
@@ -96,7 +126,9 @@
         /*变量*/
         data(){
             return{
-                pbObjecetInfo:[]
+                pbObjecetInfo:[],
+                codeImg: "/static/images/1.jpg",
+                dialogVisible: false
             }
         },
         //页面加载之前调用
@@ -115,6 +147,18 @@
                     this.pbObjecetInfo = (res.data)
                 })
             },
+            downs() {
+                var alink = document.createElement("a");
+                alink.href = this.codeImg;
+                alink.download = "1.jpg"; //图片名
+                alink.click();
+            },
+            show:function(){
+                this.$modal.show('as-modal')
+            },
+            xiayibu:function () {
+                window.location.href=("/jsps/index_jingjia.jsp?objectId="+this.pbObjecetInfo.objectId)
+            }
         }
     })
 </script>

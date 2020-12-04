@@ -2,9 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bgs.biddingfd.mapper.PbObjectInfoMapper">
 
+    <resultMap id="test" autoMapping="true" type="com.bgs.biddingfd.pojo.PbObjectInfo">
+        <id column="object_id" property="objectId"></id>
+        <collection property="pbItemInfo" autoMapping="true" ofType="com.bgs.biddingfd.pojo.PbItemInfo">
+            <id column="item_id" property="itemId"></id>
+        </collection>
+    </resultMap>
     <!--PbObjectInfo ShowObject(Integer objectId);-->
-    <select id="ShowObject" resultType="PbObjectInfo">
-        select * from pb_object_info where object_id=#{objectId};
+    <select id="ShowObject" resultMap="test">
+        SELECT
+            *
+        FROM
+            pb_object_info poi
+            LEFT JOIN pb_item_info pii ON pii.item_id = poi.item_id
+        WHERE
+            object_id = #{objectId};
     </select>
 
 </mapper>
