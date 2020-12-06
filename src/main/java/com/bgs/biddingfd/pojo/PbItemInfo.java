@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
@@ -169,6 +170,8 @@ public class PbItemInfo implements Serializable {
 
     @ApiModelProperty(value = "是否删除")
     private String isDel;
+
+    private List<PbObjectInfo> pbObjectInfoList;
 
 
 }

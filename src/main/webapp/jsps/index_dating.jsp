@@ -37,7 +37,18 @@
     <img class="img_head" src="/static/images/p3.png"/>-------------------------
     <img class="img_head" src="/static/images/pm4.png"/>
     <div class="block" style="width: 900px">
-        <img style="width: 300px;height: 300px" src="/static/images/1.jpg">
+        <el-row type="flex" class="row-bg">
+            <el-col :span="12">
+                <h3>【第一次拍卖】测试</h3>
+                <img style="width: 300px;height: 300px" src="/static/images/1.jpg">
+            </el-col>
+            <el-col :span="13">
+                <div>当前竞价状态：<span style="color: red">{{bidStatus}}</span> 当前竞价模式：<span style="color: red">{{bidState}}</span></div>
+                <div>最高报价<span style="color: red">{{bidStatus}}</span>出价人：{{bidStatus}}</div>
+                <div>最新加价<span style="color: red">{{bidStatus}}</span></div>
+            </el-col>
+        </el-row>
+
     </div>
     <input type="button" value="上一步" @click="shangyibu()">
 </div>
@@ -49,7 +60,9 @@
         data(){
             return{
                 pbObjecetInfo:[],
-                objectId:${param.objectId}
+                objectId:${param.objectId},
+                bidStatus:"",
+                bidState:""
             }
         },
         //页面加载之前调用
@@ -66,7 +79,10 @@
                 pbItemInfo.append('objectId',id);
                 axios.post('/pb-object-info/ShowObject',pbItemInfo).then(res=>{
                     this.pbObjecetInfo = (res.data)
-            })
+
+                    this.bidStatus=this.pbObjecetInfo.bidStatus=== 1 ? '等待' : '正在进行';
+                    this.bidState=this.pbObjecetInfo.pbItemInfo.bidState=== 1 ? '加价' : '减价';
+                })
             },
             shangyibu:function () {
                 window.location.href=("/jsps/index_jiaona.jsp?objectId="+this.objectId)

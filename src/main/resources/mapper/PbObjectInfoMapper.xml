@@ -7,6 +7,9 @@
         <collection property="pbItemInfo" autoMapping="true" ofType="com.bgs.biddingfd.pojo.PbItemInfo">
             <id column="item_id" property="itemId"></id>
         </collection>
+        <collection property="pbApplyInfo" autoMapping="true" ofType="com.bgs.biddingfd.pojo.PbApplyInfo">
+            <id column="item_id" property="itemId"></id>
+        </collection>
     </resultMap>
     <!--PbObjectInfo ShowObject(Integer objectId);-->
     <select id="ShowObject" resultMap="test">
@@ -15,8 +18,9 @@
         FROM
             pb_object_info poi
             LEFT JOIN pb_item_info pii ON pii.item_id = poi.item_id
+            LEFT JOIN pb_apply_info pai ON pai.apply_id = poi.priority_apply_id
         WHERE
-            object_id = #{objectId};
+            poi.object_id = #{objectId};
     </select>
 
 </mapper>

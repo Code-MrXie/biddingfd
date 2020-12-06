@@ -26,6 +26,32 @@
         delete from pb_item_info where item_id=#{itemId}
     </delete>
 
+    <resultMap id="test" autoMapping="true" type="com.bgs.biddingfd.pojo.PbItemInfo">
+        <id column="item_id" property="itemId"></id>
+        <collection property="pbObjectInfoList" autoMapping="true" ofType="com.bgs.biddingfd.pojo.PbObjectInfo">
+            <id column="object_id" property="objectId"></id>
+            <collection property="pbApplyInfo2" autoMapping="true" ofType="com.bgs.biddingfd.pojo.PbApplyInfo">
+                <id column="apply_id" property="applyId"></id>
+            </collection>
+            <collection property="pbFileImgInfo" autoMapping="true" ofType="com.bgs.biddingfd.pojo.PbFileImgInfo">
+                <id column="object_id" property="objectId"></id>
+            </collection>
+        </collection>
+    </resultMap>
+    <!--List<PbItemInfo> showAllPbItemInfo();-->
+    <select id="showAllPbItemInfo" resultMap="test">
+        SELECT
+            pii.*,
+            poi.*,
+            pai.bid_name,
+            pfii.file_md5
+        FROM
+            pb_item_info pii
+            LEFT JOIN pb_object_info poi ON pii.item_id = poi.item_id
+            LEFT JOIN pb_file_img_info pfii ON pfii.object_id = poi.object_id
+            LEFT JOIN pb_apply_info pai ON pai.item_id = poi.item_id
+    </select>
+
     <select id="selectPbItemInfo" resultType="com.bgs.biddingfd.pojo.PbItemObjectInfo">
         select
         pii.item_id,

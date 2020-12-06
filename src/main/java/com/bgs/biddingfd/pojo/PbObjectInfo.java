@@ -6,6 +6,7 @@ import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
@@ -166,5 +167,8 @@ public class PbObjectInfo implements Serializable {
     private String isDel;
 
     private PbItemInfo pbItemInfo;
+    private PbApplyInfo pbApplyInfo;
+    private List<PbApplyInfo> pbApplyInfo2;
+    private PbFileImgInfo pbFileImgInfo;
 
 }

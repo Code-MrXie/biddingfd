@@ -54,4 +54,6 @@ public interface PbItemInfoMapper extends BaseMapper<PbItemInfo> {
 
     boolean tupianupdate(@Param("name")String s, @Param("upload")String upload);
 
+
+    List<PbItemInfo> showAllPbItemInfo();
 }
