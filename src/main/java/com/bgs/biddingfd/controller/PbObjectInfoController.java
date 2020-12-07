@@ -24,13 +24,14 @@ public class PbObjectInfoController {
     @Resource
     private PbObjectInfoService pbObjectInfoService;
 
-    @RequestMapping("ShowObject")
+    @RequestMapping("/ShowObject")
     @ResponseBody
     public PbObjectInfo ShowObject(Integer objectId){
         PbObjectInfo pbObjectInfo=pbObjectInfoService.ShowObject(objectId);
         return pbObjectInfo;
     }
 
-    //@RequestMapping("/objectInfo")
+
+
 }
 
