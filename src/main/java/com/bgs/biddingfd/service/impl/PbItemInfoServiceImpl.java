@@ -142,4 +142,18 @@ public class PbItemInfoServiceImpl extends ServiceImpl<PbItemInfoMapper, PbItemI
     public boolean tupianupdate(String s, String upload) {
         return pbItemInfoMapper.tupianupdate(s,upload);
     }
+
+    @Override
+    public List<PbItemInfo> showAllPbItemInfo() {
+        List<PbItemInfo> list=pbItemInfoMapper.showAllPbItemInfo();
+        for(PbItemInfo test1:list){
+            for (PbObjectInfo test2:test1.getPbObjectInfoList()){
+                for(PbApplyInfo test3:test2.getPbApplyInfo2()){
+                    Integer a=test2.getPbApplyInfo2().size();
+                    test3.setLength(a);
+                }
+            }
+        }
+        return list;
+    }
 }

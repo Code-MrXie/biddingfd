@@ -52,4 +52,6 @@ public interface PbItemInfoService extends IService<PbItemInfo> {
     boolean tupianupdate(String s, String upload);
 
     Map<String,Object> examine(Map<String,Object> id, HttpServletResponse response);
+
+    List<PbItemInfo> showAllPbItemInfo();
 }

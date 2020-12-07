@@ -187,7 +187,13 @@ public class PbItemInfoController {
     public Map<String,Object> ListingLinkShow(){
         return pbItemInfoService.ListingLinkShow();
     }
-
+    //交易大厅--jiaoyidating
+    @RequestMapping("/showAllPbItemInfo")
+    @ResponseBody
+    public List<PbItemInfo> showAllPbItemInfo(){
+        List<PbItemInfo> list=pbItemInfoService.showAllPbItemInfo();
+        return list;
+    }
 
 
     //合同上传

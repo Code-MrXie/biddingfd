@@ -29,6 +29,12 @@ public class PbApplyInfo implements Serializable {
     @TableId(value = "seq_id", type = IdType.AUTO)
     private Integer seqId;
 
+    @ApiModelProperty(value = "竞买人id")
+    private Integer app;
+
+    @ApiModelProperty(value = "竞买人id")
+    private Integer applyId;
+
     @ApiModelProperty(value = "项目id")
     private Integer itemId;
 
@@ -77,4 +83,6 @@ public class PbApplyInfo implements Serializable {
 
     @ApiModelProperty(value = "默认0，未缴纳，1，已缴纳，2，申请退回3，已退回")
     private Integer moneyStatus;
+
+    private Integer length;
 }
