@@ -3,14 +3,11 @@ package com.bgs.biddingfd.utility;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.*;
-import com.aliyun.oss.OSS;
-import com.aliyun.oss.model.*;
 
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import java.util.UUID;
 
 /*

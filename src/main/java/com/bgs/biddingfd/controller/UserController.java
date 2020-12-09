@@ -121,6 +121,15 @@ public class UserController {
         return b;
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/unsubscribe",method = RequestMethod.GET)
+    public boolean unsubscribe(HttpSession session){
+        session.invalidate();
+        System.out.println("注销session");
+        return true;
+    }
+
+
 
 }
 
