@@ -51,7 +51,7 @@
     <div v-for="test1 in PbItemInfo" id="wai">
         {{test1.itemName}}
         <hr>
-        <div class="duodiv" v-for="test2 in test1.pbObjectInfoList" @click="clicktest()">
+        <div class="duodiv" v-for="test2 in test1.pbObjectInfoList" @click="clicktest(test2.objectId)">
             <img :src="test2.pbFileImgInfo.fileMd5" style="width: 400px;height: 300px">
             <h5>{{test2.objectName}}</h5>
             <h5>当前价 &nbsp <span style="color: red">￥11</span></h5>
@@ -90,11 +90,13 @@
             showAllPbItemInfo:function () {
                 axios.post('/pb-item-info/showAllPbItemInfo').then(res=>{
                     this.PbItemInfo = (res.data)
+                    console.log("----------")
                     console.log(res.data)
                 })
             },
-            clicktest:function () {
-                alert("跳转页面")
+            clicktest:function (res) {
+                //window.open("${pageContext.request.contextPath}/jsps/ListingLink.jsp?objectId="+res,'_blank')
+                location.href="${pageContext.request.contextPath}/jsps/ListingLink.jsp?objectId="+res;
             }
         }
     })

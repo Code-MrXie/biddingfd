@@ -176,9 +176,10 @@ public class PbItemInfoController {
     //ListingLinkShow
     //相关标的挂牌链接
     //ListingLink.jsp
-    @RequestMapping("/ListingLinkShow")
-    public Map<String,Object> ListingLinkShow(){
-        return pbItemInfoService.ListingLinkShow();
+    @RequestMapping("/ListingLinkShow/{objectId}")
+    public Map<String,Object> ListingLinkShow(@PathVariable Integer objectId){
+
+        return pbItemInfoService.ListingLinkShow(objectId);
     }
 
 

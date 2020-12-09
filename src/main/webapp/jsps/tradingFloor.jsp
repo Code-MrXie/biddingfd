@@ -11,11 +11,6 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/user-defined/common.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/user-defined/bannerList.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/user-defined/main.js"></script>
-
-
-
-
-
 </head>
 <body>
 <!-- 头部导航start -->
@@ -24,11 +19,10 @@
         <span class="fl"><a href="/tzcms" style="color:#fff;" target="_blank"  rel="noopener noreferrer">台州市公共资源交易网</a></span>
         <ul class="fl clearfix">
             <li><a class="hover" href="/tzcms" target="_self"  rel="noopener noreferrer">首页</a></li>
-            <li><a href="/tzcms/gcjy/index.htm" target="_self"  rel="noopener noreferrer">交易信息</a></li>
+            <li><a href="/jsps/jiaoyidating.jsp" target="_self"  rel="noopener noreferrer">交易信息</a></li>
             <li><a href="/tzcms/fwzn/index.htm" target="_self"  rel="noopener noreferrer">服务指南</a></li>
             <li><a href="/tzcms/sczx/index.htm" target="_self"  rel="noopener noreferrer">市场资信</a></li>
             <li><a href="/tzcms/zwgk/index.htm" target="_self"  rel="noopener noreferrer">政务公开</a></li>
-
         </ul>
         <div class="search fr">
             <!--<input type="text" id="seachName" name="" value="">-->

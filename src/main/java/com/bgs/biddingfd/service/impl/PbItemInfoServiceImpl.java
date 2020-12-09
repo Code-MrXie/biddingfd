@@ -102,8 +102,8 @@ public class PbItemInfoServiceImpl extends ServiceImpl<PbItemInfoMapper, PbItemI
     }
 
     @Override
-    public Map<String, Object> ListingLinkShow() {
-        return pbItemInfoMapper.ListingLinkShow();
+    public Map<String, Object> ListingLinkShow(Integer objectId) {
+        return pbItemInfoMapper.ListingLinkShow(objectId);
     }
 
     @Override

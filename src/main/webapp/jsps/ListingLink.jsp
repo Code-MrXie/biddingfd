@@ -12,6 +12,9 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/static/vue/qs.js"></script>
 
 <body>
+
+
+
 <div id="ListingLink" style="margin:0px auto;">
     <el-row :gutter="40">
         <el-col :span="10">
@@ -257,19 +260,22 @@
                 timer: null,//定时器
                 linkShow:{},
                 CountDown:"",//单倒计时
-                pbObjecetInfo:[]
+                pbObjecetInfo:[],
+                objectId:''
 
             }
         },
         created(){
             var _this = this;
-            _this.ShowObject(1)
+            _this.objectId = _this.getUrlParam("objectId");
         },
         //页面加载成功时完成
         mounted: function(){
             var _this = this;
+            console.log('-------------------')
+            console.log(_this.objectId)
             axios
-                .post("/pb-item-info/ListingLinkShow")
+                .post("/pb-item-info/ListingLinkShow/"+_this.objectId)
                 .then(function (res) {
                     _this.linkShow=res.data;
                     _this.Djs_time(res.data.bid_start_time);
@@ -280,6 +286,12 @@
         },
         /*方法函数  事件等*/
         methods: {
+            getUrlParam:function(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+                var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+                if (r != null) return unescape(r[2]);
+                return null; //返回参数值
+            },
             ShowObject:function(id){
                 var _this = this;
                 var pbItemInfo = new URLSearchParams();

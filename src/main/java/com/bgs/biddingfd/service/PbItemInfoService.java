@@ -40,7 +40,7 @@ public interface PbItemInfoService extends IService<PbItemInfo> {
 
     boolean deteleThis(Integer itemId);
 
-    Map<String,Object> ListingLinkShow();
+    Map<String,Object> ListingLinkShow(Integer objectId);
 
     List<Map<String,Object>> theContractFor(Map<String,Object> map);
 

@@ -195,7 +195,7 @@ ON pb_apply_info.apply_id=pb_quote_info.apply_id) pqi
 				limit 1
 				) s
 				ON s.object_id=poi.object_id
-        WHERE poi.object_id = 1
+        WHERE poi.object_id = #{objectId}
 
     </select>
 

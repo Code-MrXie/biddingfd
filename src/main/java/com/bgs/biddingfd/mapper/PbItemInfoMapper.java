@@ -42,7 +42,7 @@ public interface PbItemInfoMapper extends BaseMapper<PbItemInfo> {
 
     boolean deteleThis(Integer itemId);
 
-    Map<String,Object> ListingLinkShow();
+    Map<String,Object> ListingLinkShow(@Param("objectId") Integer objectId);
 
     List<Map<String,Object>> theContractFor(Map<String,Object> map);
 
