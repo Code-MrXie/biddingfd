@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Vue测试</title>
+    <title>台州市电子交易平台</title>
 </head>
 <script src="${pageContext.request.contextPath }/static/vue/vue.js"></script>
 <!-- 引入样式 -->
