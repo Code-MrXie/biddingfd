@@ -84,9 +84,7 @@
         },
         //页面加载成功时完成
         mounted: function(){
-
             var _this = this;
-
             axios
                 .post("/pb-result-info/resultInfo")
                 .then(function (res) {

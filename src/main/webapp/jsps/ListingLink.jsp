@@ -12,7 +12,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/static/vue/qs.js"></script>
 
 <body>
-<div id="ListingLink" style="margin:0px auto;width: 80%">
+<div id="ListingLink" style="margin:0px auto;">
     <el-row :gutter="40">
         <el-col :span="10">
             <div class="grid-content bg-purple">
@@ -184,9 +184,6 @@
         margin-top: 50px;
         margin-left: 100px;
     }
-    .RCU{
-        margin: 20px 195px;
-    }
     .RD table{
         font-size: small;
         margin-top: 20px;
@@ -311,7 +308,7 @@
                         var hh = Math.floor((rightTime / 1000 / 60 / 60) % 24);
                         var mm = Math.floor((rightTime / 1000 / 60) % 60);
                         var ss = Math.floor((rightTime / 1000) % 60);
-                        _this.CountDown= dd + "天" + hh + ":" + mm + ":" + ss
+                        _this.CountDown= dd + "天" + hh + ":" + mm + ":" + ss+"秒"
                     }else{
                         _this.CountDown="已到截止申请时间"
                     }

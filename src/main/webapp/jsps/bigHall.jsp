@@ -12,7 +12,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/static/vue/qs.js"></script>
 
 <body>
-<div id="ListingLink" style="margin:0px auto;width: 80%">
+<div id="ListingLink" style="margin:0px auto">
     <el-row :gutter="40">
         <el-col :span="10">
             <div class="grid-content bg-purple">
@@ -181,7 +181,7 @@
         margin-left: 100px;
     }
     .RCU{
-        margin: 20px 195px;
+        margin: 20px 185px;
     }
     .RD table{
         font-size: small;

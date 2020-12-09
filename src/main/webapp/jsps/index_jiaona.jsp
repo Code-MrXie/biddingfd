@@ -100,7 +100,7 @@
                 window.location.href=("/jsps/index_jiaonabzj.jsp?objectId="+this.objectId)
             },
             xiayibu:function () {
-                window.location.href=("/jsps/index_dating.jsp?objectId="+this.objectId)
+                window.location.href=("/jsps/bigHall.jsp?objectId="+this.objectId)
             }
         }
     })

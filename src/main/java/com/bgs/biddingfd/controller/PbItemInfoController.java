@@ -3,13 +3,12 @@ package com.bgs.biddingfd.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.bgs.biddingfd.config.Result;
-import com.bgs.biddingfd.pojo.*;
 import com.bgs.biddingfd.pojo.*;
 import com.bgs.biddingfd.service.PbItemInfoService;
 import com.bgs.biddingfd.utility.AliyunOSSUtil;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.FileUtils;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -88,8 +87,6 @@ public class PbItemInfoController {
     //查询电子竞价管理表
     @RequestMapping("/likeElectronic")
     public List<Map<String,Object>> likeElectronic(@RequestBody Map<String,String> map){
-        String name = map.get("name");
-        String code = map.get("code");
         List<Map<String,Object>> list = pbItemInfoService.likeElectronic(map);
         return list;
     }
@@ -133,7 +130,7 @@ public class PbItemInfoController {
 
         String str = signRule.getBidEndTime();
         String str1 = signRule.getBidStartTime();
-        signRule.setBidEndTime( str.substring(0,10));
+        signRule.setBidEndTime(str.substring(0,10));
         signRule.setBidStartTime(str1.substring(0,10));
 
         signRule.setObjectId(objectId);
@@ -161,9 +158,7 @@ public class PbItemInfoController {
     @RequestMapping(value = "/theContractFor",method = RequestMethod.POST)
     @ResponseBody
     public List<Map<String,Object>> theContractFor(@RequestBody Map<String,Object> map){
-        System.out.println("------"+map);
        List<Map<String,Object>> list =pbItemInfoService.theContractFor(map);
-        System.out.println(list);
         return list;
     }
     //合同办理
@@ -172,9 +167,7 @@ public class PbItemInfoController {
     public Map<String,Object> transaction(@RequestBody Map<String,Object> map){
         Map<String,Object> map1 = (Map<String, Object>) map.get("id");
         map1.put("moneyStatus", map.get("moneyStatus"));
-        System.out.println("------"+map1);
         Map<String,Object> list =pbItemInfoService.transaction(map1);
-        System.out.println(list);
         return list;
     }
 
@@ -187,6 +180,8 @@ public class PbItemInfoController {
     public Map<String,Object> ListingLinkShow(){
         return pbItemInfoService.ListingLinkShow();
     }
+
+
     //交易大厅--jiaoyidating
     @RequestMapping("/showAllPbItemInfo")
     @ResponseBody
@@ -214,23 +209,6 @@ public class PbItemInfoController {
         return null;
     }
 
-//
-//    //合同上传
-//    @RequestMapping(value = "/filesUpload",method = RequestMethod.POST)
-//    @ResponseBody
-//    public Map<String,Object> filesUpload(@RequestParam("file") MultipartFile picture ,@RequestParam("key") String key){
-//        System.out.println(key);
-//        if(picture!=null){
-//            String fileName = picture.getOriginalFilename();
-//            String[] split = fileName.split("\\.");
-//            System.out.println(split);
-//            if(split[1] != null){
-//                boolean b = pbItemInfoService.filesUpload(split,key);
-//            }
-//
-//        }
-//        return null;
-//    }
 
     //合同展示
     @RequestMapping(value = "/examine",method = RequestMethod.POST)
