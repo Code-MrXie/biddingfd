@@ -127,7 +127,7 @@ public class PbItemInfoServiceImpl extends ServiceImpl<PbItemInfoMapper, PbItemI
 //        AliOSSUtilS.downloadFileToLoacal(String.valueOf(examine.get("contract_md5")),"E:\\壁纸");
 
         // 创建OSSClient实例。
-        OSS ossClient = new OSSClientBuilder().build("oss-cn-beijing.aliyuncs.com", "LTAI4G3SS6a2RZohGusv8wVe", "RIxpOII0Oe8S0XEJ88LrtCf41B9aTF");
+        OSS ossClient = new OSSClientBuilder().build("oss-cn-beijing.aliyuncs.com", "LTAI4GHTDawAHspqGLQP8pCL", "XhDj1exhK4HUsgpDym7c3kaxSDOvvE");
 
         // 下载OSS文件到本地文件。如果指定的本地文件存在会覆盖，不存在则新建。
         ossClient.getObject(new GetObjectRequest("yuxinshi", String.valueOf(examine.get("contract_md5"))), new File("E:\\壁纸\\01.jpg"));

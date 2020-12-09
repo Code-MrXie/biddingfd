@@ -25,7 +25,7 @@
                 <el-button type="primary" icon="el-icon-s-custom">项目负责人</el-button>
                 <el-button type="primary" icon="el-icon-document-copy">知识库</el-button>
                 <el-button type="primary" icon="el-icon-chat-dot-round">在线支持</el-button>
-                <el-button type="primary"  icon="el-icon-switch-button">注销</el-button>
+                <el-button type="primary" @click="unsubscribe" icon="el-icon-switch-button">注销</el-button>
             </div>
         </el-header>
 
@@ -80,7 +80,7 @@
         el: '#abc',
         data () {
             return {
-                url:'${pageContext.request.contextPath}/login/login.jsp',
+                url:'${pageContext.request.contextPath}/jsps/tradingFloor.jsp',
                 qvanxian:[],
             }
         },
@@ -97,8 +97,19 @@
             goHome(path){
                 console.log(path)
                 this.url = path;
+            },
+            unsubscribe(){
+                axios
+                    .get('/unsubscribe')
+                    .then(function (res) {
+                        if(res.data){
+                            location.href="${pageContext.request.contextPath}/login/login.jsp";
+                        }
+                    })
+
             }
         }
+
     });
 
 </script>
