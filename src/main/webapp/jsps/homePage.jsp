@@ -16,9 +16,9 @@
 <body>
 <div id="abc" >
     <el-container style=" border: 1px solid #eee">
-        <el-header style="text-align: right; font-size: 12px;background-color: #545c64; height: 100px">
-            <div style="float: left;margin-top: 20px;margin-left: 150px">
-                <span style="font-size: 30px">台州市产权电子交易平台</span>
+        <el-header style="text-align: right; font-size: 12px;background-color: #545c64; height: 80px">
+            <div style="float: left;margin-top: 20px;margin-left: 100px">
+                <span style="font-size: 30px;color: #e8e8e8">台州市产权电子交易平台</span>
             </div>
             <div style="margin-top: 20px">
                 <el-button type="primary" icon="el-icon-s-platform">桌面</el-button>
@@ -30,7 +30,7 @@
         </el-header>
 
         <el-container>
-            <el-aside width="300px" style="background-color: rgb(238, 241, 246)">
+            <el-aside width="250px" style="background-color: rgb(238, 241, 246)">
                 <template>
                     <div>
                         <el-menu
@@ -43,7 +43,6 @@
                                 active-text-color="#ffd04b">
                             <el-submenu v-if="item.parent_id == '0'"  v-for="(item,index) in qvanxian" :index="index">
                                 <template slot="title">
-                                    <i class="el-icon-s-platform"></i>
                                     <span>{{item.p_name}}</span>
                                 </template>
                                 <el-menu-item-group v-if="item.sid.length != '0'"  v-for="(dice,indexs) in item.sid">
