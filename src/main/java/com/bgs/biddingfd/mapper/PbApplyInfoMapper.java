@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bgs.biddingfd.pojo.PbItemObjectInfo;
 import com.bgs.biddingfd.pojo.PbObjectInfo;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import java.util.Map;
  * @author xieCode
  * @since 2020-11-25
  */
+@Repository
 public interface PbApplyInfoMapper extends BaseMapper<PbApplyInfo> {
 
     IPage<PbItemObjectInfo> selectApplyInfo(@Param("page") IPage<PbItemObjectInfo> pbItemInfoPage,@Param("moneyStatus")Integer moneyStatus, @Param("itemName")String itemName,@Param("resourceType") Integer resourceType);
@@ -43,4 +45,6 @@ public interface PbApplyInfoMapper extends BaseMapper<PbApplyInfo> {
     int updateApplyInfoIsReturnStatus(Integer applyId, Integer isReturn);
 
     List<Map<String, Object>> applyTable(Integer itemId);
+
+    IPage<PbItemObjectInfo> selectApplyInfo(IPage<PbItemObjectInfo> pbItemInfoPage, String itemName, Integer resourceType);
 }

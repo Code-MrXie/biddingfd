@@ -261,13 +261,15 @@
                 linkShow:{},
                 CountDown:"",//单倒计时
                 pbObjecetInfo:[],
-                objectId:''
+                objectId:'',
+                objectId2:${param.objectId}
 
             }
         },
         created(){
             var _this = this;
             _this.objectId = _this.getUrlParam("objectId");
+            _this.ShowObject(this.objectId2)
         },
         //页面加载成功时完成
         mounted: function(){
