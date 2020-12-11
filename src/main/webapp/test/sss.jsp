@@ -1,67 +1,498 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<span style="font-size: 30px">公共资源-竞价-项目登记</span>
+-------------------------------------------------------项目信息----------------------------------------------------------
 
-<div>
-    <el-row style="margin: 20px 0px 0px 20px">
-        <el-col :span="2" style="font-size: 15px">
-            标段名称：
-        </el-col>
-        <el-col :span="6">
-            <el-input v-model="input" placeholder="请输入内容"></el-input>
-        </el-col>
-        <el-col :span="2" style="font-size: 15px">
-            项目编号：
-        </el-col>
-        <el-col :span="6">
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
-        </el-col>
-        <el-col :span="2">
-              &nbsp;
-        </el-col>
-        <el-col :span="6">
-            <el-button type="primary" icon="el-icon-search" @click="likeselectuser()">搜索</el-button>
-        </el-col>
-    </el-row>
+<div style="margin-bottom: 50px; width: 800px;" >
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 项目名称 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.businessName" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">项目编号</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.businessName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 所属地区 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.businessAddress" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">交易方式</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.realName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 出让方 </div></el-col>
+            <el-col :span="18"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.businessAddress" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 出让方联系人 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.idCard" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">出让方联系电话</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.mobile" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 出让方联系地址 </div></el-col>
+            <el-col :span="18"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.corName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 保证金缴纳方式 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.card" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">资格审查方式</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.cardName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+
+
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 保证金缴纳截止时间 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.card" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="12"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"></div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 报名开始时间 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.card" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">报名结束时间</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.cardName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 代理机构 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.card" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="12"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">选择中介代理</div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 保证金收取单位 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.card" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">开户名称</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.cardName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 开户行 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.card" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">开户账号</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.cardName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 联系人 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.card" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">联系方式</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.cardName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 报名开始时间 </div></el-col>
+            <el-col :span="18"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.card" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
 </div>
 
-<div>
-    <template>
-        <el-table
-                :data="fileList"
-                border
-                style="width: 100%">
-            <el-table-column
-                    prop="item_code"
-                    label="项目编号">
-            </el-table-column>
-            <el-table-column
-                    prop="item_name"
-                    label="项目名称"
-            >
-            </el-table-column>
-            <el-table-column
-                    prop="object_name"
-                    label="标段名称">
-            </el-table-column>
-            <el-table-column
-                    prop="resource_type"
-                    label="资源类型">
-            </el-table-column>
-            <el-table-column
-                    prop="trad_way"
-                    label="出让方式">
-            </el-table-column>
 
-            <el-table-column
-                    fixed="right"
-                    label="操作"
-                    width="300"
-                    align="center">
-                <template slot-scope="scope" style="align-content: center">
-                    <el-button type="primary" plain @click="transaction(scope.row.item_id)">办理</el-button>
-                </template>
-            </el-table-column>
-        </el-table>
-    </template>
+-------------------------------------------------------竞价信息----------------------------------------------------------
+
+
+<div style="margin-bottom: 50px">
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 竞买人类别 </div></el-col>
+            <el-col :span="18"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.businessName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 竞买资格要求 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.businessAddress" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 在外网展示时间和地点 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.idCard" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">竞价形式</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.mobile" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 报价方式 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.corName" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">成交方式</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.corNum" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 付款方式 </div></el-col>
+            <el-col :span="18"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.card" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 报名须知 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.corName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 报名须知 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.corName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+
 </div>
 
+-------------------------------------------------------标的信息----------------------------------------------------------
+
+<div style="margin-bottom: 50px">
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 单位名称 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.businessName" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">社会信用（组织机构代码）</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.businessName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 单位地址 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.businessAddress" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">联系人姓名</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.realName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 联系人身份证 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.idCard" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">联系人手机号</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.mobile" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 法人姓名 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.corName" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">法人身份证</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.corNum" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 银行账号 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.card" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">账户名</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.cardName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+
+</div>
+
+-------------------------------------------------------填写信息----------------------------------------------------------
+
+<div style="margin-bottom: 50px">
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 单位名称 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.businessName" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">社会信用（组织机构代码）</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.businessName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 单位地址 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.businessAddress" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">联系人姓名</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.realName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 联系人身份证 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.idCard" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">联系人手机号</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.mobile" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 法人姓名 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.corName" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">法人身份证</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.corNum" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 银行账号 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.card" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">账户名</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.cardName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+
+</div>
+
+-------------------------------------------------------公共附件区----------------------------------------------------------
+
+<div style="margin-bottom: 50px">
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 单位名称 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.businessName" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">社会信用（组织机构代码）</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.businessName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 单位地址 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.businessAddress" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">联系人姓名</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.realName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 联系人身份证 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.idCard" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">联系人手机号</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.mobile" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 法人姓名 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.corName" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">法人身份证</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.corNum" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 银行账号 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.card" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">账户名</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.cardName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+
+</div>
+
+
+
+
+
+-------------------------------------------------------意见区----------------------------------------------------------
+
+
+<div style="margin-bottom: 50px">
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 单位名称 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.businessName" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">社会信用（组织机构代码）</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.businessName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 单位地址 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.businessAddress" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">联系人姓名</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.realName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 联系人身份证 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.idCard" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">联系人手机号</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.mobile" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 法人姓名 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.corName" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">法人身份证</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.corNum" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="margin:15px">
+        <el-row>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px"> 银行账号 </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.card" placeholder=""></el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple" style="text-align: center;margin-top: 8px">账户名</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple-light">
+                <el-input v-model="user.cardName" placeholder=""></el-input>
+            </div></el-col>
+        </el-row>
+    </div>
+    <div style="float:right">
+        <el-button type="primary" >保存</el-button>
+    </div>
+</div>

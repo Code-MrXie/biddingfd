@@ -30,7 +30,6 @@
             </el-tab-pane>
         </el-tabs>
     </div>
-
 </div>
 
 </body>
@@ -42,12 +41,12 @@
 
         mounted: function(){
             var _this = this;
-            _this.selectAs();
+            // _this.selectAs();
         },
         data() {
             return {
-                input:"",
-                fileList:[],
+                user:{businessName:'asdsa'},
+                sss:{businessName:'asdsad'},
                 moneyStatus : 1,
                 activeName: 'first',
             };
@@ -57,15 +56,15 @@
                 alert(id);
                 location.href="${pageContext.request.contextPath}/jsps/transaction.jsp?key="+id;
             },
-            selectAs(){
-                var _this = this;
-                axios
-                    .post('/pb-item-info/theContractFor',{moneyStatus:this.moneyStatus})
-                    .then(function (res) {
-                        console.log(res.data)
-                        _this.fileList = res.data;
-                    })
-            },
+            // selectAs(){
+            //     var _this = this;
+            //     axios
+            //         .post('/pb-item-info/theContractFor',{moneyStatus:this.moneyStatus})
+            //         .then(function (res) {
+            //             console.log(res.data)
+            //             _this.fileList = res.data;
+            //         })
+            // },
 
             handleClick(tab, event) {
                 if(tab.name == 'second'){

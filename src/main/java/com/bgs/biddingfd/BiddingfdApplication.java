@@ -15,6 +15,7 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import javax.servlet.annotation.ServletSecurity;
+import java.util.LinkedList;
 
 @SpringBootApplication
 @MapperScan("com.bgs.biddingfd.mapper")
