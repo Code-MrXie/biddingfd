@@ -22,8 +22,8 @@
 <style>
     .duodiv{
         border: 1px solid black;
-        width: 400px;
-        height: 500px;
+        width: 300px;
+        height: 400px;
         font-size: 14px;
         box-sizing: border-box;
         white-space: normal;
@@ -34,7 +34,7 @@
     }
     .onediv{
         border: 1px solid black;
-        width: 195px;
+        width: 139px;
         height: 50px;
         font-size: 14px;
         box-sizing: border-box;
@@ -51,21 +51,22 @@
     <div v-for="test1 in PbItemInfo" id="wai">
         {{test1.itemName}}
         <hr>
-        <div class="duodiv" v-for="test2 in test1.pbObjectInfoList" @click="clicktest(test2.objectId)">
-            <img :src="test2.pbFileImgInfo.fileMd5" style="width: 400px;height: 300px">
-            <h5>{{test2.objectName}}</h5>
-            <h5>当前价 &nbsp <span style="color: red">￥11</span></h5>
-            <h5>评估价 &nbsp {{test2.evaluatePrice}}</h5>
-            <h5>预计 &nbsp {{test2.pauseTime}} &nbsp 结束</h5>
-            <div style="border: 1px solid black;">
-                <div class="onediv">
-                    ????次围观
-                </div>
-                <div class="onediv">
-                    {{test2.pbApplyInfo2.length}}人报名
+            <div class="duodiv" v-for="test2 in test1.pbObjectInfoList" @click="clicktest(test2.objectId)">
+                <img :src="test2.pbFileImgInfo.fileMd5" style="width: 300px;height: 200px">
+                <h5>{{test2.objectName}}</h5>
+                <h5>当前价 &nbsp <span style="color: red">￥11</span></h5>
+                <h5>评估价 &nbsp {{test2.evaluatePrice}}</h5>
+                <h5>预计 &nbsp {{test2.pauseTime}} &nbsp 结束</h5>
+                <div style="border: 1px solid black;">
+                    <div class="onediv">
+                        ????次围观
+                    </div>
+                    <div class="onediv">
+                        {{test2.pbApplyInfo2.length}}人报名
+                    </div>
                 </div>
             </div>
-        </div>
+        <br><br>
     </div>
 </div>
 </body>
@@ -90,13 +91,11 @@
             showAllPbItemInfo:function () {
                 axios.post('/pb-item-info/showAllPbItemInfo').then(res=>{
                     this.PbItemInfo = (res.data)
-                    console.log("----------")
                     console.log(res.data)
                 })
             },
-            clicktest:function (res) {
-                //window.open("${pageContext.request.contextPath}/jsps/ListingLink.jsp?objectId="+res,'_blank')
-                location.href="${pageContext.request.contextPath}/jsps/ListingLink.jsp?objectId="+res;
+            clicktest:function (objectId) {
+                window.location.href=("/jsps/ListingLink.jsp?objectId="+objectId)
             }
         }
     })

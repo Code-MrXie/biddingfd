@@ -3,6 +3,8 @@ package com.bgs.biddingfd.service;
 import com.bgs.biddingfd.pojo.PbObjectInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 标的信息表 服务类
@@ -14,4 +16,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface PbObjectInfoService extends IService<PbObjectInfo> {
 
     PbObjectInfo ShowObject(Integer objectId);
+
+    List<PbObjectInfo> showAllPbObjectInfo();
 }
