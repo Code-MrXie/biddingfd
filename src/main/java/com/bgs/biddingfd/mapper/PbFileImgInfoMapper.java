@@ -2,6 +2,9 @@ package com.bgs.biddingfd.mapper;
 
 import com.bgs.biddingfd.pojo.PbFileImgInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface PbFileImgInfoMapper extends BaseMapper<PbFileImgInfo> {
 
+    List<String> imgInfo(@Param("objectId") Integer objectId);
 }

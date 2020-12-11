@@ -49,7 +49,7 @@
                        <table>
                            <tr>
                                <td>最高报价：
-                                   <span style="color: #D91917;font-size: x-large">{{linkShow.start_price}}{{linkShow.unit}}</span>
+                                   <span style="color: #D91917;font-size: x-large">{{linkShow.quote_price}}{{linkShow.unit}}</span>
                                    <el-button size="mini">出价人：{{linkShow.mark}}</el-button>
                                </td>
                            </tr>
@@ -58,17 +58,24 @@
                            </tr>
                        </table>
                         <span style="font-size: small;color: #82848a">距结束：</span><span style="font-size: 30px;">{{CountDown}}</span>
+                        <span style="font-size: small;color: #82848a">{{num}}次延时</span>
                     </div>
                 </div>
 
-                <div style="background: #e8e8e8;width: 450px;height: 50px;margin-left: 150px;line-height: 50px">
-                    <span style="font-size: 16px;color: #82848a;float: left">出&nbsp;&nbsp;价</span>
-                    <div style="width: 200px;height: 30px;border: 1px solid #D3CFCE;float: right;
-                    margin-right: 150px;margin-top: 10px"></div>
-                </div>
+                <%--<div style="background: #e8e8e8;width: 450px;height: 50px;margin-left: 150px;line-height: 50px">--%>
+                    <%--<span style="font-size: 16px;color: #82848a;float: left">出&nbsp;&nbsp;价</span>--%>
+                    <%--<div style="width: 20px;height: 40px;border: 1px solid #D3CFCE;float: right;--%>
+                    <%--margin-top: 5px;margin-right: 150px;">--%>
+                        <%--<a style="line-height: 10px">+</a>--%>
+                        <%--<input style="width: 20px;height: 20px" @click="beiShu()" v-model="beiShu">--%>
+                        <%--<a style="line-height: 10px">-</a>--%>
+                    <%--</div>--%>
+                    <%--<div style="width: 200px;height: 30px;border: 1px solid #D3CFCE;float: right;--%>
+                    <%--margin-top: 10px">{{chuJia}}</div>--%>
+                <%--</div>--%>
 
                 <div class="RCU">
-                    <el-button type="primary">报价</el-button>
+                    <el-button type="primary" @click="baoJia">报价</el-button>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <el-button type="primary">优先权</el-button>
                 </div>
@@ -144,9 +151,9 @@
                                 <el-col :span="4" class="mingcheng"><div class="grid " >保证金缴纳截止时间</div></el-col>
                                 <el-col :span="6"><div class="grid">{{pbObjecetInfo.depositPayEndTime}}</div></el-col>
                                 <el-col :span="4" class="mingcheng"><div class="grid ">竞价开始时间</div></el-col>
-                                <el-col :span="4"><div class="grid">{{pbObjecetInfo.bidStartTime}}</div></el-col>
+                                <el-col :span="4"><div class="grid"><span style="font-size: small">{{pbObjecetInfo.bidStartTime}}</span></div></el-col>
                                 <el-col :span="4" class="mingcheng"><div class="grid ">竞价结束时间</div></el-col>
-                                <el-col :span="4"><div class="grid">{{pbObjecetInfo.bidEndTime}}</div></el-col>
+                                <el-col :span="4"><div class="grid"><span style="font-size: small">{{pbObjecetInfo.bidEndTime}}</span></div></el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg" justify="center">
                                 <el-col :span="4" class="mingcheng"><div class="grid " >标的概况</div></el-col>
@@ -181,7 +188,7 @@
         margin-left: 100px;
     }
     .RCU{
-        margin: 20px 185px;
+        margin: 10px 185px;
     }
     .RD table{
         font-size: small;
@@ -248,15 +255,15 @@
         data () {
             return {
                 activeName: 'first',
-                dataList:[
-                    "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3942751454,1089199356&fm=26&gp=0.jpg",
-                    "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=188173295,510375359&fm=26&gp=0.jpg",
-                ],
+                dataList:[],
                 currentIndex: 0,   //默认显示图片
                 timer: null,//定时器
                 linkShow:{},
                 CountDown:"",//单倒计时
-                pbObjecetInfo:[]
+                pbObjecetInfo:[],
+                num:'',
+                chuJia:'',
+                beiShu:''
 
             }
         },
@@ -268,23 +275,37 @@
         mounted: function(){
             var _this = this;
             axios
-                .post("/pb-item-info/ListingLinkShow")
+                .post("/pb-item-info/ListingLinkShow/"+1)
                 .then(function (res) {
                     _this.linkShow=res.data;
-                    _this.Djs_time(res.data.bid_start_time);
+                    _this.Djs_time(res.data.bid_end_time);
                 })
 
+            axios
+                .post("/pb-file-img-info/imgInfo/"+1)
+                .then(function (res) {
+                    _this.dataList=res.data;
+                })
 
+            axios
+                .post("/pb-quote-info/yanshi/"+1)
+                .then(function (res) {
+                    _this.num=res.data;
+                })
 
         },
         /*方法函数  事件等*/
         methods: {
+            //点击出价
+            baoJia(){
+
+            },
             ShowObject:function(id){
                 var _this = this;
                 var pbItemInfo = new URLSearchParams();
                 pbItemInfo.append('objectId',id);
                 axios.post('/pb-object-info/ShowObject',pbItemInfo).then(res=>{
-                    _this.pbObjecetInfo = (res.data)
+                    _this.pbObjecetInfo = res.data
                 })
             },
             gotoPage(index) {

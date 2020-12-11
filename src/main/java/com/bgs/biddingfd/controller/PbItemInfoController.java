@@ -178,7 +178,6 @@ public class PbItemInfoController {
     //ListingLink.jsp
     @RequestMapping("/ListingLinkShow/{objectId}")
     public Map<String,Object> ListingLinkShow(@PathVariable Integer objectId){
-
         return pbItemInfoService.ListingLinkShow(objectId);
     }
 

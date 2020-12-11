@@ -176,7 +176,7 @@ SELECT * FROM pb_bidding_rules WHERE rule_id=
     <select id="ListingLinkShow" resultType="Map">
         SELECT
         poi.bid_status,poi.trad,poi.priority_enter_name,poi.start_price,poi.reserve_price,poi.unit,
-        poi.bid_start_time,poi.quote_increment,poi.evaluate_price,poi.bid_delay_time,
+        poi.bid_start_time,poi.bid_end_time,poi.quote_increment,poi.evaluate_price,poi.bid_delay_time,
         pain.money,psi.bid_delay_len,psi.bid_free_len,pqi.quote_price,s.newPrice,pqi.mark
         FROM pb_object_info poi
         LEFT JOIN pb_apply_info pain

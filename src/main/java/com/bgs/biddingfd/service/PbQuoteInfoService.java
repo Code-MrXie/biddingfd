@@ -13,4 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface PbQuoteInfoService extends IService<PbQuoteInfo> {
 
+    Integer yanshi(Integer objectId);
+
+    Boolean baoJia(Integer objectId);
 }

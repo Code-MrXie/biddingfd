@@ -2,6 +2,7 @@ package com.bgs.biddingfd.mapper;
 
 import com.bgs.biddingfd.pojo.PbQuoteInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface PbQuoteInfoMapper extends BaseMapper<PbQuoteInfo> {
 
+    Integer yanshi(@Param("objectId") Integer objectId);
 }

@@ -1,10 +1,15 @@
 package com.bgs.biddingfd.service.impl;
 
+import com.bgs.biddingfd.mapper.PbFileImgInfoMapper;
+import com.bgs.biddingfd.pojo.PbFileImgInfo;
 import com.bgs.biddingfd.pojo.PbFileInfo;
 import com.bgs.biddingfd.mapper.PbFileInfoMapper;
 import com.bgs.biddingfd.service.PbFileInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +22,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class PbFileInfoServiceImpl extends ServiceImpl<PbFileInfoMapper, PbFileInfo> implements PbFileInfoService {
 
+    @Autowired
+    PbFileImgInfoMapper pbFileImgInfoMapper;
+
+    @Override
+    public List<String> imgInfo(Integer objectId) {
+        return pbFileImgInfoMapper.imgInfo(objectId);
+    }
 }

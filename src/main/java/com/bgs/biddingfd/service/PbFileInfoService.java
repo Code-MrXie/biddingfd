@@ -1,7 +1,10 @@
 package com.bgs.biddingfd.service;
 
+import com.bgs.biddingfd.pojo.PbFileImgInfo;
 import com.bgs.biddingfd.pojo.PbFileInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface PbFileInfoService extends IService<PbFileInfo> {
 
+    List<String> imgInfo(Integer objectId);
 }

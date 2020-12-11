@@ -13,8 +13,6 @@
 
 <body>
 
-
-
 <div id="ListingLink" style="margin:0px auto;">
     <el-row :gutter="40">
         <el-col :span="10">
@@ -149,9 +147,9 @@
                                 <el-col :span="4" class="mingcheng"><div class="grid " >保证金缴纳截止时间</div></el-col>
                                 <el-col :span="6"><div class="grid">{{pbObjecetInfo.depositPayEndTime}}</div></el-col>
                                 <el-col :span="4" class="mingcheng"><div class="grid ">竞价开始时间</div></el-col>
-                                <el-col :span="4"><div class="grid">{{pbObjecetInfo.bidStartTime}}</div></el-col>
+                                <el-col :span="4"><div class="grid"><span style="font-size: small">{{pbObjecetInfo.bidStartTime}}</span></div></el-col>
                                 <el-col :span="4" class="mingcheng"><div class="grid ">竞价结束时间</div></el-col>
-                                <el-col :span="4"><div class="grid">{{pbObjecetInfo.bidEndTime}}</div></el-col>
+                                <el-col :span="4"><div class="grid"><span style="font-size: small">{{pbObjecetInfo.bidEndTime}}</span></div></el-col>
                             </el-row>
                             <el-row type="flex" class="row-bg" justify="center">
                                 <el-col :span="4" class="mingcheng"><div class="grid " >标的概况</div></el-col>
@@ -252,10 +250,7 @@
         data () {
             return {
                 activeName: 'first',
-                dataList:[
-                    "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3942751454,1089199356&fm=26&gp=0.jpg",
-                    "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=188173295,510375359&fm=26&gp=0.jpg",
-                ],
+                dataList:[],
                 currentIndex: 0,   //默认显示图片
                 timer: null,//定时器
                 linkShow:{},
@@ -268,18 +263,25 @@
         created(){
             var _this = this;
             _this.objectId = _this.getUrlParam("objectId");
+            _this.ShowObject(1);
         },
         //页面加载成功时完成
         mounted: function(){
             var _this = this;
-            console.log('-------------------')
-            console.log(_this.objectId)
             axios
                 .post("/pb-item-info/ListingLinkShow/"+_this.objectId)
                 .then(function (res) {
+                    console.log("===============")
+                    console.log(res.data)
                     _this.linkShow=res.data;
-                    _this.Djs_time(res.data.bid_start_time);
+                    _this.Djs_time(res.data.bid_end_time);
                 })
+            axios
+                .post("/pb-file-img-info/imgInfo/"+_this.objectId)
+                .then(function (res) {
+                    _this.dataList=res.data;
+                })
+
 
 
 
