@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -24,5 +25,11 @@ public class PbObjectInfoServiceImpl extends ServiceImpl<PbObjectInfoMapper, PbO
     @Override
     public PbObjectInfo ShowObject(Integer objectId) {
         return pbObjectInfoMapper.ShowObject(objectId);
+    }
+
+    @Override
+    public List<PbObjectInfo> showAllPbObjectInfo() {
+        List<PbObjectInfo> list=pbObjectInfoMapper.showAllPbObjectInfo();
+        return list;
     }
 }

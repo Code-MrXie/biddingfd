@@ -389,7 +389,7 @@
                     .then(function (response) {
                         // location.reload();
                         if(response.data){
-                            location.href="${pageContext.request.contextPath}/login/login.jsp";
+                            location.href="login.jsp";
                         }else{
                             alert("注册失败")
                             _this.addBidderPersonage=false;
@@ -410,7 +410,7 @@
                     .then(function (response) {
                         // location.reload();
                         if(response.data){
-                            location.href="${pageContext.request.contextPath}/login/login.jsp";
+                            location.href="login.jsp";
                         }else{
                             alert("注册失败")
                             _this.loadingEnterprise=false;

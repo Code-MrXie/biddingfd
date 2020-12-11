@@ -1,9 +1,9 @@
 #指定端口号
 server:
-  port: 8080
-  servlet:
-    jsp:
-      init-parameters: true
+  port: 8081
+#  servlet:
+#    jsp:
+#      init-parameters: true
 spring:
   application:
     name: biddingfd

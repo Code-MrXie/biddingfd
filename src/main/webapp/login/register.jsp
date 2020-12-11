@@ -62,10 +62,10 @@
         /*方法函数  事件等*/
         methods: {
             consignorRegister(){
-                location.href="${pageContext.request.contextPath}/login/consignor.jsp";
+                location.href="consignor.jsp";
             },
             BiddersRegister(){
-                location.href="${pageContext.request.contextPath}/login/bidder.jsp";
+                location.href="bidder.jsp";
             },
                 enter(){
                     this.colord = 'background-color:#2B2B2B';

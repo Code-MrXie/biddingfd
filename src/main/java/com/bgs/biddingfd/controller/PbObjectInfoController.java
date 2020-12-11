@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -31,6 +32,14 @@ public class PbObjectInfoController {
         return pbObjectInfo;
     }
 
+    @RequestMapping("showAllPbObjectInfo")
+    @ResponseBody
+    public List<PbObjectInfo> showAllPbObjectInfo(){
+        List<PbObjectInfo> list=pbObjectInfoService.showAllPbObjectInfo();
+        return list;
+    }
+
+    //@RequestMapping("/objectInfo")
 
 
 }

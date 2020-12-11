@@ -134,7 +134,7 @@
         methods: {
             //注册跳转
             register(){
-                location.href="${pageContext.request.contextPath}/login/register.jsp";
+                location.href="register.jsp";
             },
             //登录提交方法
             submit(event){

@@ -13,6 +13,8 @@
 
 <body>
 
+
+
 <div id="ListingLink" style="margin:0px auto;">
     <el-row :gutter="40">
         <el-col :span="10">
@@ -268,13 +270,15 @@
         //页面加载成功时完成
         mounted: function(){
             var _this = this;
+            console.log('-------------------')
+            console.log(_this.objectId)
             axios
                 .post("/pb-item-info/ListingLinkShow/"+_this.objectId)
                 .then(function (res) {
                     console.log("===============")
                     console.log(res.data)
                     _this.linkShow=res.data;
-                    _this.Djs_time(res.data.bid_end_time);
+                    _this.Djs_time(res.data.bid_start_time);
                 })
             axios
                 .post("/pb-file-img-info/imgInfo/"+_this.objectId)

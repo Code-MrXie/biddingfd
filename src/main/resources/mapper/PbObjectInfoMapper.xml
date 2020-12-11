@@ -23,4 +23,9 @@
             poi.object_id = #{objectId};
     </select>
 
+    <!--List<PbObjectInfo> showAllPbObjectInfo();-->
+    <select id="showAllPbObjectInfo" resultType="com.bgs.biddingfd.pojo.PbObjectInfo">
+        select * from pb_object_info;
+    </select>
+
 </mapper>

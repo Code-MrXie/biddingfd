@@ -324,9 +324,9 @@
                 axios.post('/consignor',_this.user)
                     .then(function (response) {
                         if(response.data){
-                            location.href="${pageContext.request.contextPath}/login/login.jsp";
+                            location.href="login.jsp";
                         }else{
-                            location.href="${pageContext.request.contextPath}/login/consignor.jsp";
+                            location.href="consignor.jsp";
                             alert("注册失败")
                         }
                     })
