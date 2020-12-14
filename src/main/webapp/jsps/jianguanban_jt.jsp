@@ -325,7 +325,8 @@
                 axios
                     .post('/pb-item-info/jianguanban',pbItemInfo)
                     .then(function (res) {
-                        console.log(res)
+                        alert(res)
+                        window.location.reload()
                     })
             }
         }

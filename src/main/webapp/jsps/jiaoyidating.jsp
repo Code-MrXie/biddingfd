@@ -51,7 +51,7 @@
     <div v-for="test1 in PbItemInfo" id="wai">
         {{test1.itemName}}
         <hr>
-            <div class="duodiv" v-for="test2 in test1.pbObjectInfoList" @click="clicktest(test2.objectId)">
+            <div class="duodiv" v-for="test2 in test1.pbObjectInfoList" v-if="test2.objectId!=null" @click="clicktest(test2.objectId)">
                 <img :src="test2.pbFileImgInfo.fileMd5" style="width: 300px;height: 200px">
                 <h5>{{test2.objectName}}</h5>
                 <h5>当前价 &nbsp <span style="color: red">￥11</span></h5>

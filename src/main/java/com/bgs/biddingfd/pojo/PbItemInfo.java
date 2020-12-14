@@ -173,5 +173,4 @@ public class PbItemInfo implements Serializable {
 
     private List<PbObjectInfo> pbObjectInfoList;
 
-
 }
