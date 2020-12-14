@@ -54,4 +54,6 @@ public interface PbItemInfoService extends IService<PbItemInfo> {
     Map<String,Object> examine(Map<String,Object> id, HttpServletResponse response);
 
     List<PbItemInfo> showAllPbItemInfo();
+
+    Boolean xiangMuDengJi(PbItemInfo itemInfo);
 }

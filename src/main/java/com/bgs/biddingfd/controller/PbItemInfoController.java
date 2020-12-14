@@ -220,4 +220,16 @@ public class PbItemInfoController {
         return map;
     }
 
+    //项目登记办理
+    @RequestMapping("/xiangMuDengJi")
+    public Boolean xiangMuDengJi(@RequestBody PbItemInfo itemInfo){
+        System.out.println(itemInfo);
+        String str = itemInfo.getDepositTime();
+        String str1 = itemInfo.getApplyEndTime();
+        String str2 = itemInfo.getApplyStartTime();
+        itemInfo.setDepositTime(str.substring(0,10));
+        itemInfo.setApplyEndTime(str1.substring(0,10));
+        itemInfo.setApplyStartTime(str2.substring(0,10));
+        return pbItemInfoService.xiangMuDengJi(itemInfo);
+    }
 }

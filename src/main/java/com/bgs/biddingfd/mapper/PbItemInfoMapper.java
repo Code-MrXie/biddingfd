@@ -56,4 +56,6 @@ public interface PbItemInfoMapper extends BaseMapper<PbItemInfo> {
 
 
     List<PbItemInfo> showAllPbItemInfo();
+
+    Boolean xiangMuDengJi(PbItemInfo itemInfo);
 }

@@ -64,8 +64,8 @@ public class PbItemInfo implements Serializable {
     private Integer depositPayWay;
 
     @ApiModelProperty(value = "保证金缴纳截止时间")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
-    private Date depositTime;
+   // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
+    private String depositTime;
 
     @ApiModelProperty(value = "资格审查方式")
     private Integer qualExamWay;
@@ -80,12 +80,12 @@ public class PbItemInfo implements Serializable {
     private String transferorPhone;
 
     @ApiModelProperty(value = "报名开始时间")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date applyStartTime;
+    //@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private String applyStartTime;
 
     @ApiModelProperty(value = "报名截止时间")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date applyEndTime;
+    //@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private String applyEndTime;
 
     @ApiModelProperty(value = "代理机构")
     private String agentName;

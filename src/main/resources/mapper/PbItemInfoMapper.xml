@@ -228,4 +228,18 @@ ON pb_apply_info.apply_id=pb_quote_info.apply_id) pqi
     <insert id="tupianupdate">
          insert  into pb_contract_info ( contract_md5,item_id) value (#{name},#{upload})
     </insert>
+
+    <insert id="xiangMuDengJi">
+INSERT INTO pb_item_info(item_name,item_code,item_area,trad_way,
+transferor,transferor_man,transferor_phone,transferor_addr,
+deposit_pay_way,qual_exam_way,deposit_time,apply_start_time,apply_end_time,
+agent_name,deposit_charge,account_name,bank_name,bank_code,link_man,link_phone,object_situation,
+bidder_qual,is_show,bid_way,apply_way,deal_way,payment_way,apply_notice,other_deal)
+value(#{itemName},#{itemCode},#{itemArea},#{tradWay},
+#{transferor},#{transferorMan},#{transferorPhone},#{transferorAddr},
+#{depositPayWay},#{qualExamWay},#{depositTime},#{applyStartTime},#{applyEndTime},
+#{agentName},#{depositCharge},#{accountName},#{bankName},#{bankCode},#{linkMan},#{linkPhone},
+#{objectSituation},#{bidderQual},#{isShow},#{bidWay},#{applyWay},
+#{dealWay},#{paymentWay},#{applyNotice},#{otherDeal})
+    </insert>
 </mapper>

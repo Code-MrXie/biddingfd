@@ -156,4 +156,9 @@ public class PbItemInfoServiceImpl extends ServiceImpl<PbItemInfoMapper, PbItemI
         }
         return list;
     }
+
+    @Override
+    public Boolean xiangMuDengJi(PbItemInfo itemInfo) {
+        return pbItemInfoMapper.xiangMuDengJi(itemInfo);
+    }
 }

@@ -20,20 +20,30 @@
     <div>
         <el-tabs v-model="activeName" @tab-click="handleClick" type="border-card">
             <el-tab-pane label="待办理" name="first" class="tabPan">
-                <%@include file="sss.jsp"%>
+                <%@include file="../test/sss.jsp"%>
             </el-tab-pane>
             <el-tab-pane label="办理中" name="second" class="tabPan">
-                <%@include file="sss.jsp"%>
+                <%@include file="../test/sss.jsp"%>
             </el-tab-pane>
             <el-tab-pane label="已办理" name="already" class="tabPan">
-                <%@include file="sss.jsp"%>
+                <%@include file="../test/sss.jsp"%>
             </el-tab-pane>
         </el-tabs>
     </div>
 </div>
 
 </body>
-
+<style>
+    .grid{
+        height: 40px;
+        line-height: 40px;
+        border: 1px solid #82848a;
+    }
+    .mingcheng{
+        text-align: center;
+        background-color: #e8e8e8;
+    }
+</style>
 
 <script>
     new Vue({
@@ -49,6 +59,10 @@
                 sss:{businessName:'asdsad'},
                 moneyStatus : 1,
                 activeName: 'first',
+                textarea:'',
+                itemInfo:{
+                    depositPayWay:'1',
+                },
             };
         },
         methods: {
@@ -65,7 +79,25 @@
             //             _this.fileList = res.data;
             //         })
             // },
+            baoCun(){
+                alert(111)
+              var _this = this;
+                console.log("=====")
+                console.log(_this.itemInfo);
+            },
+            tiJiao(){
+                var _this = this;
 
+                axios
+                    .post("/pb-item-info/xiangMuDengJi",_this.itemInfo)
+                    .then(function(res){
+                        console.log("=====")
+                        console.log(_this.itemInfo);
+                        location.href="XiangMuFuZeRenDengJiBanLiTiJiao.jsp";
+                    })
+                    .catch()
+
+            },
             handleClick(tab, event) {
                 if(tab.name == 'second'){
                     this.moneyStatus=2;   // 1 办理中
