@@ -156,4 +156,9 @@ public class PbItemInfoServiceImpl extends ServiceImpl<PbItemInfoMapper, PbItemI
         }
         return list;
     }
+
+    @Override
+    public boolean jianguanbanAddPbItemInfo(PbItemInfo pbItemInfo) {
+        return pbItemInfoMapper.jianguanbanAddPbItemInfo(pbItemInfo);
+    }
 }

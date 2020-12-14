@@ -56,4 +56,6 @@ public interface PbItemInfoMapper extends BaseMapper<PbItemInfo> {
 
 
     List<PbItemInfo> showAllPbItemInfo();
+
+    boolean jianguanbanAddPbItemInfo(@Param("pbItemInfo") PbItemInfo pbItemInfo);
 }

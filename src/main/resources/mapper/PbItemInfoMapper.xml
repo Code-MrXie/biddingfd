@@ -2,6 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bgs.biddingfd.mapper.PbItemInfoMapper">
 
+
+    <!--boolean jianguanbanAddPbItemInfo(@Param("pbItemInfo") PbItemInfo pbItemInfo);-->
+    <insert id="jianguanbanAddPbItemInfo">
+        insert into pb_item_info
+        (item_name, item_code, item_area, trad_way,transferor,transferor_man,transferor_phone,transferor_addr,
+         agent_name,account_name,deposit_charge,deposit_pay_way,deposit_time,apply_start_time,apply_end_time)
+        values
+        (#{pbItemInfo.itemName},#{pbItemInfo.itemCode},#{pbItemInfo.itemArea},#{pbItemInfo.tradWay},#{pbItemInfo.transferor},#{pbItemInfo.transferorMan},
+         #{pbItemInfo.transferorPhone},#{pbItemInfo.transferorAddr},#{pbItemInfo.agentName},#{pbItemInfo.accountName},#{pbItemInfo.depositCharge},
+         #{pbItemInfo.depositPayWay},#{pbItemInfo.depositTime},#{pbItemInfo.applyStartTime},#{pbItemInfo.applyEndTime});
+    </insert>
+
     <!--List<PbItemInfo> findPbItemInfo(PbItemInfo pbItemInfo);-->
     <select id="findPbItemInfo" resultType="com.bgs.biddingfd.pojo.PbItemInfo">
         SELECT
