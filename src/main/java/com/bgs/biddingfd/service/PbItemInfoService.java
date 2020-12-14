@@ -55,5 +55,7 @@ public interface PbItemInfoService extends IService<PbItemInfo> {
 
     List<PbItemInfo> showAllPbItemInfo();
 
+    boolean jianguanbanAddPbItemInfo(PbItemInfo pbItemInfo);
+
     Boolean xiangMuDengJi(PbItemInfo itemInfo);
 }

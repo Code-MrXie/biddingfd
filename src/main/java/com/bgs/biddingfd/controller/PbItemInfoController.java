@@ -220,6 +220,15 @@ public class PbItemInfoController {
         return map;
     }
 
+    /*建管办备案*/
+    @RequestMapping(value = "/jianguanban",method = RequestMethod.POST)
+    @ResponseBody
+    public boolean jianguanban(@RequestBody PbItemInfo pbItemInfo){
+        System.out.println(pbItemInfo);
+        boolean b=pbItemInfoService.jianguanbanAddPbItemInfo(pbItemInfo);
+        return b;
+    }
+
     //项目登记办理
     @RequestMapping("/xiangMuDengJi")
     public Boolean xiangMuDengJi(@RequestBody PbItemInfo itemInfo){
